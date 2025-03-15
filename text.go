@@ -49,3 +49,25 @@ func (t *text) Append(nodes ...Node) Node {
 	}
 	return t
 }
+
+var (
+	nbsp  = []byte("&nbsp;")
+	lnbsp = len(nbsp)
+)
+
+func Nbsp() []byte {
+	return append([]byte(nil), nbsp...)
+}
+
+func Nbsps(n int) []byte {
+	if n <= 0 {
+		return nil
+	}
+	result := make([]byte, lnbsp*n)
+	idx := 0
+	for i := 0; i < n; i++ {
+		copy(result[idx:], nbsp)
+		idx += lnbsp
+	}
+	return result
+}
