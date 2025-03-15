@@ -19,6 +19,8 @@ type text struct {
 	values []value
 }
 
+var _ Node = (*text)(nil)
+
 func (t *text) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
 		ctx = defaultContext()
