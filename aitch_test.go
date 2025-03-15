@@ -18,6 +18,6 @@ type errorWriter struct{}
 
 var _ io.Writer = (*errorWriter)(nil)
 
-func (e errorWriter) Write(p []byte) (n int, err error) {
+func (e *errorWriter) Write([]byte) (int, error) {
 	return 0, errors.New("error")
 }
