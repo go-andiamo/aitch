@@ -9,6 +9,10 @@ import (
 	"strings"
 )
 
+type valuesNode interface {
+	getValues() []value
+}
+
 type value struct {
 	value       []byte
 	dynamicFunc DynamicFunc
@@ -29,8 +33,25 @@ type DynamicFunc func(ctx *Context) []byte
 
 type DynamicKey string
 
+func newValues(contents ...any) (result []value) {
+	result = make([]value, 0, len(contents))
+	for _, v := range contents {
+		if v != nil {
+			result = append(result, newValue(v)...)
+		}
+	}
+	return result
+}
+
 func newValue(v any) []value {
+	if v == nil {
+		return nil
+	}
 	switch vt := v.(type) {
+	case DynamicFunc:
+		return []value{{nil, vt}}
+	case func(*Context) []byte:
+		return []value{{nil, vt}}
 	case DynamicKey:
 		return []value{{nil, func(ctx *Context) []byte {
 			if ctx != nil {
@@ -40,12 +61,10 @@ func newValue(v any) []value {
 			}
 			return nil
 		}}}
+	case valuesNode:
+		return vt.getValues()
 	case Node:
 		switch vt.Type() {
-		case TextNode:
-			if tn, ok := vt.(*text); ok {
-				return tn.values
-			}
 		case collectionNode:
 			if cn, ok := vt.(*collection); ok {
 				result := make([]value, 0, len(cn.nodes))

@@ -48,6 +48,7 @@ const (
 	CommentNode                   // CommentNode is the NodeType for comment nodes
 	PINode                        // PINode is the NodeType for processing instruction nodes (e.g. DocType prologue)
 	DocumentNode                  // DocumentNode is the NodeType for a document node
+	FragmentNode                  // FragmentNode is the NodeType for fragments (see Fragment())
 	collectionNode
 	conditionalNode
 )

@@ -3,16 +3,10 @@ package aitch
 import "io"
 
 // Text creates a new text Node
-func Text(content ...any) Node {
-	result := &text{
-		values: make([]value, 0, len(content)),
+func Text(contents ...any) Node {
+	return &text{
+		values: newValues(contents...),
 	}
-	for _, v := range content {
-		if v != nil {
-			result.values = append(result.values, newValue(v)...)
-		}
-	}
-	return result
 }
 
 type text struct {
@@ -20,6 +14,7 @@ type text struct {
 }
 
 var _ Node = (*text)(nil)
+var _ valuesNode = (*text)(nil)
 
 func (t *text) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
@@ -50,6 +45,10 @@ func (t *text) Append(nodes ...Node) Node {
 		}
 	}
 	return t
+}
+
+func (t *text) getValues() []value {
+	return t.values
 }
 
 var (

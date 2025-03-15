@@ -6,6 +6,9 @@ type comment struct {
 	values []value
 }
 
+var _ Node = (*comment)(nil)
+var _ valuesNode = (*comment)(nil)
+
 func (c *comment) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
 		ctx = defaultContext()
@@ -40,14 +43,12 @@ func (c *comment) Append(nodes ...Node) Node {
 	return c
 }
 
-func Comment(content ...any) Node {
-	result := &comment{
-		values: make([]value, 0, len(content)),
+func (c *comment) getValues() []value {
+	return c.values
+}
+
+func Comment(contents ...any) Node {
+	return &comment{
+		values: newValues(contents...),
 	}
-	for _, v := range content {
-		if v != nil {
-			result.values = append(result.values, newValue(v)...)
-		}
-	}
-	return result
 }

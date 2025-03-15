@@ -7,6 +7,9 @@ type pi struct {
 	values []value
 }
 
+var _ Node = (*pi)(nil)
+var _ valuesNode = (*pi)(nil)
+
 func (p *pi) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
 		ctx = defaultContext()
@@ -45,17 +48,15 @@ func (p *pi) Append(nodes ...Node) Node {
 	return p
 }
 
-func PI(name string, content ...any) Node {
-	result := &pi{
+func PI(name string, contents ...any) Node {
+	return &pi{
 		name:   []byte(name),
-		values: make([]value, 0, len(content)),
+		values: newValues(contents...),
 	}
-	for _, v := range content {
-		if v != nil {
-			result.values = append(result.values, newValue(v)...)
-		}
-	}
-	return result
+}
+
+func (p *pi) getValues() []value {
+	return p.values
 }
 
 func DocType() Node {

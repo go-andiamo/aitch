@@ -7,6 +7,9 @@ type attribute struct {
 	values []value
 }
 
+var _ Node = (*attribute)(nil)
+var _ valuesNode = (*attribute)(nil)
+
 func (a *attribute) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
 		ctx = defaultContext()
@@ -45,6 +48,10 @@ func (a *attribute) Append(nodes ...Node) Node {
 	return a
 }
 
+func (a *attribute) getValues() []value {
+	return a.values
+}
+
 // Attribute creates a new attribute Node
 //
 // the name is checked to ensure it's a valid name - returns nil if the name is invalid
@@ -60,21 +67,17 @@ func Attribute(name string, values ...any) Node {
 }
 
 func newAttribute(name string, values ...any) Node {
-	result := &attribute{
+	return &attribute{
 		name:   []byte(name),
-		values: make([]value, 0, len(values)),
+		values: newValues(values...),
 	}
-	for _, v := range values {
-		if v != nil {
-			result.values = append(result.values, newValue(v)...)
-		}
-	}
-	return result
 }
 
 type emptyAttribute struct {
 	name []byte
 }
+
+var _ Node = (*emptyAttribute)(nil)
 
 func (e *emptyAttribute) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
@@ -111,6 +114,9 @@ type delimitedAttribute struct {
 	delimiter []byte
 	values    []value
 }
+
+var _ Node = (*delimitedAttribute)(nil)
+var _ valuesNode = (*delimitedAttribute)(nil)
 
 func (a *delimitedAttribute) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
@@ -154,6 +160,10 @@ func (a *delimitedAttribute) Append(nodes ...Node) Node {
 		}
 	}
 	return a
+}
+
+func (a *delimitedAttribute) getValues() []value {
+	return a.values
 }
 
 func DelimitedAttribute(name string, delimiter []byte, values ...any) Node {
