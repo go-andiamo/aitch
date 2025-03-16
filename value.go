@@ -3,7 +3,6 @@ package aitch
 import (
 	"bytes"
 	"fmt"
-	"html/template"
 	"io"
 	"strconv"
 	"strings"
@@ -91,7 +90,7 @@ func valueToBytes(v any) []byte {
 	case []byte:
 		return vt
 	case string:
-		return HTMLEscapeString(vt)
+		return htmlEscapeString(vt)
 	case int:
 		return []byte(strconv.FormatInt(int64(vt), 10))
 	case int8:
@@ -124,11 +123,45 @@ func valueToBytes(v any) []byte {
 	return nil
 }
 
-func HTMLEscapeString(s string) []byte {
+var (
+	htmlQuot = []byte("&quot;")
+	htmlApos = []byte("&apos;")
+	htmlAmp  = []byte("&amp;")
+	htmlLt   = []byte("&lt;")
+	htmlGt   = []byte("&gt;")
+	htmlNull = []byte{}
+)
+
+func htmlEscapeString(s string) []byte {
 	if !strings.ContainsAny(s, "'\"&<>\000") {
 		return []byte(s)
 	}
+
+	sb := []byte(s)
 	var b bytes.Buffer
-	template.HTMLEscape(&b, []byte(s))
+	last := 0
+	for i, c := range sb {
+		var html []byte
+		switch c {
+		case '\000':
+			html = htmlNull
+		case '"':
+			html = htmlQuot
+		case '\'':
+			html = htmlApos
+		case '&':
+			html = htmlAmp
+		case '<':
+			html = htmlLt
+		case '>':
+			html = htmlGt
+		default:
+			continue
+		}
+		_, _ = b.Write(sb[last:i])
+		_, _ = b.Write(html)
+		last = i + 1
+	}
+	_, _ = b.Write(sb[last:])
 	return b.Bytes()
 }

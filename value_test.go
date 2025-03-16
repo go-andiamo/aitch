@@ -204,11 +204,11 @@ func TestValueToBytes(t *testing.T) {
 }
 
 func TestHTMLEscapeString(t *testing.T) {
-	data := HTMLEscapeString("foo")
+	data := htmlEscapeString("foo")
 	assert.Equal(t, "foo", string(data))
 
-	data = HTMLEscapeString(`foo'&`)
-	assert.Equal(t, "foo&#39;&amp;", string(data))
+	data = htmlEscapeString(`foo'&"<>` + "\u0000")
+	assert.Equal(t, "foo&apos;&amp;&quot;&lt;&gt;", string(data))
 }
 
 type stringy struct{}
