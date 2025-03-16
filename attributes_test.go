@@ -657,3 +657,211 @@ func TestTranslate(t *testing.T) {
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "translate", a.Name())
 }
+
+func TestAriaAtomic(t *testing.T) {
+	a := AriaAtomic("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-atomic", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaBusy(t *testing.T) {
+	a := AriaBusy("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-busy", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaChecked(t *testing.T) {
+	a := AriaChecked("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-checked", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaControls(t *testing.T) {
+	a := AriaControls("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-controls", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaDescribedBy(t *testing.T) {
+	a := AriaDescribedBy("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-describedby", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaDisabled(t *testing.T) {
+	a := AriaDisabled("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-disabled", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaExpanded(t *testing.T) {
+	a := AriaExpanded("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-expanded", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaFlowTo(t *testing.T) {
+	a := AriaFlowTo("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-flowto", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaHidden(t *testing.T) {
+	a := AriaHidden("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-hidden", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaInvalid(t *testing.T) {
+	a := AriaInvalid("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-invalid", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaLabel(t *testing.T) {
+	a := AriaLabel("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-label", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaLabelledBy(t *testing.T) {
+	a := AriaLabelledBy("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-labelledby", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaLive(t *testing.T) {
+	a := AriaLive("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-live", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaOwns(t *testing.T) {
+	a := AriaOwns("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-owns", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaPlaceholder(t *testing.T) {
+	a := AriaPlaceholder("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-placeholder", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaPosInSet(t *testing.T) {
+	a := AriaPosInSet("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-posinset", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaPressed(t *testing.T) {
+	a := AriaPressed("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-pressed", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaReadonly(t *testing.T) {
+	a := AriaReadonly("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-readonly", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaRelevant(t *testing.T) {
+	a := AriaRelevant("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-relevant", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaRequired(t *testing.T) {
+	a := AriaRequired("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-required", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaSelected(t *testing.T) {
+	a := AriaSelected("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-selected", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaSetSize(t *testing.T) {
+	a := AriaSetSize("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-setsize", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaValueMax(t *testing.T) {
+	a := AriaValueMax("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-valuemax", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaValueMin(t *testing.T) {
+	a := AriaValueMin("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-valuemin", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaValueNow(t *testing.T) {
+	a := AriaValueNow("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-valuenow", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestAriaValueText(t *testing.T) {
+	a := AriaValueText("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "aria-valuetext", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}

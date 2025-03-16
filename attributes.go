@@ -340,6 +340,110 @@ func Translate() Node {
 	return newEmptyAttribute(attrTranslate)
 }
 
+func AriaAtomic(v ...any) Node {
+	return newAttribute(attrAriaAtomic, v...)
+}
+
+func AriaBusy(v ...any) Node {
+	return newAttribute(attrAriaBusy, v...)
+}
+
+func AriaChecked(v ...any) Node {
+	return newAttribute(attrAriaChecked, v...)
+}
+
+func AriaControls(v ...any) Node {
+	return newAttribute(attrAriaControls, v...)
+}
+
+func AriaDescribedBy(v ...any) Node {
+	return newAttribute(attrAriaDescribedby, v...)
+}
+
+func AriaDisabled(v ...any) Node {
+	return newAttribute(attrAriaDisabled, v...)
+}
+
+func AriaExpanded(v ...any) Node {
+	return newAttribute(attrAriaExpanded, v...)
+}
+
+func AriaFlowTo(v ...any) Node {
+	return newAttribute(attrAriaFlowto, v...)
+}
+
+func AriaHidden(v ...any) Node {
+	return newAttribute(attrAriaHidden, v...)
+}
+
+func AriaInvalid(v ...any) Node {
+	return newAttribute(attrAriaInvalid, v...)
+}
+
+func AriaLabel(v ...any) Node {
+	return newAttribute(attrAriaLabel, v...)
+}
+
+func AriaLabelledBy(v ...any) Node {
+	return newAttribute(attrAriaLabelledby, v...)
+}
+
+func AriaLive(v ...any) Node {
+	return newAttribute(attrAriaLive, v...)
+}
+
+func AriaOwns(v ...any) Node {
+	return newAttribute(attrAriaOwns, v...)
+}
+
+func AriaPlaceholder(v ...any) Node {
+	return newAttribute(attrAriaPlaceholder, v...)
+}
+
+func AriaPosInSet(v ...any) Node {
+	return newAttribute(attrAriaPosinset, v...)
+}
+
+func AriaPressed(v ...any) Node {
+	return newAttribute(attrAriaPressed, v...)
+}
+
+func AriaReadonly(v ...any) Node {
+	return newAttribute(attrAriaReadonly, v...)
+}
+
+func AriaRelevant(v ...any) Node {
+	return newAttribute(attrAriaRelevant, v...)
+}
+
+func AriaRequired(v ...any) Node {
+	return newAttribute(attrAriaRequired, v...)
+}
+
+func AriaSelected(v ...any) Node {
+	return newAttribute(attrAriaSelected, v...)
+}
+
+func AriaSetSize(v ...any) Node {
+	return newAttribute(attrAriaSetsize, v...)
+}
+
+func AriaValueMax(v ...any) Node {
+	return newAttribute(attrAriaValuemax, v...)
+}
+
+func AriaValueMin(v ...any) Node {
+	return newAttribute(attrAriaValuemin, v...)
+}
+
+func AriaValueNow(v ...any) Node {
+	return newAttribute(attrAriaValuenow, v...)
+}
+
+func AriaValueText(v ...any) Node {
+	return newAttribute(attrAriaValuetext, v...)
+}
+
 var (
 	attrAccept              = []byte("accept")
 	attrAction              = []byte("action")
