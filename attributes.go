@@ -120,13 +120,17 @@ func Content(v ...any) Node {
 	return newAttribute(attrContent, v...)
 }
 
-// Data attributes automatically have their name prefixed with "data-".
+func Dir(v ...any) Node {
+	return newAttribute(attrDir, v...)
+}
+
+// Data attribute prefixed with "data-".
 func Data(name string, v ...any) Node {
 	return newAttribute(append(attrData, []byte(name)...), v...)
 }
 
-func SlotAttr(v ...any) Node {
-	return newAttribute(attrSlot, v...)
+func EncType(v ...any) Node {
+	return newAttribute(attrEnctype, v...)
 }
 
 func For(v ...any) Node {
@@ -137,16 +141,20 @@ func FormAttr(v ...any) Node {
 	return newAttribute(attrForm, v...)
 }
 
-func FormNoValidate() Node {
+func NoValidate() Node {
 	return newEmptyAttribute(attrNovalidate)
+}
+
+func FormNoValidate() Node {
+	return newEmptyAttribute(attrFormnovalidate)
 }
 
 func Height(v ...any) Node {
 	return newAttribute(attrHeight, v...)
 }
 
-func Hidden(v ...any) Node {
-	return newAttribute(attrHidden, v...)
+func Hidden() Node {
+	return newEmptyAttribute(attrHidden)
 }
 
 func Href(v ...any) Node {
@@ -249,6 +257,10 @@ func RowSpan(v ...any) Node {
 	return newAttribute(attrRowspan, v...)
 }
 
+func SlotAttr(v ...any) Node {
+	return newAttribute(attrSlot, v...)
+}
+
 func Src(v ...any) Node {
 	return newAttribute(attrSrc, v...)
 }
@@ -289,12 +301,43 @@ func Width(v ...any) Node {
 	return newAttribute(attrWidth, v...)
 }
 
-func EncType(v ...any) Node {
-	return newAttribute(attrEnctype, v...)
+func AllowFullScreen() Node {
+	return newEmptyAttribute(attrAllowfullscreen)
+}
+func Default() Node {
+	return newEmptyAttribute(attrDefault)
 }
 
-func Dir(v ...any) Node {
-	return newAttribute(attrDir, v...)
+func Inert() Node {
+	return newEmptyAttribute(attrInert)
+}
+
+func IsMap() Node {
+	return newEmptyAttribute(attrIsmap)
+}
+
+func ItemScope() Node {
+	return newEmptyAttribute(attrItemscope)
+}
+
+func NoModule() Node {
+	return newEmptyAttribute(attrNomodule)
+}
+
+func Open() Node {
+	return newEmptyAttribute(attrOpen)
+}
+
+func Reversed() Node {
+	return newEmptyAttribute(attrReversed)
+}
+
+func Spellcheck() Node {
+	return newEmptyAttribute(attrSpellcheck)
+}
+
+func Translate() Node {
+	return newEmptyAttribute(attrTranslate)
 }
 
 var (
@@ -345,6 +388,7 @@ var (
 	attrMuted               = []byte("muted")
 	attrName                = []byte("name")
 	attrNovalidate          = []byte("novalidate")
+	attrFormnovalidate      = []byte("formnovalidate")
 	attrPattern             = []byte("pattern")
 	attrPlaceholder         = []byte("placeholder")
 	attrPlaysinline         = []byte("playsinline")
@@ -372,4 +416,40 @@ var (
 	attrType                = []byte("type")
 	attrValue               = []byte("value")
 	attrWidth               = []byte("width")
+	attrAllowfullscreen     = []byte("allowfullscreen")
+	attrDefault             = []byte("default")
+	attrInert               = []byte("inert")
+	attrIsmap               = []byte("ismap")
+	attrItemscope           = []byte("itemscope")
+	attrNomodule            = []byte("nomodule")
+	attrOpen                = []byte("open")
+	attrReversed            = []byte("reversed")
+	attrSpellcheck          = []byte("spellcheck")
+	attrTranslate           = []byte("translate")
+	attrAriaAtomic          = []byte("aria-atomic")
+	attrAriaBusy            = []byte("aria-busy")
+	attrAriaChecked         = []byte("aria-checked")
+	attrAriaControls        = []byte("aria-controls")
+	attrAriaDescribedby     = []byte("aria-describedby")
+	attrAriaDisabled        = []byte("aria-disabled")
+	attrAriaExpanded        = []byte("aria-expanded")
+	attrAriaFlowto          = []byte("aria-flowto")
+	attrAriaHidden          = []byte("aria-hidden")
+	attrAriaInvalid         = []byte("aria-invalid")
+	attrAriaLabel           = []byte("aria-label")
+	attrAriaLabelledby      = []byte("aria-labelledby")
+	attrAriaLive            = []byte("aria-live")
+	attrAriaOwns            = []byte("aria-owns")
+	attrAriaPlaceholder     = []byte("aria-placeholder")
+	attrAriaPosinset        = []byte("aria-posinset")
+	attrAriaPressed         = []byte("aria-pressed")
+	attrAriaReadonly        = []byte("aria-readonly")
+	attrAriaRelevant        = []byte("aria-relevant")
+	attrAriaRequired        = []byte("aria-required")
+	attrAriaSelected        = []byte("aria-selected")
+	attrAriaSetsize         = []byte("aria-setsize")
+	attrAriaValuemax        = []byte("aria-valuemax")
+	attrAriaValuemin        = []byte("aria-valuemin")
+	attrAriaValuenow        = []byte("aria-valuenow")
+	attrAriaValuetext       = []byte("aria-valuetext")
 )
