@@ -2,28 +2,21 @@ package aitch
 
 import "io"
 
-func isVoidElement(name string) bool {
-	_, ok := voidElements[name]
-	return ok
-}
-
 var voidElements = map[string]struct{}{
-	"area":    {},
-	"base":    {},
-	"br":      {},
-	"col":     {},
-	"command": {},
-	"embed":   {},
-	"hr":      {},
-	"img":     {},
-	"input":   {},
-	"keygen":  {},
-	"link":    {},
-	"meta":    {},
-	"param":   {},
-	"source":  {},
-	"track":   {},
-	"wbr":     {},
+	"area":   {},
+	"base":   {},
+	"br":     {},
+	"col":    {},
+	"embed":  {},
+	"hr":     {},
+	"img":    {},
+	"input":  {},
+	"link":   {},
+	"meta":   {},
+	"param":  {},
+	"source": {},
+	"track":  {},
+	"wbr":    {},
 }
 
 type voidElement struct {
@@ -165,11 +158,12 @@ func Element(name string, contents ...Node) Node {
 		}
 		return nil
 	}
-	return newElement(name, contents...)
+	_, void := voidElements[name]
+	return newElement(void, []byte(name), contents...)
 }
 
-func newElement(name string, contents ...Node) Node {
-	if isVoidElement(name) {
+func newElement(void bool, name []byte, contents ...Node) Node {
+	if void {
 		attrs, _ := attributesAndContents(contents...)
 		result := &voidElement{
 			name:       []byte(name),
