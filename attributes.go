@@ -1,314 +1,375 @@
 package aitch
 
 func Async() Node {
-	return newEmptyAttribute("async")
+	return newEmptyAttribute(attrAsync)
 }
 
 func AutoFocus() Node {
-	return newEmptyAttribute("autofocus")
+	return newEmptyAttribute(attrAutofocus)
 }
 
 func AutoPlay() Node {
-	return newAttribute("autoplay")
+	return newAttribute(attrAutoplay)
 }
 
 func Checked() Node {
-	return newEmptyAttribute("checked")
+	return newEmptyAttribute(attrChecked)
 }
 
 func Controls() Node {
-	return newEmptyAttribute("controls")
+	return newEmptyAttribute(attrControls)
 }
 
 func CrossOrigin(v ...any) Node {
-	return newAttribute("crossorigin", v...)
+	return newAttribute(attrCrossorigin, v...)
 }
 
 func DateTime(v ...any) Node {
-	return newAttribute("datetime", v...)
+	return newAttribute(attrDatetime, v...)
 }
 
 func Defer() Node {
-	return newEmptyAttribute("defer")
+	return newEmptyAttribute(attrDefer)
 }
 
 func Disabled() Node {
-	return newEmptyAttribute("disabled")
+	return newEmptyAttribute(attrDisabled)
 }
 
 func Download(v ...any) Node {
-	return newAttribute("download", v...)
+	return newAttribute(attrDownload, v...)
 }
 
 func Draggable(v ...any) Node {
-	return newAttribute("draggable", v...)
+	return newAttribute(attrDraggable, v...)
 }
 
 func Loop() Node {
-	return newEmptyAttribute("loop")
+	return newEmptyAttribute(attrLoop)
 }
 
 func Multiple() Node {
-	return newEmptyAttribute("multiple")
+	return newEmptyAttribute(attrMultiple)
 }
 
 func Muted() Node {
-	return newEmptyAttribute("muted")
+	return newEmptyAttribute(attrMuted)
 }
 
 func PlaysInline() Node {
-	return newEmptyAttribute("playsinline")
+	return newEmptyAttribute(attrPlaysinline)
 }
 
 func ReadOnly() Node {
-	return newEmptyAttribute("readonly")
+	return newEmptyAttribute(attrReadonly)
 }
 
 func Required() Node {
-	return newEmptyAttribute("required")
+	return newEmptyAttribute(attrRequired)
 }
 
 func Selected() Node {
-	return newEmptyAttribute("selected")
+	return newEmptyAttribute(attrSelected)
 }
 
 func Accept(v ...any) Node {
-	return newAttribute("accept", v...)
+	return newAttribute(attrAccept, v...)
 }
 
 func Action(v ...any) Node {
-	return newAttribute("action", v...)
+	return newAttribute(attrAction, v...)
 }
 
 func Alt(v ...any) Node {
-	return newAttribute("alt", v...)
+	return newAttribute(attrAlt, v...)
 }
 
 func Aria(name string, v ...any) Node {
-	return newAttribute("aria-"+name, v...)
+	return newAttribute(append(attrAria, []byte(name)...), v...)
 }
 
 func As(v ...any) Node {
-	return newAttribute("as", v...)
+	return newAttribute(attrAs, v...)
 }
 
 func AutoComplete(v ...any) Node {
-	return newAttribute("autocomplete", v...)
+	return newAttribute(attrAutocomplete, v...)
 }
 
 func Charset(v ...any) Node {
-	return newAttribute("charset", v...)
+	return newAttribute(attrCharset, v...)
 }
 
 func CiteAttr(v ...any) Node {
-	return newAttribute("cite", v...)
+	return newAttribute(attrCite, v...)
 }
 
 func Class(v ...any) Node {
-	return DelimitedAttribute("class", space, v...)
+	return DelimitedAttribute(attrClass, space, v...)
 }
 
 func Cols(v ...any) Node {
-	return newAttribute("cols", v...)
+	return newAttribute(attrCols, v...)
 }
 
 func ColSpan(v ...any) Node {
-	return newAttribute("colspan", v...)
+	return newAttribute(attrColspan, v...)
 }
 
 func Content(v ...any) Node {
-	return newAttribute("content", v...)
+	return newAttribute(attrContent, v...)
 }
 
 // Data attributes automatically have their name prefixed with "data-".
 func Data(name string, v ...any) Node {
-	return newAttribute("data-"+name, v...)
+	return newAttribute(append(attrData, []byte(name)...), v...)
 }
 
 func SlotAttr(v ...any) Node {
-	return newAttribute("slot", v...)
+	return newAttribute(attrSlot, v...)
 }
 
 func For(v ...any) Node {
-	return newAttribute("for", v...)
-}
-
-func FormAction(v ...any) Node {
-	return newAttribute("action", v...)
+	return newAttribute(attrFor, v...)
 }
 
 func FormAttr(v ...any) Node {
-	return newAttribute("form", v...)
-}
-
-func FormEncType(v ...any) Node {
-	return newAttribute("enctype", v...)
-}
-
-func FormMethod(v ...any) Node {
-	return newAttribute("method", v...)
+	return newAttribute(attrForm, v...)
 }
 
 func FormNoValidate() Node {
-	return newEmptyAttribute("novalidate")
-}
-
-func FormTarget(v ...any) Node {
-	return newAttribute("target", v...)
+	return newEmptyAttribute(attrNovalidate)
 }
 
 func Height(v ...any) Node {
-	return newAttribute("height", v...)
+	return newAttribute(attrHeight, v...)
 }
 
 func Hidden(v ...any) Node {
-	return newAttribute("hidden", v...)
+	return newAttribute(attrHidden, v...)
 }
 
 func Href(v ...any) Node {
-	return newAttribute("href", v...)
+	return newAttribute(attrHref, v...)
 }
 
 func Id(v ...any) Node {
-	return newAttribute("id", v...)
+	return newAttribute(attrId, v...)
 }
 
 func Integrity(v ...any) Node {
-	return newAttribute("integrity", v...)
+	return newAttribute(attrIntegrity, v...)
 }
 
 func LabelAttr(v ...any) Node {
-	return newAttribute("label", v...)
+	return newAttribute(attrLabel, v...)
 }
 
 func Lang(v ...any) Node {
-	return newAttribute("lang", v...)
+	return newAttribute(attrLang, v...)
 }
 
 func List(v ...any) Node {
-	return newAttribute("list", v...)
+	return newAttribute(attrList, v...)
 }
 
 func Loading(v ...any) Node {
-	return newAttribute("loading", v...)
+	return newAttribute(attrLoading, v...)
 }
 
 func Max(v ...any) Node {
-	return newAttribute("max", v...)
+	return newAttribute(attrMax, v...)
 }
 
 func MaxLength(v ...any) Node {
-	return newAttribute("maxlength", v...)
+	return newAttribute(attrMaxlength, v...)
 }
 
 func Method(v ...any) Node {
-	return newAttribute("method", v...)
+	return newAttribute(attrMethod, v...)
 }
 
 func Min(v ...any) Node {
-	return newAttribute("min", v...)
+	return newAttribute(attrMin, v...)
 }
 
 func MinLength(v ...any) Node {
-	return newAttribute("minlength", v...)
+	return newAttribute(attrMinlength, v...)
 }
 
 func Name(v ...any) Node {
-	return newAttribute("name", v...)
+	return newAttribute(attrName, v...)
 }
 
 func Pattern(v ...any) Node {
-	return newAttribute("pattern", v...)
+	return newAttribute(attrPattern, v...)
 }
 
 func Placeholder(v ...any) Node {
-	return newAttribute("placeholder", v...)
+	return newAttribute(attrPlaceholder, v...)
 }
 
 func Popover(v ...any) Node {
-	return newAttribute("popover", v...)
+	return newAttribute(attrPopover, v...)
 }
 
 func PopoverTarget(v ...any) Node {
-	return newAttribute("popovertarget", v...)
+	return newAttribute(attrPopovertarget, v...)
 }
 
 func PopoverTargetAction(v ...any) Node {
-	return newAttribute("popovertargetaction", v...)
+	return newAttribute(attrPopovertargetaction, v...)
 }
 
 func Poster(v ...any) Node {
-	return newAttribute("poster", v...)
+	return newAttribute(attrPoster, v...)
 }
 
 func Preload(v ...any) Node {
-	return newAttribute("preload", v...)
+	return newAttribute(attrPreload, v...)
 }
 
 func ReferrerPolicy(v ...any) Node {
-	return newAttribute("referrerpolicy", v...)
+	return newAttribute(attrReferrerpolicy, v...)
 }
 
 func Rel(v ...any) Node {
-	return newAttribute("rel", v...)
+	return newAttribute(attrRel, v...)
 }
 
 func Role(v ...any) Node {
-	return newAttribute("role", v...)
+	return newAttribute(attrRole, v...)
 }
 
 func Rows(v ...any) Node {
-	return newAttribute("rows", v...)
+	return newAttribute(attrRows, v...)
 }
 
 func RowSpan(v ...any) Node {
-	return newAttribute("rowspan", v...)
+	return newAttribute(attrRowspan, v...)
 }
 
 func Src(v ...any) Node {
-	return newAttribute("src", v...)
+	return newAttribute(attrSrc, v...)
 }
 
 func SrcSet(v ...any) Node {
-	return newAttribute("srcset", v...)
+	return newAttribute(attrSrcset, v...)
 }
 
 func Step(v ...any) Node {
-	return newAttribute("step", v...)
+	return newAttribute(attrStep, v...)
 }
 
 func Style(v ...any) Node {
-	return DelimitedAttribute("style", stylesDelim, v...)
+	return DelimitedAttribute(attrStyle, stylesDelim, v...)
 }
 
 func TabIndex(v ...any) Node {
-	return newAttribute("tabindex", v...)
+	return newAttribute(attrTabindex, v...)
 }
 
 func Target(v ...any) Node {
-	return newAttribute("target", v...)
+	return newAttribute(attrTarget, v...)
 }
 
 func Title(v ...any) Node {
-	return newAttribute("title", v...)
+	return newAttribute(attrTitle, v...)
 }
 
 func Type(v ...any) Node {
-	return newAttribute("type", v...)
+	return newAttribute(attrType, v...)
 }
 
 func Value(v ...any) Node {
-	return newAttribute("value", v...)
+	return newAttribute(attrValue, v...)
 }
 
 func Width(v ...any) Node {
-	return newAttribute("width", v...)
+	return newAttribute(attrWidth, v...)
 }
 
 func EncType(v ...any) Node {
-	return newAttribute("enctype", v...)
+	return newAttribute(attrEnctype, v...)
 }
 
 func Dir(v ...any) Node {
-	return newAttribute("dir", v...)
+	return newAttribute(attrDir, v...)
 }
+
+var (
+	attrAccept              = []byte("accept")
+	attrAction              = []byte("action")
+	attrAlt                 = []byte("alt")
+	attrAria                = []byte("aria-")
+	attrAs                  = []byte("as")
+	attrAsync               = []byte("async")
+	attrAutocomplete        = []byte("autocomplete")
+	attrAutofocus           = []byte("autofocus")
+	attrAutoplay            = []byte("autoplay")
+	attrCharset             = []byte("charset")
+	attrChecked             = []byte("checked")
+	attrCite                = []byte("cite")
+	attrClass               = []byte("class")
+	attrCols                = []byte("cols")
+	attrColspan             = []byte("colspan")
+	attrContent             = []byte("content")
+	attrControls            = []byte("controls")
+	attrCrossorigin         = []byte("crossorigin")
+	attrData                = []byte("data-")
+	attrDatetime            = []byte("datetime")
+	attrDefer               = []byte("defer")
+	attrDir                 = []byte("dir")
+	attrDisabled            = []byte("disabled")
+	attrDownload            = []byte("download")
+	attrDraggable           = []byte("draggable")
+	attrEnctype             = []byte("enctype")
+	attrFor                 = []byte("for")
+	attrForm                = []byte("form")
+	attrHeight              = []byte("height")
+	attrHidden              = []byte("hidden")
+	attrHref                = []byte("href")
+	attrId                  = []byte("id")
+	attrIntegrity           = []byte("integrity")
+	attrLabel               = []byte("label")
+	attrLang                = []byte("lang")
+	attrList                = []byte("list")
+	attrLoading             = []byte("loading")
+	attrLoop                = []byte("loop")
+	attrMax                 = []byte("max")
+	attrMaxlength           = []byte("maxlength")
+	attrMethod              = []byte("method")
+	attrMin                 = []byte("min")
+	attrMinlength           = []byte("minlength")
+	attrMultiple            = []byte("multiple")
+	attrMuted               = []byte("muted")
+	attrName                = []byte("name")
+	attrNovalidate          = []byte("novalidate")
+	attrPattern             = []byte("pattern")
+	attrPlaceholder         = []byte("placeholder")
+	attrPlaysinline         = []byte("playsinline")
+	attrPopover             = []byte("popover")
+	attrPopovertarget       = []byte("popovertarget")
+	attrPopovertargetaction = []byte("popovertargetaction")
+	attrPoster              = []byte("poster")
+	attrPreload             = []byte("preload")
+	attrReadonly            = []byte("readonly")
+	attrReferrerpolicy      = []byte("referrerpolicy")
+	attrRel                 = []byte("rel")
+	attrRequired            = []byte("required")
+	attrRole                = []byte("role")
+	attrRows                = []byte("rows")
+	attrRowspan             = []byte("rowspan")
+	attrSelected            = []byte("selected")
+	attrSlot                = []byte("slot")
+	attrSrc                 = []byte("src")
+	attrSrcset              = []byte("srcset")
+	attrStep                = []byte("step")
+	attrStyle               = []byte("style")
+	attrTabindex            = []byte("tabindex")
+	attrTarget              = []byte("target")
+	attrTitle               = []byte("title")
+	attrType                = []byte("type")
+	attrValue               = []byte("value")
+	attrWidth               = []byte("width")
+)

@@ -1,427 +1,427 @@
 package aitch
 
 func A(contents ...Node) Node {
-	return newElement(false, tagA, contents...)
+	return newElement(tagA, contents...)
 }
 
 func Abbr(contents ...Node) Node {
-	return newElement(false, tagAbbr, contents...)
+	return newElement(tagAbbr, contents...)
 }
 
 func Address(contents ...Node) Node {
-	return newElement(false, tagAddress, contents...)
+	return newElement(tagAddress, contents...)
 }
 
 func Area(contents ...Node) Node {
-	return newElement(true, tagArea, contents...)
+	return newVoidElement(tagArea, contents...)
 }
 
 func Article(contents ...Node) Node {
-	return newElement(false, tagArticle, contents...)
+	return newElement(tagArticle, contents...)
 }
 
 func Aside(contents ...Node) Node {
-	return newElement(false, tagAside, contents...)
+	return newElement(tagAside, contents...)
 }
 
 func Audio(contents ...Node) Node {
-	return newElement(false, tagAudio, contents...)
+	return newElement(tagAudio, contents...)
 }
 
 func B(contents ...Node) Node {
-	return newElement(false, tagB, contents...)
+	return newElement(tagB, contents...)
 }
 
 func Base(contents ...Node) Node {
-	return newElement(true, tagBase, contents...)
+	return newVoidElement(tagBase, contents...)
 }
 
 func BlockQuote(contents ...Node) Node {
-	return newElement(false, tagBlockquote, contents...)
+	return newElement(tagBlockquote, contents...)
 }
 
 func Body(contents ...Node) Node {
-	return newElement(false, tagBody, contents...)
+	return newElement(tagBody, contents...)
 }
 
 func Br(contents ...Node) Node {
-	return newElement(true, tagBr, contents...)
+	return newVoidElement(tagBr, contents...)
 }
 
 func Button(contents ...Node) Node {
-	return newElement(false, tagButton, contents...)
+	return newElement(tagButton, contents...)
 }
 
 func Canvas(contents ...Node) Node {
-	return newElement(false, tagCanvas, contents...)
+	return newElement(tagCanvas, contents...)
 }
 
 func Caption(contents ...Node) Node {
-	return newElement(false, tagCaption, contents...)
+	return newElement(tagCaption, contents...)
 }
 
 func Cite(contents ...Node) Node {
-	return newElement(false, tagCite, contents...)
+	return newElement(tagCite, contents...)
 }
 
 func Code(contents ...Node) Node {
-	return newElement(false, tagCode, contents...)
+	return newElement(tagCode, contents...)
 }
 
 func Col(contents ...Node) Node {
-	return newElement(true, tagCol, contents...)
+	return newVoidElement(tagCol, contents...)
 }
 
 func ColGroup(contents ...Node) Node {
-	return newElement(false, tagColgroup, contents...)
+	return newElement(tagColgroup, contents...)
 }
 
 func DataElement(contents ...Node) Node {
-	return newElement(false, tagData, contents...)
+	return newElement(tagData, contents...)
 }
 
 func DataList(contents ...Node) Node {
-	return newElement(false, tagDatalist, contents...)
+	return newElement(tagDatalist, contents...)
 }
 
 func Dd(contents ...Node) Node {
-	return newElement(false, tagDd, contents...)
+	return newElement(tagDd, contents...)
 }
 
 func Del(contents ...Node) Node {
-	return newElement(false, tagDel, contents...)
+	return newElement(tagDel, contents...)
 }
 
 func Dfn(contents ...Node) Node {
-	return newElement(false, tagDfn, contents...)
+	return newElement(tagDfn, contents...)
 }
 
 func Dt(contents ...Node) Node {
-	return newElement(false, tagDt, contents...)
+	return newElement(tagDt, contents...)
 }
 
 func Details(contents ...Node) Node {
-	return newElement(false, tagDetails, contents...)
+	return newElement(tagDetails, contents...)
 }
 
 func Dialog(contents ...Node) Node {
-	return newElement(false, tagDialog, contents...)
+	return newElement(tagDialog, contents...)
 }
 
 func Div(contents ...Node) Node {
-	return newElement(false, tagDiv, contents...)
+	return newElement(tagDiv, contents...)
 }
 
 func Dl(contents ...Node) Node {
-	return newElement(false, tagDl, contents...)
+	return newElement(tagDl, contents...)
 }
 
 func Em(contents ...Node) Node {
-	return newElement(false, tagEm, contents...)
+	return newElement(tagEm, contents...)
 }
 
 func Embed(contents ...Node) Node {
-	return newElement(true, tagEmbed, contents...)
+	return newVoidElement(tagEmbed, contents...)
 }
 
 func Form(contents ...Node) Node {
-	return newElement(false, tagForm, contents...)
+	return newElement(tagForm, contents...)
 }
 
 func FieldSet(contents ...Node) Node {
-	return newElement(false, tagFieldset, contents...)
+	return newElement(tagFieldset, contents...)
 }
 
 func FigCaption(contents ...Node) Node {
-	return newElement(false, tagFigcaption, contents...)
+	return newElement(tagFigcaption, contents...)
 }
 
 func Figure(contents ...Node) Node {
-	return newElement(false, tagFigure, contents...)
+	return newElement(tagFigure, contents...)
 }
 
 func Footer(contents ...Node) Node {
-	return newElement(false, tagFooter, contents...)
+	return newElement(tagFooter, contents...)
 }
 
 func H1(contents ...Node) Node {
-	return newElement(false, tagH1, contents...)
+	return newElement(tagH1, contents...)
 }
 
 func H2(contents ...Node) Node {
-	return newElement(false, tagH2, contents...)
+	return newElement(tagH2, contents...)
 }
 
 func H3(contents ...Node) Node {
-	return newElement(false, tagH3, contents...)
+	return newElement(tagH3, contents...)
 }
 
 func H4(contents ...Node) Node {
-	return newElement(false, tagH4, contents...)
+	return newElement(tagH4, contents...)
 }
 
 func H5(contents ...Node) Node {
-	return newElement(false, tagH5, contents...)
+	return newElement(tagH5, contents...)
 }
 
 func H6(contents ...Node) Node {
-	return newElement(false, tagH6, contents...)
+	return newElement(tagH6, contents...)
 }
 
 func Head(contents ...Node) Node {
-	return newElement(false, tagHead, contents...)
+	return newElement(tagHead, contents...)
 }
 
 func Header(contents ...Node) Node {
-	return newElement(false, tagHeader, contents...)
+	return newElement(tagHeader, contents...)
 }
 
 func HGroup(contents ...Node) Node {
-	return newElement(false, tagHgroup, contents...)
+	return newElement(tagHgroup, contents...)
 }
 
 func Hr(contents ...Node) Node {
-	return newElement(true, tagHr, contents...)
+	return newVoidElement(tagHr, contents...)
 }
 
 func Html(contents ...Node) Node {
-	return newElement(false, tagHtml, contents...)
+	return newElement(tagHtml, contents...)
 }
 
 func I(contents ...Node) Node {
-	return newElement(false, tagI, contents...)
+	return newElement(tagI, contents...)
 }
 
 func IFrame(contents ...Node) Node {
-	return newElement(false, tagIframe, contents...)
+	return newElement(tagIframe, contents...)
 }
 
 func Img(contents ...Node) Node {
-	return newElement(true, tagImg, contents...)
+	return newVoidElement(tagImg, contents...)
 }
 
 func Input(contents ...Node) Node {
-	return newElement(true, tagInput, contents...)
+	return newVoidElement(tagInput, contents...)
 }
 
 func Ins(contents ...Node) Node {
-	return newElement(false, tagIns, contents...)
+	return newElement(tagIns, contents...)
 }
 
 func Kbd(contents ...Node) Node {
-	return newElement(false, tagKbd, contents...)
+	return newElement(tagKbd, contents...)
 }
 
 func Label(contents ...Node) Node {
-	return newElement(false, tagLabel, contents...)
+	return newElement(tagLabel, contents...)
 }
 
 func Legend(contents ...Node) Node {
-	return newElement(false, tagLegend, contents...)
+	return newElement(tagLegend, contents...)
 }
 
 func Li(contents ...Node) Node {
-	return newElement(false, tagLi, contents...)
+	return newElement(tagLi, contents...)
 }
 
 func Link(contents ...Node) Node {
-	return newElement(true, tagLink, contents...)
+	return newVoidElement(tagLink, contents...)
 }
 
 func Main(contents ...Node) Node {
-	return newElement(false, tagMain, contents...)
+	return newElement(tagMain, contents...)
 }
 
 func Mark(contents ...Node) Node {
-	return newElement(false, tagMark, contents...)
+	return newElement(tagMark, contents...)
 }
 
 func Menu(contents ...Node) Node {
-	return newElement(false, tagMenu, contents...)
+	return newElement(tagMenu, contents...)
 }
 
 func Meta(contents ...Node) Node {
-	return newElement(true, tagMeta, contents...)
+	return newVoidElement(tagMeta, contents...)
 }
 
 func Meter(contents ...Node) Node {
-	return newElement(false, tagMeter, contents...)
+	return newElement(tagMeter, contents...)
 }
 
 func Nav(contents ...Node) Node {
-	return newElement(false, tagNav, contents...)
+	return newElement(tagNav, contents...)
 }
 
 func NoScript(contents ...Node) Node {
-	return newElement(false, tagNoscript, contents...)
+	return newElement(tagNoscript, contents...)
 }
 
 func Object(contents ...Node) Node {
-	return newElement(false, tagObject, contents...)
+	return newElement(tagObject, contents...)
 }
 
 func Ol(contents ...Node) Node {
-	return newElement(false, tagOl, contents...)
+	return newElement(tagOl, contents...)
 }
 
 func OptGroup(contents ...Node) Node {
-	return newElement(false, tagOptgroup, contents...)
+	return newElement(tagOptgroup, contents...)
 }
 
 func Option(contents ...Node) Node {
-	return newElement(false, tagOption, contents...)
+	return newElement(tagOption, contents...)
 }
 
 func P(contents ...Node) Node {
-	return newElement(false, tagP, contents...)
+	return newElement(tagP, contents...)
 }
 
 func Para(contents ...Node) Node {
-	return newElement(false, tagP, contents...)
+	return newElement(tagP, contents...)
 }
 
 func Param(contents ...Node) Node {
-	return newElement(true, tagParam, contents...)
+	return newVoidElement(tagParam, contents...)
 }
 
 func Picture(contents ...Node) Node {
-	return newElement(false, tagPicture, contents...)
+	return newElement(tagPicture, contents...)
 }
 
 func Pre(contents ...Node) Node {
-	return newElement(false, tagPre, contents...)
+	return newElement(tagPre, contents...)
 }
 
 func Progress(contents ...Node) Node {
-	return newElement(false, tagProgress, contents...)
+	return newElement(tagProgress, contents...)
 }
 
 func Q(contents ...Node) Node {
-	return newElement(false, tagQ, contents...)
+	return newElement(tagQ, contents...)
 }
 
 func S(contents ...Node) Node {
-	return newElement(false, tagS, contents...)
+	return newElement(tagS, contents...)
 }
 
 func Samp(contents ...Node) Node {
-	return newElement(false, tagSamp, contents...)
+	return newElement(tagSamp, contents...)
 }
 
 func Script(contents ...Node) Node {
-	return newElement(false, tagScript, contents...)
+	return newElement(tagScript, contents...)
 }
 
 func Section(contents ...Node) Node {
-	return newElement(false, tagSection, contents...)
+	return newElement(tagSection, contents...)
 }
 
 func Select(contents ...Node) Node {
-	return newElement(false, tagSelect, contents...)
+	return newElement(tagSelect, contents...)
 }
 
 func Slot(contents ...Node) Node {
-	return newElement(false, tagSlot, contents...)
+	return newElement(tagSlot, contents...)
 }
 
 func Small(contents ...Node) Node {
-	return newElement(false, tagSmall, contents...)
+	return newElement(tagSmall, contents...)
 }
 
 func Source(contents ...Node) Node {
-	return newElement(true, tagSource, contents...)
+	return newVoidElement(tagSource, contents...)
 }
 
 func Span(contents ...Node) Node {
-	return newElement(false, tagSpan, contents...)
+	return newElement(tagSpan, contents...)
 }
 
 func Strong(contents ...Node) Node {
-	return newElement(false, tagStrong, contents...)
+	return newElement(tagStrong, contents...)
 }
 
 func StyleElement(contents ...Node) Node {
-	return newElement(false, tagStyle, contents...)
+	return newElement(tagStyle, contents...)
 }
 
 func Sub(contents ...Node) Node {
-	return newElement(false, tagSub, contents...)
+	return newElement(tagSub, contents...)
 }
 
 func Sup(contents ...Node) Node {
-	return newElement(false, tagSup, contents...)
+	return newElement(tagSup, contents...)
 }
 
 func Summary(contents ...Node) Node {
-	return newElement(false, tagSummary, contents...)
+	return newElement(tagSummary, contents...)
 }
 
 func Svg(contents ...Node) Node {
-	return newElement(false, tagSvg, contents...)
+	return newElement(tagSvg, contents...)
 }
 
 func Table(contents ...Node) Node {
-	return newElement(false, tagTable, contents...)
+	return newElement(tagTable, contents...)
 }
 
 func TBody(contents ...Node) Node {
-	return newElement(false, tagTbody, contents...)
+	return newElement(tagTbody, contents...)
 }
 
 func Td(contents ...Node) Node {
-	return newElement(false, tagTd, contents...)
+	return newElement(tagTd, contents...)
 }
 
 func Template(contents ...Node) Node {
-	return newElement(false, tagTemplate, contents...)
+	return newElement(tagTemplate, contents...)
 }
 
 func Textarea(contents ...Node) Node {
-	return newElement(false, tagTextarea, contents...)
+	return newElement(tagTextarea, contents...)
 }
 
 func TFoot(contents ...Node) Node {
-	return newElement(false, tagTfoot, contents...)
+	return newElement(tagTfoot, contents...)
 }
 
 func Th(contents ...Node) Node {
-	return newElement(false, tagTh, contents...)
+	return newElement(tagTh, contents...)
 }
 
 func THead(contents ...Node) Node {
-	return newElement(false, tagThead, contents...)
+	return newElement(tagThead, contents...)
 }
 
 func Time(contents ...Node) Node {
-	return newElement(false, tagTime, contents...)
+	return newElement(tagTime, contents...)
 }
 
 func TitleElement(contents ...Node) Node {
-	return newElement(false, tagTitle, contents...)
+	return newElement(tagTitle, contents...)
 }
 
 func Tr(contents ...Node) Node {
-	return newElement(false, tagTr, contents...)
+	return newElement(tagTr, contents...)
 }
 
 func Ul(contents ...Node) Node {
-	return newElement(false, tagUl, contents...)
+	return newElement(tagUl, contents...)
 }
 
 func U(contents ...Node) Node {
-	return newElement(false, tagU, contents...)
+	return newElement(tagU, contents...)
 }
 
 func Var(contents ...Node) Node {
-	return newElement(false, tagVar, contents...)
+	return newElement(tagVar, contents...)
 }
 
 func Video(contents ...Node) Node {
-	return newElement(false, tagVideo, contents...)
+	return newElement(tagVideo, contents...)
 }
 
 func Wbr(contents ...Node) Node {
-	return newElement(true, tagWbr, contents...)
+	return newVoidElement(tagWbr, contents...)
 }
 
 var (

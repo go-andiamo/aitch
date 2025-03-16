@@ -77,14 +77,14 @@ func TestNewValue(t *testing.T) {
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
 
-	vs = newValue(newAttribute("att", "foo", "bar"))
+	vs = newValue(newAttribute([]byte("att"), "foo", "bar"))
 	assert.Equal(t, 2, len(vs))
 	assert.Nil(t, vs[0].dynamicFunc)
 
 	vs = newValue(Collection())
 	assert.Equal(t, 0, len(vs))
 
-	vs = newValue(Collection(newAttribute("att", "foo", "bar"), newAttribute("att", "baz")))
+	vs = newValue(Collection(newAttribute([]byte("att"), "foo", "bar"), newAttribute([]byte("att"), "baz")))
 	assert.Equal(t, 3, len(vs))
 
 	vs = newValue(P())

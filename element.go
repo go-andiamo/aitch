@@ -158,27 +158,29 @@ func Element(name string, contents ...Node) Node {
 		}
 		return nil
 	}
-	_, void := voidElements[name]
-	return newElement(void, []byte(name), contents...)
+	if _, void := voidElements[name]; void {
+		return newVoidElement([]byte(name), contents...)
+	}
+	return newElement([]byte(name), contents...)
 }
 
-func newElement(void bool, name []byte, contents ...Node) Node {
-	if void {
-		attrs, _ := attributesAndContents(contents...)
-		result := &voidElement{
-			name:       []byte(name),
-			attributes: make([]Node, 0, len(attrs)),
-			attIndices: make(map[string]int, len(attrs)),
-		}
-		return result.addAttributes(attrs)
-
-	}
+func newElement(name []byte, contents ...Node) Node {
 	attrs, children := attributesAndContents(contents...)
 	result := &element{
 		name:       []byte(name),
 		attributes: make([]Node, 0, len(attrs)),
 		attIndices: make(map[string]int, len(attrs)),
 		contents:   children,
+	}
+	return result.addAttributes(attrs)
+}
+
+func newVoidElement(name []byte, contents ...Node) Node {
+	attrs, _ := attributesAndContents(contents...)
+	result := &voidElement{
+		name:       []byte(name),
+		attributes: make([]Node, 0, len(attrs)),
+		attIndices: make(map[string]int, len(attrs)),
 	}
 	return result.addAttributes(attrs)
 }

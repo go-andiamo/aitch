@@ -54,12 +54,12 @@ func Attribute(name string, values ...any) Node {
 		}
 		return nil
 	}
-	return newAttribute(name, values...)
+	return newAttribute([]byte(name), values...)
 }
 
-func newAttribute(name string, values ...any) Node {
+func newAttribute(name []byte, values ...any) Node {
 	return &attribute{
-		name:   []byte(name),
+		name:   name,
 		values: newValues(values...),
 	}
 }
@@ -90,9 +90,9 @@ func (e *emptyAttribute) Name() string {
 	return string(e.name)
 }
 
-func newEmptyAttribute(name string) Node {
+func newEmptyAttribute(name []byte) Node {
 	return &emptyAttribute{
-		name: []byte(name),
+		name: name,
 	}
 }
 
@@ -144,9 +144,9 @@ func (a *delimitedAttribute) getValues() []value {
 	return a.values
 }
 
-func DelimitedAttribute(name string, delimiter []byte, values ...any) Node {
+func DelimitedAttribute(name []byte, delimiter []byte, values ...any) Node {
 	result := &delimitedAttribute{
-		name:      []byte(name),
+		name:      name,
 		delimiter: delimiter,
 		values:    make([]value, 0, len(values)),
 	}
