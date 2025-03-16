@@ -20,8 +20,6 @@ type Node interface {
 	Type() NodeType
 	// Name returns the name of the node (e.g. the element or attribute name)
 	Name() string
-	// Append appends content nodes to the Node
-	Append(nodes ...Node) Node
 }
 
 // Context is the rendering context

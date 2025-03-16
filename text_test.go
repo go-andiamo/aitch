@@ -27,15 +27,6 @@ func TestText_Render(t *testing.T) {
 	require.Error(t, err)
 }
 
-func TestText_Append(t *testing.T) {
-	txt := Text("foo")
-	txt.Append(nil, Text("bar"))
-	var w bytes.Buffer
-	err := txt.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "foobar", w.String())
-}
-
 func TestNbsp_NoMutation(t *testing.T) {
 	x := Nbsp()
 	x[0] = '?'

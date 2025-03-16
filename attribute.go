@@ -39,15 +39,6 @@ func (a *attribute) Name() string {
 	return string(a.name)
 }
 
-func (a *attribute) Append(nodes ...Node) Node {
-	for _, n := range nodes {
-		if n != nil {
-			a.values = append(a.values, newValue(n)...)
-		}
-	}
-	return a
-}
-
 func (a *attribute) getValues() []value {
 	return a.values
 }
@@ -99,10 +90,6 @@ func (e *emptyAttribute) Name() string {
 	return string(e.name)
 }
 
-func (e *emptyAttribute) Append(nodes ...Node) Node {
-	return e
-}
-
 func newEmptyAttribute(name string) Node {
 	return &emptyAttribute{
 		name: []byte(name),
@@ -151,15 +138,6 @@ func (a *delimitedAttribute) Type() NodeType {
 
 func (a *delimitedAttribute) Name() string {
 	return string(a.name)
-}
-
-func (a *delimitedAttribute) Append(nodes ...Node) Node {
-	for _, n := range nodes {
-		if n != nil {
-			a.values = append(a.values, newValue(n)...)
-		}
-	}
-	return a
 }
 
 func (a *delimitedAttribute) getValues() []value {

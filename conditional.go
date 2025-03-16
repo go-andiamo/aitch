@@ -35,11 +35,10 @@ func (c *conditional) Name() string {
 	return "#conditional"
 }
 
-func (c *conditional) Append(nodes ...Node) Node {
-	panic("conditionals cannot be appended")
-}
-
 func Conditional(fn ConditionalFunc, nodes ...Node) Node {
+	if fn == nil {
+		panic("conditional function is nil")
+	}
 	attrs, children := attributesAndContents(nodes...)
 	return &conditional{
 		attributes: attrs,

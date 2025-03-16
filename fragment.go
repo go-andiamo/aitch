@@ -41,15 +41,6 @@ func (f *fragment) Name() string {
 	return "#fragment"
 }
 
-func (f *fragment) Append(nodes ...Node) Node {
-	for _, n := range nodes {
-		if n != nil {
-			f.values = append(f.values, newValue(n)...)
-		}
-	}
-	return f
-}
-
 func (f *fragment) getValues() []value {
 	return f.values
 }

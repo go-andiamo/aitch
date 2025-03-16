@@ -26,12 +26,3 @@ func TestFragment_Render(t *testing.T) {
 	err = txt.Render(ew, nil)
 	require.Error(t, err)
 }
-
-func TestFragment_Append(t *testing.T) {
-	txt := Fragment("foo")
-	txt.Append(nil, Fragment("bar"))
-	var w bytes.Buffer
-	err := txt.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "foobar", w.String())
-}

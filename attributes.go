@@ -169,7 +169,7 @@ func Href(v ...any) Node {
 	return newAttribute("href", v...)
 }
 
-func ID(v ...any) Node {
+func Id(v ...any) Node {
 	return newAttribute("id", v...)
 }
 

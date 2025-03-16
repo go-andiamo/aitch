@@ -12,8 +12,10 @@ func (c *collection) Render(w io.Writer, ctx *Context) error {
 	}
 	if ctx.Error == nil {
 		for _, n := range c.nodes {
-			if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
-				return ctx.Error
+			if n.Type() != AttributeNode {
+				if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
+					return ctx.Error
+				}
 			}
 		}
 	}
@@ -26,15 +28,6 @@ func (c *collection) Type() NodeType {
 
 func (c *collection) Name() string {
 	return "#collection"
-}
-
-func (c *collection) Append(nodes ...Node) Node {
-	for _, n := range nodes {
-		if n != nil {
-			c.nodes = append(c.nodes, n)
-		}
-	}
-	return c
 }
 
 func Collection(nodes ...Node) Node {

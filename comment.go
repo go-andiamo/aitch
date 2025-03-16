@@ -34,15 +34,6 @@ func (c *comment) Name() string {
 	return "#comment"
 }
 
-func (c *comment) Append(nodes ...Node) Node {
-	for _, n := range nodes {
-		if n != nil {
-			c.values = append(c.values, newValue(n)...)
-		}
-	}
-	return c
-}
-
 func (c *comment) getValues() []value {
 	return c.values
 }

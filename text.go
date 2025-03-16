@@ -38,15 +38,6 @@ func (t *text) Name() string {
 	return "#text"
 }
 
-func (t *text) Append(nodes ...Node) Node {
-	for _, n := range nodes {
-		if n != nil {
-			t.values = append(t.values, newValue(n)...)
-		}
-	}
-	return t
-}
-
 func (t *text) getValues() []value {
 	return t.values
 }

@@ -5,7 +5,6 @@ import "io"
 type document struct {
 	prologue Node
 	contents []Node
-	body     Node
 }
 
 func (d *document) Render(w io.Writer, ctx *Context) error {
@@ -33,11 +32,6 @@ func (d *document) Type() NodeType {
 
 func (d *document) Name() string {
 	return "#document"
-}
-
-func (d *document) Append(nodes ...Node) Node {
-	d.body.Append(nodes...)
-	return d
 }
 
 func Document(lang any, head []Node, body []Node) Node {

@@ -70,12 +70,6 @@ func (e *voidElement) Name() string {
 	return string(e.name)
 }
 
-func (e *voidElement) Append(nodes ...Node) Node {
-	attrs, _ := attributesAndContents(nodes...)
-	e.addAttributes(attrs)
-	return e
-}
-
 func (e *voidElement) addAttributes(attrs []Node) Node {
 	for _, att := range attrs {
 		name := att.Name()
@@ -138,13 +132,6 @@ func (e *element) Type() NodeType {
 
 func (e *element) Name() string {
 	return string(e.name)
-}
-
-func (e *element) Append(nodes ...Node) Node {
-	attrs, contents := attributesAndContents(nodes...)
-	e.addAttributes(attrs)
-	e.contents = append(e.contents, contents...)
-	return e
 }
 
 func (e *element) addAttributes(attrs []Node) Node {
@@ -211,15 +198,14 @@ func attributesAndContents(nodes ...Node) (attributes []Node, contents []Node) {
 			case AttributeNode:
 				attributes = append(attributes, item)
 			case collectionNode:
+				contents = append(contents, item)
 				if cn, ok := item.(*collection); ok {
-					addA, addC := attributesAndContents(cn.nodes...)
+					addA, _ := attributesAndContents(cn.nodes...)
 					attributes = append(attributes, addA...)
-					contents = append(contents, addC...)
-				} else {
-					contents = append(contents, item)
 				}
 			case conditionalNode:
-				panic("implement me!")
+				contents = append(contents, item)
+				//TODO more!!!
 			default:
 				contents = append(contents, item)
 			}

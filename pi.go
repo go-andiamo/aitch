@@ -39,15 +39,6 @@ func (p *pi) Name() string {
 	return "!" + string(p.name)
 }
 
-func (p *pi) Append(nodes ...Node) Node {
-	for _, n := range nodes {
-		if n != nil {
-			p.values = append(p.values, newValue(p)...)
-		}
-	}
-	return p
-}
-
 func PI(name string, contents ...any) Node {
 	return &pi{
 		name:   []byte(name),
