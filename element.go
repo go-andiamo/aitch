@@ -28,31 +28,25 @@ type voidElement struct {
 
 func (e *voidElement) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		if _, ctx.Error = w.Write(openAngleBracket); ctx.Error == nil {
-			if _, ctx.Error = w.Write(e.name); ctx.Error == nil {
-				if ctx.Error = renderAttributes(w, ctx, e.attributes, e.conditionalAttrs); ctx.Error == nil {
-					_, ctx.Error = w.Write(closeAngleBracket)
-				}
-			}
-		}
-	}
+	ctx.write(openAngleBracket)
+	ctx.write(e.name)
+	renderAttributes(ctx, e.attributes, e.conditionalAttrs)
+	ctx.write(closeAngleBracket)
 	return ctx.Error
 }
 
-func renderAttributes(w io.Writer, ctx *Context, attrs []Node, conditionalAttrs []Node) error {
+func renderAttributes(ctx *Context, attrs []Node, conditionalAttrs []Node) {
 	if len(conditionalAttrs) == 0 {
 		for _, attr := range attrs {
-			if ctx.Error = attr.Render(w, ctx); ctx.Error != nil {
-				return ctx.Error
-			}
+			_ = attr.Render(ctx.w, ctx)
 		}
 	} else {
 		//TODO
 	}
-	return ctx.Error
 }
 
 func (e *voidElement) Type() NodeType {
@@ -93,29 +87,20 @@ type element struct {
 
 func (e *element) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		if _, ctx.Error = w.Write(openAngleBracket); ctx.Error == nil {
-			if _, ctx.Error = w.Write(e.name); ctx.Error == nil {
-				if ctx.Error = renderAttributes(w, ctx, e.attributes, e.conditionalAttrs); ctx.Error != nil {
-					return ctx.Error
-				}
-				if _, ctx.Error = w.Write(closeAngleBracket); ctx.Error == nil {
-					for _, c := range e.contents {
-						if ctx.Error = c.Render(w, ctx); ctx.Error != nil {
-							return ctx.Error
-						}
-					}
-				}
-				if _, ctx.Error = w.Write(closeTagStart); ctx.Error == nil {
-					if _, ctx.Error = w.Write(e.name); ctx.Error == nil {
-						_, ctx.Error = w.Write(closeAngleBracket)
-					}
-				}
-			}
-		}
+	ctx.write(openAngleBracket)
+	ctx.write(e.name)
+	renderAttributes(ctx, e.attributes, e.conditionalAttrs)
+	ctx.write(closeAngleBracket)
+	for _, c := range e.contents {
+		_ = c.Render(ctx.w, ctx)
 	}
+	ctx.write(closeTagStart)
+	ctx.write(e.name)
+	ctx.write(closeAngleBracket)
 	return ctx.Error
 }
 

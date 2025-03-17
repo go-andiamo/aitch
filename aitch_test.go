@@ -8,7 +8,7 @@ import (
 )
 
 func TestDefaultContext(t *testing.T) {
-	ctx := defaultContext()
+	ctx := defaultContext(nil)
 	assert.NotNil(t, ctx)
 	assert.NotNil(t, ctx.Data)
 	assert.Nil(t, ctx.Error)

@@ -13,6 +13,7 @@ func TestText(t *testing.T) {
 	assert.Equal(t, "#text", txt.Name())
 	rv := txt.(*text)
 	assert.Equal(t, 2, len(rv.values))
+	assert.Equal(t, 2, len(rv.getValues()))
 }
 
 func TestText_Render(t *testing.T) {

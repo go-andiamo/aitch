@@ -12,22 +12,17 @@ var _ valuesNode = (*attribute)(nil)
 
 func (a *attribute) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		if _, ctx.Error = w.Write(space); ctx.Error == nil {
-			if _, ctx.Error = w.Write(a.name); ctx.Error == nil && len(a.values) > 0 {
-				if _, ctx.Error = w.Write(attStart); ctx.Error == nil {
-					for _, v := range a.values {
-						if _, ctx.Error = v.render(w, ctx); ctx.Error != nil {
-							return ctx.Error
-						}
-					}
-					_, ctx.Error = w.Write(attEnd)
-				}
-			}
-		}
+	ctx.write(space)
+	ctx.write(a.name)
+	ctx.write(attStart)
+	for _, v := range a.values {
+		_, _ = v.render(ctx)
 	}
+	ctx.write(attEnd)
 	return ctx.Error
 }
 
@@ -48,13 +43,12 @@ func (a *attribute) getValues() []value {
 // the name is checked to ensure it's a valid name - returns nil if the name is invalid
 // (or panics if PanicOnInvalidName is true)
 func Attribute(name string, values ...any) Node {
-	if !htmlTagRegex.MatchString(name) {
-		if PanicOnInvalidName {
-			panic("invalid html attribute name: " + name)
-		}
-		return nil
+	if htmlTagRegex.MatchString(name) {
+		return newAttribute([]byte(name), values...)
+	} else if PanicOnInvalidName {
+		panic("invalid html attribute name: " + name)
 	}
-	return newAttribute([]byte(name), values...)
+	return nil
 }
 
 func newAttribute(name []byte, values ...any) Node {
@@ -64,34 +58,48 @@ func newAttribute(name []byte, values ...any) Node {
 	}
 }
 
-type emptyAttribute struct {
+type booleanAttribute struct {
 	name []byte
 }
 
-var _ Node = (*emptyAttribute)(nil)
+var _ Node = (*booleanAttribute)(nil)
 
-func (e *emptyAttribute) Render(w io.Writer, ctx *Context) error {
+func (a *booleanAttribute) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		if _, ctx.Error = w.Write(space); ctx.Error == nil {
-			_, ctx.Error = w.Write(e.name)
-		}
-	}
+	ctx.write(space)
+	ctx.write(a.name)
 	return ctx.Error
 }
 
-func (e *emptyAttribute) Type() NodeType {
+func (a *booleanAttribute) Type() NodeType {
 	return AttributeNode
 }
 
-func (e *emptyAttribute) Name() string {
-	return string(e.name)
+func (a *booleanAttribute) Name() string {
+	return string(a.name)
 }
 
-func newEmptyAttribute(name []byte) Node {
-	return &emptyAttribute{
+// BooleanAttribute creates a new boolean attribute Node
+//
+// a boolean attribute has no value
+//
+// the name is checked to ensure it's a valid name - returns nil if the name is invalid
+// (or panics if PanicOnInvalidName is true)
+func BooleanAttribute(name string) Node {
+	if htmlTagRegex.MatchString(name) {
+		return newBooleanAttribute([]byte(name))
+	} else if PanicOnInvalidName {
+		panic("invalid html attribute name: " + name)
+	}
+	return nil
+}
+
+func newBooleanAttribute(name []byte) Node {
+	return &booleanAttribute{
 		name: name,
 	}
 }
@@ -107,28 +115,21 @@ var _ valuesNode = (*delimitedAttribute)(nil)
 
 func (a *delimitedAttribute) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		if _, ctx.Error = w.Write(space); ctx.Error == nil {
-			if _, ctx.Error = w.Write(a.name); ctx.Error == nil {
-				if _, ctx.Error = w.Write(attStart); ctx.Error == nil {
-					something := false
-					for _, v := range a.values {
-						if something {
-							if _, ctx.Error = w.Write(a.delimiter); ctx.Error != nil {
-								return ctx.Error
-							}
-						}
-						if something, ctx.Error = v.render(w, ctx); ctx.Error != nil {
-							return ctx.Error
-						}
-					}
-					_, ctx.Error = w.Write(attEnd)
-				}
-			}
+	ctx.write(space)
+	ctx.write(a.name)
+	ctx.write(attStart)
+	something := false
+	for _, v := range a.values {
+		if something {
+			ctx.write(a.delimiter)
 		}
+		something, _ = v.render(ctx)
 	}
+	ctx.write(attEnd)
 	return ctx.Error
 }
 
@@ -144,7 +145,25 @@ func (a *delimitedAttribute) getValues() []value {
 	return a.values
 }
 
-func DelimitedAttribute(name []byte, delimiter []byte, values ...any) Node {
+// DelimitedAttribute creates a new delimited attribute Node
+//
+// examples of delimited attributes are Class() and Style()
+//
+// when delimited attributes are specified multiple times for an element - the final attribute
+// appears only once - but with the values concatenated with the delimiter
+//
+// the name is checked to ensure it's a valid name - returns nil if the name is invalid
+// (or panics if PanicOnInvalidName is true)
+func DelimitedAttribute(name string, delimiter string, values ...any) Node {
+	if htmlTagRegex.MatchString(name) {
+		return newDelimitedAttribute([]byte(name), []byte(delimiter), values...)
+	} else if PanicOnInvalidName {
+		panic("invalid html attribute name: " + name)
+	}
+	return nil
+}
+
+func newDelimitedAttribute(name []byte, delimiter []byte, values ...any) Node {
 	result := &delimitedAttribute{
 		name:      name,
 		delimiter: delimiter,

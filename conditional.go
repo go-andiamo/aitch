@@ -15,9 +15,11 @@ type conditional struct {
 
 func (c *conditional) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil && c.fn(ctx) {
+	if c.fn(ctx) {
 		for _, n := range c.nodes {
 			if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
 				break
@@ -35,6 +37,7 @@ func (c *conditional) Name() string {
 	return "#conditional"
 }
 
+// Conditional creates a new conditional Node
 func Conditional(fn ConditionalFunc, nodes ...Node) Node {
 	if fn == nil {
 		panic("conditional function is nil")

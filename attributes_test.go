@@ -7,14 +7,14 @@ import (
 
 func TestAsync(t *testing.T) {
 	a := Async()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "async", a.Name())
 }
 
 func TestAutoFocus(t *testing.T) {
 	a := AutoFocus()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "autofocus", a.Name())
 }
@@ -28,14 +28,14 @@ func TestAutoPlay(t *testing.T) {
 
 func TestChecked(t *testing.T) {
 	a := Checked()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "checked", a.Name())
 }
 
 func TestControls(t *testing.T) {
 	a := Controls()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "controls", a.Name())
 }
@@ -58,14 +58,14 @@ func TestDateTime(t *testing.T) {
 
 func TestDefer(t *testing.T) {
 	a := Defer()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "defer", a.Name())
 }
 
 func TestDisabled(t *testing.T) {
 	a := Disabled()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "disabled", a.Name())
 }
@@ -88,49 +88,49 @@ func TestDraggable(t *testing.T) {
 
 func TestLoop(t *testing.T) {
 	a := Loop()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "loop", a.Name())
 }
 
 func TestMultiple(t *testing.T) {
 	a := Multiple()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "multiple", a.Name())
 }
 
 func TestMuted(t *testing.T) {
 	a := Muted()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "muted", a.Name())
 }
 
 func TestPlaysInline(t *testing.T) {
 	a := PlaysInline()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "playsinline", a.Name())
 }
 
 func TestReadOnly(t *testing.T) {
 	a := ReadOnly()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "readonly", a.Name())
 }
 
 func TestRequired(t *testing.T) {
 	a := Required()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "required", a.Name())
 }
 
 func TestSelected(t *testing.T) {
 	a := Selected()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "selected", a.Name())
 }
@@ -231,6 +231,14 @@ func TestContent(t *testing.T) {
 	require.Equal(t, 1, len(a.(*attribute).values))
 }
 
+func TestContentEditable(t *testing.T) {
+	a := ContentEditable(true)
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "contenteditable", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
 func TestData(t *testing.T) {
 	a := Data("foo", "foo")
 	require.IsType(t, &attribute{}, a)
@@ -273,14 +281,14 @@ func TestFormAttr(t *testing.T) {
 
 func TestNoValidate(t *testing.T) {
 	a := NoValidate()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "novalidate", a.Name())
 }
 
 func TestFormNoValidate(t *testing.T) {
 	a := FormNoValidate()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "formnovalidate", a.Name())
 }
@@ -295,7 +303,7 @@ func TestHeight(t *testing.T) {
 
 func TestHidden(t *testing.T) {
 	a := Hidden()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "hidden", a.Name())
 }
@@ -590,70 +598,70 @@ func TestWidth(t *testing.T) {
 
 func TestAllowFullScreen(t *testing.T) {
 	a := AllowFullScreen()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "allowfullscreen", a.Name())
 }
 
 func TestDefault(t *testing.T) {
 	a := Default()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "default", a.Name())
 }
 
 func TestInert(t *testing.T) {
 	a := Inert()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "inert", a.Name())
 }
 
 func TestIsMap(t *testing.T) {
 	a := IsMap()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "ismap", a.Name())
 }
 
 func TestItemScope(t *testing.T) {
 	a := ItemScope()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "itemscope", a.Name())
 }
 
 func TestNoModule(t *testing.T) {
 	a := NoModule()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "nomodule", a.Name())
 }
 
 func TestOpen(t *testing.T) {
 	a := Open()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "open", a.Name())
 }
 
 func TestReversed(t *testing.T) {
 	a := Reversed()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "reversed", a.Name())
 }
 
 func TestSpellcheck(t *testing.T) {
 	a := Spellcheck()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "spellcheck", a.Name())
 }
 
 func TestTranslate(t *testing.T) {
 	a := Translate()
-	require.IsType(t, &emptyAttribute{}, a)
+	require.IsType(t, &booleanAttribute{}, a)
 	require.Equal(t, AttributeNode, a.Type())
 	require.Equal(t, "translate", a.Name())
 }

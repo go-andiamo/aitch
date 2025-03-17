@@ -11,7 +11,7 @@ import (
 func TestValue_Render(t *testing.T) {
 	v := value{[]byte("foo"), nil}
 	var w bytes.Buffer
-	ok, err := v.render(&w, &Context{})
+	ok, err := v.render(&Context{w: &w})
 	require.NoError(t, err)
 	assert.True(t, ok)
 	assert.Equal(t, "foo", w.String())
@@ -22,7 +22,7 @@ func TestValue_Render_Dynamic(t *testing.T) {
 		return []byte("foo")
 	}}
 	var w bytes.Buffer
-	ok, err := v.render(&w, &Context{})
+	ok, err := v.render(&Context{w: &w})
 	require.NoError(t, err)
 	assert.True(t, ok)
 	assert.Equal(t, "foo", w.String())
@@ -31,7 +31,7 @@ func TestValue_Render_Dynamic(t *testing.T) {
 func TestValue_Render_Empty(t *testing.T) {
 	v := value{}
 	var w bytes.Buffer
-	ok, err := v.render(&w, &Context{})
+	ok, err := v.render(&Context{w: &w})
 	require.NoError(t, err)
 	assert.False(t, ok)
 	assert.Equal(t, 0, w.Len())
@@ -98,16 +98,18 @@ func TestNewValue_DynamicKey(t *testing.T) {
 	assert.NotNil(t, vs[0].dynamicFunc)
 
 	var w bytes.Buffer
-	ok, err := vs[0].render(&w, &Context{
+	ok, err := vs[0].render(&Context{
 		Data: map[string]any{"foo": "bar"},
+		w:    &w,
 	})
 	require.NoError(t, err)
 	assert.True(t, ok)
 	assert.Equal(t, "bar", w.String())
 
 	w = bytes.Buffer{}
-	ok, err = vs[0].render(&w, &Context{
+	ok, err = vs[0].render(&Context{
 		Data: map[string]any{},
+		w:    &w,
 	})
 	require.NoError(t, err)
 	assert.False(t, ok)

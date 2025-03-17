@@ -3,7 +3,6 @@ package aitch
 import (
 	"bytes"
 	"fmt"
-	"io"
 	"strconv"
 	"strings"
 )
@@ -17,13 +16,13 @@ type value struct {
 	dynamicFunc DynamicFunc
 }
 
-func (v value) render(w io.Writer, ctx *Context) (bool, error) {
+func (v value) render(ctx *Context) (bool, error) {
 	var l int
 	if v.dynamicFunc != nil {
 		data := v.dynamicFunc(ctx)
-		l, ctx.Error = w.Write(data)
+		l, ctx.Error = ctx.w.Write(data)
 	} else {
-		l, ctx.Error = w.Write(v.value)
+		l, ctx.Error = ctx.w.Write(v.value)
 	}
 	return l > 0, ctx.Error
 }

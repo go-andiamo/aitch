@@ -9,19 +9,15 @@ type document struct {
 
 func (d *document) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		if d.prologue != nil {
-			if ctx.Error = d.prologue.Render(w, ctx); ctx.Error != nil {
-				return ctx.Error
-			}
-		}
-		for _, n := range d.contents {
-			if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
-				return ctx.Error
-			}
-		}
+	if d.prologue != nil {
+		_ = d.prologue.Render(w, ctx)
+	}
+	for _, n := range d.contents {
+		_ = n.Render(w, ctx)
 	}
 	return ctx.Error
 }
@@ -34,6 +30,7 @@ func (d *document) Name() string {
 	return "#document"
 }
 
+// Document creates a new HTML document Node
 func Document(lang any, head []Node, body []Node) Node {
 	var langAtt Node
 	if lang != nil {

@@ -11,18 +11,15 @@ var _ valuesNode = (*comment)(nil)
 
 func (c *comment) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		if _, ctx.Error = w.Write(openComment); ctx.Error == nil {
-			for _, v := range c.values {
-				if _, ctx.Error = v.render(w, ctx); ctx.Error != nil {
-					return ctx.Error
-				}
-			}
-			_, ctx.Error = w.Write(closeComment)
-		}
+	ctx.write(openComment)
+	for _, v := range c.values {
+		_, _ = v.render(ctx)
 	}
+	ctx.write(closeComment)
 	return ctx.Error
 }
 

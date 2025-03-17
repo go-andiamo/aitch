@@ -13,6 +13,7 @@ func TestFragment(t *testing.T) {
 	assert.Equal(t, "#fragment", txt.Name())
 	rv := txt.(*fragment)
 	assert.Equal(t, 2, len(rv.values))
+	assert.Equal(t, 2, len(rv.getValues()))
 }
 
 func TestFragment_Render(t *testing.T) {
@@ -23,6 +24,6 @@ func TestFragment_Render(t *testing.T) {
 	assert.Equal(t, "foobar", w.String())
 
 	ew := &errorWriter{}
-	err = txt.Render(ew, nil)
+	err = txt.Render(ew, &Context{})
 	require.Error(t, err)
 }

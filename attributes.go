@@ -1,11 +1,11 @@
 package aitch
 
 func Async() Node {
-	return newEmptyAttribute(attrAsync)
+	return newBooleanAttribute(attrAsync)
 }
 
 func AutoFocus() Node {
-	return newEmptyAttribute(attrAutofocus)
+	return newBooleanAttribute(attrAutofocus)
 }
 
 func AutoPlay() Node {
@@ -13,11 +13,11 @@ func AutoPlay() Node {
 }
 
 func Checked() Node {
-	return newEmptyAttribute(attrChecked)
+	return newBooleanAttribute(attrChecked)
 }
 
 func Controls() Node {
-	return newEmptyAttribute(attrControls)
+	return newBooleanAttribute(attrControls)
 }
 
 func CrossOrigin(v ...any) Node {
@@ -29,11 +29,11 @@ func DateTime(v ...any) Node {
 }
 
 func Defer() Node {
-	return newEmptyAttribute(attrDefer)
+	return newBooleanAttribute(attrDefer)
 }
 
 func Disabled() Node {
-	return newEmptyAttribute(attrDisabled)
+	return newBooleanAttribute(attrDisabled)
 }
 
 func Download(v ...any) Node {
@@ -45,31 +45,31 @@ func Draggable(v ...any) Node {
 }
 
 func Loop() Node {
-	return newEmptyAttribute(attrLoop)
+	return newBooleanAttribute(attrLoop)
 }
 
 func Multiple() Node {
-	return newEmptyAttribute(attrMultiple)
+	return newBooleanAttribute(attrMultiple)
 }
 
 func Muted() Node {
-	return newEmptyAttribute(attrMuted)
+	return newBooleanAttribute(attrMuted)
 }
 
 func PlaysInline() Node {
-	return newEmptyAttribute(attrPlaysinline)
+	return newBooleanAttribute(attrPlaysinline)
 }
 
 func ReadOnly() Node {
-	return newEmptyAttribute(attrReadonly)
+	return newBooleanAttribute(attrReadonly)
 }
 
 func Required() Node {
-	return newEmptyAttribute(attrRequired)
+	return newBooleanAttribute(attrRequired)
 }
 
 func Selected() Node {
-	return newEmptyAttribute(attrSelected)
+	return newBooleanAttribute(attrSelected)
 }
 
 func Accept(v ...any) Node {
@@ -105,7 +105,7 @@ func CiteAttr(v ...any) Node {
 }
 
 func Class(v ...any) Node {
-	return DelimitedAttribute(attrClass, space, v...)
+	return newDelimitedAttribute(attrClass, space, v...)
 }
 
 func Cols(v ...any) Node {
@@ -118,6 +118,10 @@ func ColSpan(v ...any) Node {
 
 func Content(v ...any) Node {
 	return newAttribute(attrContent, v...)
+}
+
+func ContentEditable(v ...any) Node {
+	return newAttribute(attrContenteditable, v...)
 }
 
 func Dir(v ...any) Node {
@@ -142,11 +146,11 @@ func FormAttr(v ...any) Node {
 }
 
 func NoValidate() Node {
-	return newEmptyAttribute(attrNovalidate)
+	return newBooleanAttribute(attrNovalidate)
 }
 
 func FormNoValidate() Node {
-	return newEmptyAttribute(attrFormnovalidate)
+	return newBooleanAttribute(attrFormnovalidate)
 }
 
 func Height(v ...any) Node {
@@ -154,7 +158,7 @@ func Height(v ...any) Node {
 }
 
 func Hidden() Node {
-	return newEmptyAttribute(attrHidden)
+	return newBooleanAttribute(attrHidden)
 }
 
 func Href(v ...any) Node {
@@ -274,7 +278,7 @@ func Step(v ...any) Node {
 }
 
 func Style(v ...any) Node {
-	return DelimitedAttribute(attrStyle, stylesDelim, v...)
+	return newDelimitedAttribute(attrStyle, stylesDelim, v...)
 }
 
 func TabIndex(v ...any) Node {
@@ -302,42 +306,42 @@ func Width(v ...any) Node {
 }
 
 func AllowFullScreen() Node {
-	return newEmptyAttribute(attrAllowfullscreen)
+	return newBooleanAttribute(attrAllowfullscreen)
 }
 func Default() Node {
-	return newEmptyAttribute(attrDefault)
+	return newBooleanAttribute(attrDefault)
 }
 
 func Inert() Node {
-	return newEmptyAttribute(attrInert)
+	return newBooleanAttribute(attrInert)
 }
 
 func IsMap() Node {
-	return newEmptyAttribute(attrIsmap)
+	return newBooleanAttribute(attrIsmap)
 }
 
 func ItemScope() Node {
-	return newEmptyAttribute(attrItemscope)
+	return newBooleanAttribute(attrItemscope)
 }
 
 func NoModule() Node {
-	return newEmptyAttribute(attrNomodule)
+	return newBooleanAttribute(attrNomodule)
 }
 
 func Open() Node {
-	return newEmptyAttribute(attrOpen)
+	return newBooleanAttribute(attrOpen)
 }
 
 func Reversed() Node {
-	return newEmptyAttribute(attrReversed)
+	return newBooleanAttribute(attrReversed)
 }
 
 func Spellcheck() Node {
-	return newEmptyAttribute(attrSpellcheck)
+	return newBooleanAttribute(attrSpellcheck)
 }
 
 func Translate() Node {
-	return newEmptyAttribute(attrTranslate)
+	return newBooleanAttribute(attrTranslate)
 }
 
 func AriaAtomic(v ...any) Node {
@@ -705,6 +709,7 @@ var (
 	attrCols                = []byte("cols")
 	attrColspan             = []byte("colspan")
 	attrContent             = []byte("content")
+	attrContenteditable     = []byte("contenteditable")
 	attrControls            = []byte("controls")
 	attrCrossorigin         = []byte("crossorigin")
 	attrData                = []byte("data-")

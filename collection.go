@@ -8,14 +8,14 @@ type collection struct {
 
 func (c *collection) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		for _, n := range c.nodes {
-			if n.Type() != AttributeNode {
-				if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
-					return ctx.Error
-				}
+	for _, n := range c.nodes {
+		if n.Type() != AttributeNode {
+			if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
+				return ctx.Error
 			}
 		}
 	}
@@ -30,6 +30,7 @@ func (c *collection) Name() string {
 	return "#collection"
 }
 
+// Collection creates a new Node collection
 func Collection(nodes ...Node) Node {
 	result := &collection{
 		nodes: make([]Node, 0, len(nodes)),

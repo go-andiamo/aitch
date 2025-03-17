@@ -21,14 +21,12 @@ var _ valuesNode = (*fragment)(nil)
 
 func (f *fragment) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
-		ctx = defaultContext()
+		ctx = defaultContext(w)
+	} else {
+		ctx.w = w
 	}
-	if ctx.Error == nil {
-		for _, v := range f.values {
-			if _, ctx.Error = v.render(w, ctx); ctx.Error != nil {
-				return ctx.Error
-			}
-		}
+	for _, v := range f.values {
+		_, _ = v.render(ctx)
 	}
 	return ctx.Error
 }

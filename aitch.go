@@ -28,11 +28,19 @@ type Context struct {
 	Error error
 	// Data is the data that may be referenced during rendering to provide dynamic content
 	Data map[string]any
+	w    io.Writer
 }
 
-func defaultContext() *Context {
+func (c *Context) write(data []byte) {
+	if c.Error == nil {
+		_, c.Error = c.w.Write(data)
+	}
+}
+
+func defaultContext(w io.Writer) *Context {
 	return &Context{
 		Data: make(map[string]any),
+		w:    w,
 	}
 }
 
