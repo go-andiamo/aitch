@@ -444,6 +444,250 @@ func AriaValueText(v ...any) Node {
 	return newAttribute(attrAriaValuetext, v...)
 }
 
+func OnAbort(v ...any) Node {
+	return newAttribute(attrOnAbort, v...)
+}
+
+func OnBeforeUnload(v ...any) Node {
+	return newAttribute(attrOnBeforeUnload, v...)
+}
+
+func OnBlur(v ...any) Node {
+	return newAttribute(attrOnBlur, v...)
+}
+
+func OnCanPlay(v ...any) Node {
+	return newAttribute(attrOnCanPlay, v...)
+}
+
+func OnCanPlayThrough(v ...any) Node {
+	return newAttribute(attrOnCanPlayThrough, v...)
+}
+
+func OnChange(v ...any) Node {
+	return newAttribute(attrOnChange, v...)
+}
+
+func OnClick(v ...any) Node {
+	return newAttribute(attrOnClick, v...)
+}
+
+func OnContextMenu(v ...any) Node {
+	return newAttribute(attrOnContextMenu, v...)
+}
+
+func OnCopy(v ...any) Node {
+	return newAttribute(attrOnCopy, v...)
+}
+
+func OnCut(v ...any) Node {
+	return newAttribute(attrOnCut, v...)
+}
+
+func OnDblClick(v ...any) Node {
+	return newAttribute(attrOnDblClick, v...)
+}
+
+func OnDrag(v ...any) Node {
+	return newAttribute(attrOnDrag, v...)
+}
+
+func OnDragEnd(v ...any) Node {
+	return newAttribute(attrOnDragEnd, v...)
+}
+
+func OnDragEnter(v ...any) Node {
+	return newAttribute(attrOnDragEnter, v...)
+}
+
+func OnDragLeave(v ...any) Node {
+	return newAttribute(attrOnDragLeave, v...)
+}
+
+func OnDragOver(v ...any) Node {
+	return newAttribute(attrOnDragOver, v...)
+}
+
+func OnDragStart(v ...any) Node {
+	return newAttribute(attrOnDragStart, v...)
+}
+
+func OnDrop(v ...any) Node {
+	return newAttribute(attrOnDrop, v...)
+}
+
+func OnDurationChange(v ...any) Node {
+	return newAttribute(attrOnDurationChange, v...)
+}
+
+func OnEnded(v ...any) Node {
+	return newAttribute(attrOnEnded, v...)
+}
+
+func OnError(v ...any) Node {
+	return newAttribute(attrOnError, v...)
+}
+
+func OnFocus(v ...any) Node {
+	return newAttribute(attrOnFocus, v...)
+}
+
+func OnHashChange(v ...any) Node {
+	return newAttribute(attrOnHashChange, v...)
+}
+
+func OnInput(v ...any) Node {
+	return newAttribute(attrOnInput, v...)
+}
+
+func OnInvalid(v ...any) Node {
+	return newAttribute(attrOnInvalid, v...)
+}
+
+func OnKeyDown(v ...any) Node {
+	return newAttribute(attrOnKeyDown, v...)
+}
+
+func OnKeyPress(v ...any) Node {
+	return newAttribute(attrOnKeyPress, v...)
+}
+
+func OnKeyUp(v ...any) Node {
+	return newAttribute(attrOnKeyUp, v...)
+}
+
+func OnLoad(v ...any) Node {
+	return newAttribute(attrOnLoad, v...)
+}
+
+func OnLoadedData(v ...any) Node {
+	return newAttribute(attrOnLoadedData, v...)
+}
+
+func OnLoadedMetadata(v ...any) Node {
+	return newAttribute(attrOnLoadedMetadata, v...)
+}
+
+func OnMouseDown(v ...any) Node {
+	return newAttribute(attrOnMouseDown, v...)
+}
+
+func OnMouseEnter(v ...any) Node {
+	return newAttribute(attrOnMouseEnter, v...)
+}
+
+func OnMouseLeave(v ...any) Node {
+	return newAttribute(attrOnMouseLeave, v...)
+}
+
+func OnMouseMove(v ...any) Node {
+	return newAttribute(attrOnMouseMove, v...)
+}
+
+func OnMouseOut(v ...any) Node {
+	return newAttribute(attrOnMouseOut, v...)
+}
+
+func OnMouseOver(v ...any) Node {
+	return newAttribute(attrOnMouseOver, v...)
+}
+
+func OnMouseUp(v ...any) Node {
+	return newAttribute(attrOnMouseUp, v...)
+}
+
+func OnPageHide(v ...any) Node {
+	return newAttribute(attrOnPageHide, v...)
+}
+
+func OnPageShow(v ...any) Node {
+	return newAttribute(attrOnPageShow, v...)
+}
+
+func OnPaste(v ...any) Node {
+	return newAttribute(attrOnPaste, v...)
+}
+
+func OnPause(v ...any) Node {
+	return newAttribute(attrOnPause, v...)
+}
+
+func OnPlay(v ...any) Node {
+	return newAttribute(attrOnPlay, v...)
+}
+
+func OnPlaying(v ...any) Node {
+	return newAttribute(attrOnPlaying, v...)
+}
+
+func OnPopState(v ...any) Node {
+	return newAttribute(attrOnPopState, v...)
+}
+
+func OnProgress(v ...any) Node {
+	return newAttribute(attrOnProgress, v...)
+}
+
+func OnRateChange(v ...any) Node {
+	return newAttribute(attrOnRateChange, v...)
+}
+
+func OnReset(v ...any) Node {
+	return newAttribute(attrOnReset, v...)
+}
+
+func OnResize(v ...any) Node {
+	return newAttribute(attrOnResize, v...)
+}
+
+func OnScroll(v ...any) Node {
+	return newAttribute(attrOnScroll, v...)
+}
+
+func OnSeeked(v ...any) Node {
+	return newAttribute(attrOnSeeked, v...)
+}
+
+func OnSeeking(v ...any) Node {
+	return newAttribute(attrOnSeeking, v...)
+}
+
+func OnSelect(v ...any) Node {
+	return newAttribute(attrOnSelect, v...)
+}
+
+func OnStalled(v ...any) Node {
+	return newAttribute(attrOnStalled, v...)
+}
+
+func OnSubmit(v ...any) Node {
+	return newAttribute(attrOnSubmit, v...)
+}
+
+func OnSuspend(v ...any) Node {
+	return newAttribute(attrOnSuspend, v...)
+}
+
+func OnTimeUpdate(v ...any) Node {
+	return newAttribute(attrOnTimeUpdate, v...)
+}
+
+func OnToggle(v ...any) Node {
+	return newAttribute(attrOnToggle, v...)
+}
+
+func OnUnload(v ...any) Node {
+	return newAttribute(attrOnUnload, v...)
+}
+
+func OnVolumeChange(v ...any) Node {
+	return newAttribute(attrOnVolumeChange, v...)
+}
+
+func OnWaiting(v ...any) Node {
+	return newAttribute(attrOnWaiting, v...)
+}
+
 var (
 	attrAccept              = []byte("accept")
 	attrAction              = []byte("action")
@@ -556,4 +800,65 @@ var (
 	attrAriaValuemin        = []byte("aria-valuemin")
 	attrAriaValuenow        = []byte("aria-valuenow")
 	attrAriaValuetext       = []byte("aria-valuetext")
+	attrOnAbort             = []byte("onabort")
+	attrOnBeforeUnload      = []byte("onbeforeunload")
+	attrOnBlur              = []byte("onblur")
+	attrOnCanPlay           = []byte("oncanplay")
+	attrOnCanPlayThrough    = []byte("oncanplaythrough")
+	attrOnChange            = []byte("onchange")
+	attrOnClick             = []byte("onclick")
+	attrOnContextMenu       = []byte("oncontextmenu")
+	attrOnCopy              = []byte("oncopy")
+	attrOnCut               = []byte("oncut")
+	attrOnDblClick          = []byte("ondblclick")
+	attrOnDrag              = []byte("ondrag")
+	attrOnDragEnd           = []byte("ondragend")
+	attrOnDragEnter         = []byte("ondragenter")
+	attrOnDragLeave         = []byte("ondragleave")
+	attrOnDragOver          = []byte("ondragover")
+	attrOnDragStart         = []byte("ondragstart")
+	attrOnDrop              = []byte("ondrop")
+	attrOnDurationChange    = []byte("ondurationchange")
+	attrOnEnded             = []byte("onended")
+	attrOnError             = []byte("onerror")
+	attrOnFocus             = []byte("onfocus")
+	attrOnHashChange        = []byte("onhashchange")
+	attrOnInput             = []byte("oninput")
+	attrOnInvalid           = []byte("oninvalid")
+	attrOnKeyDown           = []byte("onkeydown")
+	attrOnKeyPress          = []byte("onkeypress")
+	attrOnKeyUp             = []byte("onkeyup")
+	attrOnLoad              = []byte("onload")
+	attrOnLoadedData        = []byte("onloadeddata")
+	attrOnLoadedMetadata    = []byte("onloadedmetadata")
+	attrOnMouseDown         = []byte("onmousedown")
+	attrOnMouseEnter        = []byte("onmouseenter")
+	attrOnMouseLeave        = []byte("onmouseleave")
+	attrOnMouseMove         = []byte("onmousemove")
+	attrOnMouseOut          = []byte("onmouseout")
+	attrOnMouseOver         = []byte("onmouseover")
+	attrOnMouseUp           = []byte("onmouseup")
+	attrOnPageHide          = []byte("onpagehide")
+	attrOnPageShow          = []byte("onpageshow")
+	attrOnPaste             = []byte("onpaste")
+	attrOnPause             = []byte("onpause")
+	attrOnPlay              = []byte("onplay")
+	attrOnPlaying           = []byte("onplaying")
+	attrOnPopState          = []byte("onpopstate")
+	attrOnProgress          = []byte("onprogress")
+	attrOnRateChange        = []byte("onratechange")
+	attrOnReset             = []byte("onreset")
+	attrOnResize            = []byte("onresize")
+	attrOnScroll            = []byte("onscroll")
+	attrOnSeeked            = []byte("onseeked")
+	attrOnSeeking           = []byte("onseeking")
+	attrOnSelect            = []byte("onselect")
+	attrOnStalled           = []byte("onstalled")
+	attrOnSubmit            = []byte("onsubmit")
+	attrOnSuspend           = []byte("onsuspend")
+	attrOnTimeUpdate        = []byte("ontimeupdate")
+	attrOnToggle            = []byte("ontoggle")
+	attrOnUnload            = []byte("onunload")
+	attrOnVolumeChange      = []byte("onvolumechange")
+	attrOnWaiting           = []byte("onwaiting")
 )

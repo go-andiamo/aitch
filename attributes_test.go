@@ -865,3 +865,491 @@ func TestAriaValueText(t *testing.T) {
 	require.Equal(t, "aria-valuetext", a.Name())
 	require.Equal(t, 1, len(a.(*attribute).values))
 }
+
+func TestOnAbort(t *testing.T) {
+	a := OnAbort("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onabort", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnBeforeUnload(t *testing.T) {
+	a := OnBeforeUnload("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onbeforeunload", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnBlur(t *testing.T) {
+	a := OnBlur("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onblur", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnCanPlay(t *testing.T) {
+	a := OnCanPlay("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "oncanplay", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnCanPlayThrough(t *testing.T) {
+	a := OnCanPlayThrough("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "oncanplaythrough", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnChange(t *testing.T) {
+	a := OnChange("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onchange", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnClick(t *testing.T) {
+	a := OnClick("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onclick", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnContextMenu(t *testing.T) {
+	a := OnContextMenu("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "oncontextmenu", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnCopy(t *testing.T) {
+	a := OnCopy("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "oncopy", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnCut(t *testing.T) {
+	a := OnCut("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "oncut", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDblClick(t *testing.T) {
+	a := OnDblClick("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondblclick", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDrag(t *testing.T) {
+	a := OnDrag("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondrag", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDragEnd(t *testing.T) {
+	a := OnDragEnd("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondragend", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDragEnter(t *testing.T) {
+	a := OnDragEnter("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondragenter", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDragLeave(t *testing.T) {
+	a := OnDragLeave("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondragleave", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDragOver(t *testing.T) {
+	a := OnDragOver("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondragover", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDragStart(t *testing.T) {
+	a := OnDragStart("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondragstart", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDrop(t *testing.T) {
+	a := OnDrop("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondrop", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnDurationChange(t *testing.T) {
+	a := OnDurationChange("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ondurationchange", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnEnded(t *testing.T) {
+	a := OnEnded("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onended", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnError(t *testing.T) {
+	a := OnError("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onerror", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnFocus(t *testing.T) {
+	a := OnFocus("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onfocus", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnHashChange(t *testing.T) {
+	a := OnHashChange("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onhashchange", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnInput(t *testing.T) {
+	a := OnInput("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "oninput", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnInvalid(t *testing.T) {
+	a := OnInvalid("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "oninvalid", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnKeyDown(t *testing.T) {
+	a := OnKeyDown("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onkeydown", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnKeyPress(t *testing.T) {
+	a := OnKeyPress("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onkeypress", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnKeyUp(t *testing.T) {
+	a := OnKeyUp("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onkeyup", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnLoad(t *testing.T) {
+	a := OnLoad("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onload", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnLoadedData(t *testing.T) {
+	a := OnLoadedData("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onloadeddata", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnLoadedMetadata(t *testing.T) {
+	a := OnLoadedMetadata("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onloadedmetadata", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnMouseDown(t *testing.T) {
+	a := OnMouseDown("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onmousedown", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnMouseEnter(t *testing.T) {
+	a := OnMouseEnter("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onmouseenter", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnMouseLeave(t *testing.T) {
+	a := OnMouseLeave("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onmouseleave", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnMouseMove(t *testing.T) {
+	a := OnMouseMove("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onmousemove", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnMouseOut(t *testing.T) {
+	a := OnMouseOut("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onmouseout", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnMouseOver(t *testing.T) {
+	a := OnMouseOver("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onmouseover", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnMouseUp(t *testing.T) {
+	a := OnMouseUp("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onmouseup", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnPageHide(t *testing.T) {
+	a := OnPageHide("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onpagehide", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnPageShow(t *testing.T) {
+	a := OnPageShow("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onpageshow", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnPaste(t *testing.T) {
+	a := OnPaste("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onpaste", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnPause(t *testing.T) {
+	a := OnPause("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onpause", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnPlay(t *testing.T) {
+	a := OnPlay("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onplay", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnPlaying(t *testing.T) {
+	a := OnPlaying("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onplaying", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnPopState(t *testing.T) {
+	a := OnPopState("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onpopstate", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnProgress(t *testing.T) {
+	a := OnProgress("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onprogress", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnRateChange(t *testing.T) {
+	a := OnRateChange("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onratechange", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnReset(t *testing.T) {
+	a := OnReset("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onreset", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnResize(t *testing.T) {
+	a := OnResize("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onresize", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnScroll(t *testing.T) {
+	a := OnScroll("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onscroll", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnSeeked(t *testing.T) {
+	a := OnSeeked("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onseeked", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnSeeking(t *testing.T) {
+	a := OnSeeking("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onseeking", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnSelect(t *testing.T) {
+	a := OnSelect("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onselect", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnStalled(t *testing.T) {
+	a := OnStalled("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onstalled", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnSubmit(t *testing.T) {
+	a := OnSubmit("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onsubmit", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnSuspend(t *testing.T) {
+	a := OnSuspend("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onsuspend", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnTimeUpdate(t *testing.T) {
+	a := OnTimeUpdate("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ontimeupdate", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnToggle(t *testing.T) {
+	a := OnToggle("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "ontoggle", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnUnload(t *testing.T) {
+	a := OnUnload("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onunload", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnVolumeChange(t *testing.T) {
+	a := OnVolumeChange("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onvolumechange", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
+
+func TestOnWaiting(t *testing.T) {
+	a := OnWaiting("foo")
+	require.IsType(t, &attribute{}, a)
+	require.Equal(t, AttributeNode, a.Type())
+	require.Equal(t, "onwaiting", a.Name())
+	require.Equal(t, 1, len(a.(*attribute).values))
+}
