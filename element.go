@@ -8,7 +8,6 @@ func renderAttributes(ctx *Context, attrs []Node, conditionals conditionalAttrib
 			_ = attr.Render(ctx.w, ctx)
 		}
 	} else {
-		panic(len(conditionals))
 		/* TODO
 		1. evaluate all conditional atts to determine the ones applicable
 		2. merge applicable conditional atts with actual atts
@@ -179,32 +178,29 @@ func newVoidElement(name []byte, contents ...Node) Node {
 	return result.addAttributes(attrs)
 }
 
-func attributesAndContents(conditions []ConditionalFunc, nodes []Node) (attributes []Node, condAttrs conditionalAttributes, contents []Node) {
-	attributes = make([]Node, 0, len(nodes))
+func attributesAndContents(conditions []ConditionalFunc, nodes []Node) (attrs []Node, condAttrs conditionalAttributes, contents []Node) {
+	attrs = make([]Node, 0, len(nodes))
 	condAttrs = make(conditionalAttributes, 0, len(nodes))
 	contents = make([]Node, 0, len(nodes))
 	for _, item := range nodes {
 		if item != nil {
-			switch item.Type() {
-			case AttributeNode:
+			if item.Type() == AttributeNode {
 				if len(conditions) > 0 {
 					condAttrs = append(condAttrs, conditionalAttribute{
 						attribute:  item,
 						conditions: conditions,
 					})
 				} else {
-					attributes = append(attributes, item)
+					attrs = append(attrs, item)
 				}
-			case collectionNode:
+			} else {
 				contents = append(contents, item)
-				if cn, ok := item.(*collection); ok {
+				switch cn := item.(type) {
+				case *collection:
 					addA, addCa, _ := attributesAndContents(conditions, cn.nodes)
-					attributes = append(attributes, addA...)
+					attrs = append(attrs, addA...)
 					condAttrs = append(condAttrs, addCa...)
-				}
-			case conditionalNode:
-				contents = append(contents, item)
-				if cn, ok := item.(*conditional); ok {
+				case *conditional:
 					newConditions := append(conditions, cn.fn)
 					for _, a := range cn.attributes {
 						condAttrs = append(condAttrs, conditionalAttribute{
@@ -215,8 +211,6 @@ func attributesAndContents(conditions []ConditionalFunc, nodes []Node) (attribut
 					_, addCa, _ := attributesAndContents(newConditions, cn.nodes)
 					condAttrs = append(condAttrs, addCa...)
 				}
-			default:
-				contents = append(contents, item)
 			}
 		}
 	}
