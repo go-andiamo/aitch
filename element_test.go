@@ -111,19 +111,34 @@ func TestElement_Render_MergedDelimitedAttributes(t *testing.T) {
 }
 
 func TestAttributesAndContents(t *testing.T) {
-	attrs, contents := attributesAndContents([]Node{Class(), P(), Text()})
+	attrs, _, contents := attributesAndContents(nil, []Node{Class(), P(), Text()})
 	assert.Equal(t, 1, len(attrs))
 	assert.Equal(t, 2, len(contents))
 
-	attrs, contents = attributesAndContents([]Node{Collection(Class(), P(), Text())})
+	attrs, _, contents = attributesAndContents(nil, []Node{Collection(Class(), P(), Text())})
 	assert.Equal(t, 1, len(attrs))
 	assert.Equal(t, 1, len(contents))
 
-	attrs, contents = attributesAndContents([]Node{Collection(Collection(Class(), P(), Text()))})
+	attrs, _, contents = attributesAndContents(nil, []Node{Collection(Collection(Class(), P(), Text()))})
 	assert.Equal(t, 1, len(attrs))
 	assert.Equal(t, 1, len(contents))
 
-	attrs, contents = attributesAndContents([]Node{Conditional(func(ctx *Context) bool { return true }, Class(), P(), Text())})
-	//TODO assert.Equal(t, 0, len(attrs))
-	assert.Equal(t, 1, len(contents))
+	attrs, condAttrs, contents := attributesAndContents([]ConditionalFunc{func(ctx *Context) bool { return true }}, []Node{Class(), P(), Text()})
+	assert.Equal(t, 0, len(attrs))
+	assert.Equal(t, 1, len(condAttrs))
+	assert.Equal(t, 2, len(contents))
+}
+
+func TestElement_ConditionalAttrs(t *testing.T) {
+	condA := func(ctx *Context) bool { return true }
+	condB := func(ctx *Context) bool { return false }
+	p := P(Class("a"), Conditional(condA, Class("b"), Conditional(condB, Class("c"))))
+	rv := p.(*element)
+	assert.Equal(t, 1, len(rv.attributes))
+	assert.Equal(t, 2, len(rv.conditionalAttrs))
+	assert.Equal(t, 1, len(rv.conditionalAttrs[0].conditions))
+	assert.True(t, rv.conditionalAttrs[0].conditions[0](nil))
+	assert.Equal(t, 2, len(rv.conditionalAttrs[1].conditions))
+	assert.True(t, rv.conditionalAttrs[1].conditions[0](nil))
+	assert.False(t, rv.conditionalAttrs[1].conditions[1](nil))
 }

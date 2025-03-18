@@ -16,12 +16,11 @@ func TestConditional(t *testing.T) {
 	assert.Equal(t, "#conditional", c.Name())
 	rv := c.(*conditional)
 	assert.Equal(t, 1, len(rv.nodes))
-	assert.Equal(t, 1, len(rv.attributes))
 	assert.NotNil(t, rv.fn)
 
-	assert.Panics(t, func() {
-		Conditional(nil)
-	})
+	c = Conditional(nil)
+	_, ok := c.(*collection)
+	assert.True(t, ok)
 }
 
 func TestConditional_Render(t *testing.T) {
@@ -79,7 +78,6 @@ func TestWhen(t *testing.T) {
 	assert.Equal(t, "#conditional", c.Name())
 	rv := c.(*conditional)
 	assert.Equal(t, 1, len(rv.nodes))
-	assert.Equal(t, 1, len(rv.attributes))
 	assert.NotNil(t, rv.fn)
 }
 

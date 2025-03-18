@@ -2,13 +2,18 @@ package aitch
 
 import "io"
 
-func renderAttributes(ctx *Context, attrs []Node, conditionalAttrs []Node) {
-	if len(conditionalAttrs) == 0 {
+func renderAttributes(ctx *Context, attrs []Node, conditionals conditionalAttributes) {
+	if len(conditionals) == 0 {
 		for _, attr := range attrs {
 			_ = attr.Render(ctx.w, ctx)
 		}
 	} else {
-		//TODO
+		panic(len(conditionals))
+		/* TODO
+		1. evaluate all conditional atts to determine the ones applicable
+		2. merge applicable conditional atts with actual atts
+		3. render final atts
+		*/
 	}
 }
 
@@ -16,7 +21,7 @@ type voidElement struct {
 	name             []byte
 	attributes       []Node
 	attIndices       map[string]int
-	conditionalAttrs []Node
+	conditionalAttrs conditionalAttributes
 }
 
 func (e *voidElement) Render(w io.Writer, ctx *Context) error {
@@ -80,7 +85,7 @@ type element struct {
 	name             []byte
 	attributes       []Node
 	attIndices       map[string]int
-	conditionalAttrs []Node
+	conditionalAttrs conditionalAttributes
 	contents         []Node
 }
 
@@ -152,43 +157,64 @@ func Element(name string, contents ...Node) Node {
 }
 
 func newElement(name []byte, contents ...Node) Node {
-	attrs, children := attributesAndContents(contents)
+	attrs, condAttrs, children := attributesAndContents(nil, contents)
 	result := &element{
-		name:       []byte(name),
-		attributes: make([]Node, 0, len(attrs)),
-		attIndices: make(map[string]int, len(attrs)),
-		contents:   children,
+		name:             name,
+		attributes:       make([]Node, 0, len(attrs)),
+		attIndices:       make(map[string]int, len(attrs)),
+		contents:         children,
+		conditionalAttrs: condAttrs,
 	}
 	return result.addAttributes(attrs)
 }
 
 func newVoidElement(name []byte, contents ...Node) Node {
-	attrs, _ := attributesAndContents(contents)
+	attrs, condAttrs, _ := attributesAndContents(nil, contents)
 	result := &voidElement{
-		name:       []byte(name),
-		attributes: make([]Node, 0, len(attrs)),
-		attIndices: make(map[string]int, len(attrs)),
+		name:             name,
+		attributes:       make([]Node, 0, len(attrs)),
+		attIndices:       make(map[string]int, len(attrs)),
+		conditionalAttrs: condAttrs,
 	}
 	return result.addAttributes(attrs)
 }
 
-func attributesAndContents(nodes []Node) (attributes []Node, contents []Node) {
+func attributesAndContents(conditions []ConditionalFunc, nodes []Node) (attributes []Node, condAttrs conditionalAttributes, contents []Node) {
 	attributes = make([]Node, 0, len(nodes))
+	condAttrs = make(conditionalAttributes, 0, len(nodes))
 	contents = make([]Node, 0, len(nodes))
 	for _, item := range nodes {
 		if item != nil {
 			switch item.Type() {
 			case AttributeNode:
-				attributes = append(attributes, item)
+				if len(conditions) > 0 {
+					condAttrs = append(condAttrs, conditionalAttribute{
+						attribute:  item,
+						conditions: conditions,
+					})
+				} else {
+					attributes = append(attributes, item)
+				}
 			case collectionNode:
 				contents = append(contents, item)
 				if cn, ok := item.(*collection); ok {
-					addA, _ := attributesAndContents(cn.nodes)
+					addA, addCa, _ := attributesAndContents(conditions, cn.nodes)
 					attributes = append(attributes, addA...)
+					condAttrs = append(condAttrs, addCa...)
 				}
 			case conditionalNode:
 				contents = append(contents, item)
-				//TODO more!!!
+				if cn, ok := item.(*conditional); ok {
+					newConditions := append(conditions, cn.fn)
+					for _, a := range cn.attributes {
+						condAttrs = append(condAttrs, conditionalAttribute{
+							attribute:  a,
+							conditions: newConditions,
+						})
+					}
+					_, addCa, _ := attributesAndContents(newConditions, cn.nodes)
+					condAttrs = append(condAttrs, addCa...)
+				}
 			default:
 				contents = append(contents, item)
 			}

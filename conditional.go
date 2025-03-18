@@ -8,10 +8,17 @@ import (
 type ConditionalFunc func(ctx *Context) bool
 
 type conditional struct {
-	attributes []Node
 	nodes      []Node
+	attributes []Node
 	fn         ConditionalFunc
 }
+
+type conditionalAttribute struct {
+	attribute  Node
+	conditions []ConditionalFunc
+}
+
+type conditionalAttributes []conditionalAttribute
 
 func (c *conditional) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {
@@ -38,16 +45,25 @@ func (c *conditional) Name() string {
 }
 
 // Conditional creates a new conditional Node
+//
+// Note: If the fn argument is nil, this will just return a Collection Node
 func Conditional(fn ConditionalFunc, nodes ...Node) Node {
 	if fn == nil {
-		panic("conditional function is nil")
+		return Collection(nodes...)
 	}
-	attrs, children := attributesAndContents(nodes)
-	return &conditional{
-		attributes: attrs,
-		nodes:      children,
+	result := &conditional{
+		nodes:      make([]Node, 0, len(nodes)),
+		attributes: make([]Node, 0, len(nodes)),
 		fn:         fn,
 	}
+	for _, n := range nodes {
+		if n.Type() == AttributeNode {
+			result.attributes = append(result.attributes, n)
+		} else {
+			result.nodes = append(result.nodes, n)
+		}
+	}
+	return result
 }
 
 // When creates a new conditional Node
