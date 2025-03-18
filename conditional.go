@@ -42,7 +42,7 @@ func Conditional(fn ConditionalFunc, nodes ...Node) Node {
 	if fn == nil {
 		panic("conditional function is nil")
 	}
-	attrs, children := attributesAndContents(nodes...)
+	attrs, children := attributesAndContents(nodes)
 	return &conditional{
 		attributes: attrs,
 		nodes:      children,

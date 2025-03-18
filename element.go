@@ -2,21 +2,14 @@ package aitch
 
 import "io"
 
-var voidElements = map[string]struct{}{
-	"area":   {},
-	"base":   {},
-	"br":     {},
-	"col":    {},
-	"embed":  {},
-	"hr":     {},
-	"img":    {},
-	"input":  {},
-	"link":   {},
-	"meta":   {},
-	"param":  {},
-	"source": {},
-	"track":  {},
-	"wbr":    {},
+func renderAttributes(ctx *Context, attrs []Node, conditionalAttrs []Node) {
+	if len(conditionalAttrs) == 0 {
+		for _, attr := range attrs {
+			_ = attr.Render(ctx.w, ctx)
+		}
+	} else {
+		//TODO
+	}
 }
 
 type voidElement struct {
@@ -37,16 +30,6 @@ func (e *voidElement) Render(w io.Writer, ctx *Context) error {
 	renderAttributes(ctx, e.attributes, e.conditionalAttrs)
 	ctx.write(closeAngleBracket)
 	return ctx.Error
-}
-
-func renderAttributes(ctx *Context, attrs []Node, conditionalAttrs []Node) {
-	if len(conditionalAttrs) == 0 {
-		for _, attr := range attrs {
-			_ = attr.Render(ctx.w, ctx)
-		}
-	} else {
-		//TODO
-	}
 }
 
 func (e *voidElement) Type() NodeType {
@@ -75,6 +58,22 @@ func (e *voidElement) addAttributes(attrs []Node) Node {
 		}
 	}
 	return e
+}
+
+// VoidElement creates a new HTML void element Node
+//
+// a void element has no content (other than attributes) and has no closing tag
+//
+// the name is checked to ensure it's a valid name - returns nil if the name is invalid
+// (or panics if PanicOnInvalidName is true)
+func VoidElement(name string, contents ...Node) Node {
+	if !htmlTagRegex.MatchString(name) {
+		if PanicOnInvalidName {
+			panic("invalid html tag name: " + name)
+		}
+		return nil
+	}
+	return newVoidElement([]byte(name), contents...)
 }
 
 type element struct {
@@ -136,6 +135,9 @@ func (e *element) addAttributes(attrs []Node) Node {
 //
 // the name is checked to ensure it's a valid name - returns nil if the name is invalid
 // (or panics if PanicOnInvalidName is true)
+//
+// The name is used to determine whether the element is an HTML void element - you want
+// to specifically create a void element use VoidElement() instead
 func Element(name string, contents ...Node) Node {
 	if !htmlTagRegex.MatchString(name) {
 		if PanicOnInvalidName {
@@ -143,14 +145,14 @@ func Element(name string, contents ...Node) Node {
 		}
 		return nil
 	}
-	if _, void := voidElements[name]; void {
+	if _, void := voidElementNames[name]; void {
 		return newVoidElement([]byte(name), contents...)
 	}
 	return newElement([]byte(name), contents...)
 }
 
 func newElement(name []byte, contents ...Node) Node {
-	attrs, children := attributesAndContents(contents...)
+	attrs, children := attributesAndContents(contents)
 	result := &element{
 		name:       []byte(name),
 		attributes: make([]Node, 0, len(attrs)),
@@ -161,7 +163,7 @@ func newElement(name []byte, contents ...Node) Node {
 }
 
 func newVoidElement(name []byte, contents ...Node) Node {
-	attrs, _ := attributesAndContents(contents...)
+	attrs, _ := attributesAndContents(contents)
 	result := &voidElement{
 		name:       []byte(name),
 		attributes: make([]Node, 0, len(attrs)),
@@ -170,7 +172,7 @@ func newVoidElement(name []byte, contents ...Node) Node {
 	return result.addAttributes(attrs)
 }
 
-func attributesAndContents(nodes ...Node) (attributes []Node, contents []Node) {
+func attributesAndContents(nodes []Node) (attributes []Node, contents []Node) {
 	attributes = make([]Node, 0, len(nodes))
 	contents = make([]Node, 0, len(nodes))
 	for _, item := range nodes {
@@ -181,7 +183,7 @@ func attributesAndContents(nodes ...Node) (attributes []Node, contents []Node) {
 			case collectionNode:
 				contents = append(contents, item)
 				if cn, ok := item.(*collection); ok {
-					addA, _ := attributesAndContents(cn.nodes...)
+					addA, _ := attributesAndContents(cn.nodes)
 					attributes = append(attributes, addA...)
 				}
 			case conditionalNode:
@@ -193,4 +195,21 @@ func attributesAndContents(nodes ...Node) (attributes []Node, contents []Node) {
 		}
 	}
 	return
+}
+
+var voidElementNames = map[string]struct{}{
+	"area":   {},
+	"base":   {},
+	"br":     {},
+	"col":    {},
+	"embed":  {},
+	"hr":     {},
+	"img":    {},
+	"input":  {},
+	"link":   {},
+	"meta":   {},
+	"param":  {},
+	"source": {},
+	"track":  {},
+	"wbr":    {},
 }
