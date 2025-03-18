@@ -35,6 +35,7 @@ func (c *comment) getValues() []value {
 	return c.values
 }
 
+// Comment creates a new comment Node
 func Comment(contents ...any) Node {
 	return &comment{
 		values: newValues(contents...),
