@@ -226,6 +226,14 @@ func TestConditional_Cases(t *testing.T) {
 			node:   P(Class("foo"), Id("a"), Collection(Conditional(trueFn, Collection(A(), Conditional(trueFn, Collection(B(), Id("b"), Class("bar"))))))),
 			expect: `<p class="foo bar" id="b"><a></a><b></b></p>`,
 		},
+		{
+			node:   P(Class("foo"), Conditional(trueFn, Id("a"), Collection(A(), Id("b")))),
+			expect: `<p class="foo" id="b"><a></a></p>`,
+		},
+		{
+			node:   P(Conditional(trueFn, Class("foo"), Conditional(trueFn, Class("bar")))),
+			expect: `<p class="foo bar"></p>`,
+		},
 	}
 	for i, tc := range testCases {
 		t.Run(fmt.Sprintf("[%d]", i+1), func(t *testing.T) {
