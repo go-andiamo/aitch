@@ -2,21 +2,66 @@ package aitch
 
 import "io"
 
-func renderAttributes(ctx *Context, attrs []Node, conditionalAttrs []Node) {
-	if len(conditionalAttrs) == 0 {
-		for _, attr := range attrs {
-			_ = attr.Render(ctx.w, ctx)
+func renderAttributes(ctx *Context, attributes []Node, attIndices map[string]int, conditionals conditionalAttributes) {
+	if len(conditionals) > 0 {
+		if evaluated := conditionals.evaluate(ctx); len(evaluated) > 0 {
+			for name, index := range attIndices {
+				attr := attributes[index]
+				if eAttr, ok := evaluated[name]; ok {
+					switch at := attr.(type) {
+					case *delimitedAttribute:
+						use := &delimitedAttribute{
+							name:      at.name,
+							delimiter: at.delimiter,
+							values:    append([]value{}, at.values...),
+						}
+						for _, e := range eAttr {
+							if et, ok := e.(valuesNode); ok {
+								use.values = append(use.values, et.getValues()...)
+							}
+						}
+						_ = use.Render(ctx.w, ctx)
+					default:
+						_ = eAttr[len(eAttr)-1].Render(ctx.w, ctx)
+					}
+				} else {
+					_ = attr.Render(ctx.w, ctx)
+				}
+			}
+			for name, ca := range evaluated {
+				if _, ok := attIndices[name]; !ok && len(ca) > 0 {
+					first := ca[0]
+					switch at := first.(type) {
+					case *delimitedAttribute:
+						use := &delimitedAttribute{
+							name:      at.name,
+							delimiter: at.delimiter,
+							values:    append([]value{}, at.values...),
+						}
+						for i := 1; i < len(ca); i++ {
+							if et, ok := ca[i].(valuesNode); ok {
+								use.values = append(use.values, et.getValues()...)
+							}
+						}
+						_ = use.Render(ctx.w, ctx)
+					default:
+						_ = ca[len(ca)-1].Render(ctx.w, ctx)
+					}
+				}
+			}
+			return
 		}
-	} else {
-		//TODO
+	}
+	for _, attr := range attributes {
+		_ = attr.Render(ctx.w, ctx)
 	}
 }
 
 type voidElement struct {
-	name             []byte
-	attributes       []Node
-	attIndices       map[string]int
-	conditionalAttrs []Node
+	name         []byte
+	attributes   []Node
+	attIndices   map[string]int
+	conditionals conditionalAttributes
 }
 
 func (e *voidElement) Render(w io.Writer, ctx *Context) error {
@@ -27,7 +72,7 @@ func (e *voidElement) Render(w io.Writer, ctx *Context) error {
 	}
 	ctx.write(openAngleBracket)
 	ctx.write(e.name)
-	renderAttributes(ctx, e.attributes, e.conditionalAttrs)
+	renderAttributes(ctx, e.attributes, e.attIndices, e.conditionals)
 	ctx.write(closeAngleBracket)
 	return ctx.Error
 }
@@ -77,11 +122,11 @@ func VoidElement(name string, contents ...Node) Node {
 }
 
 type element struct {
-	name             []byte
-	attributes       []Node
-	attIndices       map[string]int
-	conditionalAttrs []Node
-	contents         []Node
+	name         []byte
+	attributes   []Node
+	attIndices   map[string]int
+	conditionals conditionalAttributes
+	contents     []Node
 }
 
 func (e *element) Render(w io.Writer, ctx *Context) error {
@@ -92,7 +137,7 @@ func (e *element) Render(w io.Writer, ctx *Context) error {
 	}
 	ctx.write(openAngleBracket)
 	ctx.write(e.name)
-	renderAttributes(ctx, e.attributes, e.conditionalAttrs)
+	renderAttributes(ctx, e.attributes, e.attIndices, e.conditionals)
 	ctx.write(closeAngleBracket)
 	for _, c := range e.contents {
 		_ = c.Render(ctx.w, ctx)
@@ -152,45 +197,61 @@ func Element(name string, contents ...Node) Node {
 }
 
 func newElement(name []byte, contents ...Node) Node {
-	attrs, children := attributesAndContents(contents)
+	attrs, condAttrs, children := attributesAndContents(nil, contents)
 	result := &element{
-		name:       []byte(name),
-		attributes: make([]Node, 0, len(attrs)),
-		attIndices: make(map[string]int, len(attrs)),
-		contents:   children,
+		name:         name,
+		attributes:   make([]Node, 0, len(attrs)),
+		attIndices:   make(map[string]int, len(attrs)),
+		contents:     children,
+		conditionals: condAttrs,
 	}
 	return result.addAttributes(attrs)
 }
 
 func newVoidElement(name []byte, contents ...Node) Node {
-	attrs, _ := attributesAndContents(contents)
+	attrs, condAttrs, _ := attributesAndContents(nil, contents)
 	result := &voidElement{
-		name:       []byte(name),
-		attributes: make([]Node, 0, len(attrs)),
-		attIndices: make(map[string]int, len(attrs)),
+		name:         name,
+		attributes:   make([]Node, 0, len(attrs)),
+		attIndices:   make(map[string]int, len(attrs)),
+		conditionals: condAttrs,
 	}
 	return result.addAttributes(attrs)
 }
 
-func attributesAndContents(nodes []Node) (attributes []Node, contents []Node) {
-	attributes = make([]Node, 0, len(nodes))
+func attributesAndContents(conditions []ConditionalFunc, nodes []Node) (attrs []Node, condAttrs conditionalAttributes, contents []Node) {
+	attrs = make([]Node, 0, len(nodes))
+	condAttrs = make(conditionalAttributes, 0, len(nodes))
 	contents = make([]Node, 0, len(nodes))
 	for _, item := range nodes {
 		if item != nil {
-			switch item.Type() {
-			case AttributeNode:
-				attributes = append(attributes, item)
-			case collectionNode:
-				contents = append(contents, item)
-				if cn, ok := item.(*collection); ok {
-					addA, _ := attributesAndContents(cn.nodes)
-					attributes = append(attributes, addA...)
+			if item.Type() == AttributeNode {
+				if len(conditions) > 0 {
+					condAttrs = append(condAttrs, conditionalAttribute{
+						attribute:  item,
+						conditions: conditions,
+					})
+				} else {
+					attrs = append(attrs, item)
 				}
-			case conditionalNode:
+			} else {
 				contents = append(contents, item)
-				//TODO more!!!
-			default:
-				contents = append(contents, item)
+				switch cn := item.(type) {
+				case *collection:
+					addA, addCa, _ := attributesAndContents(conditions, cn.nodes)
+					attrs = append(attrs, addA...)
+					condAttrs = append(condAttrs, addCa...)
+				case *conditional:
+					newConditions := append(conditions, cn.fn)
+					for _, a := range cn.attributes {
+						condAttrs = append(condAttrs, conditionalAttribute{
+							attribute:  a,
+							conditions: newConditions,
+						})
+					}
+					_, addCa, _ := attributesAndContents(newConditions, cn.nodes)
+					condAttrs = append(condAttrs, addCa...)
+				}
 			}
 		}
 	}
