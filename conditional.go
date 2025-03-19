@@ -18,7 +18,27 @@ type conditionalAttribute struct {
 	conditions []ConditionalFunc
 }
 
+func (a conditionalAttribute) evaluate(ctx *Context) bool {
+	for _, condition := range a.conditions {
+		if !condition(ctx) {
+			return false
+		}
+	}
+	return true
+}
+
 type conditionalAttributes []conditionalAttribute
+
+func (c conditionalAttributes) evaluate(ctx *Context) map[string][]Node {
+	result := make(map[string][]Node, len(c))
+	for _, a := range c {
+		if a.evaluate(ctx) {
+			name := a.attribute.Name()
+			result[name] = append(result[name], a.attribute)
+		}
+	}
+	return result
+}
 
 func (c *conditional) Render(w io.Writer, ctx *Context) error {
 	if ctx == nil {

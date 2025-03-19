@@ -199,11 +199,11 @@ func TestConditional_Cases(t *testing.T) {
 			expect: `<p id="bar"><a></a></p>`,
 		},
 		{
-			node:   P(Class("foo"), Conditional(trueFn, Class("bar"), A(), Conditional(trueFn, Id("baz")))),
-			expect: `<p class="foo bar baz"><a></a></p>`,
+			node:   P(Class("foo"), Conditional(trueFn, Class("bar"), A(), Conditional(trueFn, Id("a")))),
+			expect: `<p class="foo bar" id="a"><a></a></p>`,
 		},
 		{
-			node:   P(Class("foo"), Conditional(trueFn, Class("bar"), A(), Conditional(falseFn, Id("baz")))),
+			node:   P(Class("foo"), Conditional(trueFn, Class("bar"), A(), Conditional(falseFn, Id("a")))),
 			expect: `<p class="foo bar"><a></a></p>`,
 		},
 		{
