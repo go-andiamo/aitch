@@ -3,13 +3,14 @@ package aitch
 import (
 	"bytes"
 	"fmt"
+	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
 func TestConditional(t *testing.T) {
-	c := Conditional(func(ctx *Context) bool {
+	c := Conditional(func(ctx *context.Context) bool {
 		return true
 	}, P(), Class("foo"))
 	assert.Equal(t, conditionalNode, c.Type())
@@ -25,7 +26,7 @@ func TestConditional(t *testing.T) {
 
 func TestConditional_Render(t *testing.T) {
 	condition := true
-	c := Conditional(func(ctx *Context) bool {
+	c := Conditional(func(ctx *context.Context) bool {
 		return condition
 	}, P())
 
@@ -49,8 +50,8 @@ func TestConditional_Render(t *testing.T) {
 func TestConditional_Render_NestedElements(t *testing.T) {
 	conditionA := true
 	conditionB := true
-	fnA := func(ctx *Context) bool { return conditionA }
-	fnB := func(ctx *Context) bool { return conditionB }
+	fnA := func(ctx *context.Context) bool { return conditionA }
+	fnB := func(ctx *context.Context) bool { return conditionB }
 	c := Conditional(fnA, P(Text("A")), Conditional(fnB, P(Text("B"))))
 
 	var w bytes.Buffer
@@ -84,7 +85,7 @@ func TestWhen(t *testing.T) {
 func TestWhen_Render(t *testing.T) {
 	c := When("foo", P())
 	var w bytes.Buffer
-	ctx := &Context{}
+	ctx := &context.Context{}
 	err := c.Render(&w, ctx)
 	require.NoError(t, err)
 	assert.Equal(t, 0, w.Len())
@@ -128,8 +129,8 @@ func TestWhen_Render(t *testing.T) {
 }
 
 func TestConditional_Cases(t *testing.T) {
-	trueFn := func(ctx *Context) bool { return true }
-	falseFn := func(ctx *Context) bool { return false }
+	trueFn := func(ctx *context.Context) bool { return true }
+	falseFn := func(ctx *context.Context) bool { return false }
 	testCases := []struct {
 		node   Node
 		expect string

@@ -2,6 +2,7 @@ package aitch
 
 import (
 	"bytes"
+	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -36,7 +37,7 @@ func TestVoidElement_Render(t *testing.T) {
 	assert.Equal(t, "<foo class=\"a\">", w.String())
 
 	ew := &errorWriter{}
-	err = e.Render(ew, &Context{})
+	err = e.Render(ew, &context.Context{})
 	require.Error(t, err)
 }
 
@@ -92,7 +93,7 @@ func TestElement_Render(t *testing.T) {
 	assert.Equal(t, "<foo class=\"a\">b</foo>", w.String())
 
 	ew := &errorWriter{}
-	err = e.Render(ew, &Context{})
+	err = e.Render(ew, &context.Context{})
 	require.Error(t, err)
 }
 
@@ -123,15 +124,15 @@ func TestAttributesAndContents(t *testing.T) {
 	assert.Equal(t, 1, len(attrs))
 	assert.Equal(t, 1, len(contents))
 
-	attrs, condAttrs, contents := attributesAndContents([]ConditionalFunc{func(ctx *Context) bool { return true }}, []Node{Class(), P(), Text()})
+	attrs, condAttrs, contents := attributesAndContents([]ConditionalFunc{func(ctx *context.Context) bool { return true }}, []Node{Class(), P(), Text()})
 	assert.Equal(t, 0, len(attrs))
 	assert.Equal(t, 1, len(condAttrs))
 	assert.Equal(t, 2, len(contents))
 }
 
 func TestElement_ConditionalAttrs(t *testing.T) {
-	condA := func(ctx *Context) bool { return true }
-	condB := func(ctx *Context) bool { return false }
+	condA := func(ctx *context.Context) bool { return true }
+	condB := func(ctx *context.Context) bool { return false }
 	p := P(Class("a"), Conditional(condA, Class("b"), Conditional(condB, Class("c"))))
 	rv := p.(*element)
 	assert.Equal(t, 1, len(rv.attributes))

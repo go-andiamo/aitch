@@ -1,6 +1,9 @@
 package aitch
 
-import "io"
+import (
+	"github.com/go-andiamo/aitch/context"
+	"io"
+)
 
 // Fragment creates a new fragment node
 //
@@ -19,11 +22,11 @@ type fragment struct {
 var _ Node = (*fragment)(nil)
 var _ valuesNode = (*fragment)(nil)
 
-func (f *fragment) Render(w io.Writer, ctx *Context) error {
+func (f *fragment) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
 	for _, v := range f.values {
 		_, _ = v.render(ctx)

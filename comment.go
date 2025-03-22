@@ -1,6 +1,9 @@
 package aitch
 
-import "io"
+import (
+	"github.com/go-andiamo/aitch/context"
+	"io"
+)
 
 type comment struct {
 	values []value
@@ -9,17 +12,17 @@ type comment struct {
 var _ Node = (*comment)(nil)
 var _ valuesNode = (*comment)(nil)
 
-func (c *comment) Render(w io.Writer, ctx *Context) error {
+func (c *comment) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
-	ctx.write(openComment)
+	ctx.Write(openComment)
 	for _, v := range c.values {
 		_, _ = v.render(ctx)
 	}
-	ctx.write(closeComment)
+	ctx.Write(closeComment)
 	return ctx.Error
 }
 

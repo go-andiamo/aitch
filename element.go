@@ -1,8 +1,11 @@
 package aitch
 
-import "io"
+import (
+	"github.com/go-andiamo/aitch/context"
+	"io"
+)
 
-func renderAttributes(ctx *Context, attributes []Node, attIndices map[string]int, conditionals conditionalAttributes) {
+func renderAttributes(ctx *context.Context, attributes []Node, attIndices map[string]int, conditionals conditionalAttributes) {
 	if len(conditionals) > 0 {
 		if evaluated := conditionals.evaluate(ctx); len(evaluated) > 0 {
 			for name, index := range attIndices {
@@ -20,12 +23,12 @@ func renderAttributes(ctx *Context, attributes []Node, attIndices map[string]int
 								use.values = append(use.values, et.getValues()...)
 							}
 						}
-						_ = use.Render(ctx.w, ctx)
+						_ = use.Render(ctx.Writer, ctx)
 					default:
-						_ = eAttr[len(eAttr)-1].Render(ctx.w, ctx)
+						_ = eAttr[len(eAttr)-1].Render(ctx.Writer, ctx)
 					}
 				} else {
-					_ = attr.Render(ctx.w, ctx)
+					_ = attr.Render(ctx.Writer, ctx)
 				}
 			}
 			for name, ca := range evaluated {
@@ -43,9 +46,9 @@ func renderAttributes(ctx *Context, attributes []Node, attIndices map[string]int
 								use.values = append(use.values, et.getValues()...)
 							}
 						}
-						_ = use.Render(ctx.w, ctx)
+						_ = use.Render(ctx.Writer, ctx)
 					default:
-						_ = ca[len(ca)-1].Render(ctx.w, ctx)
+						_ = ca[len(ca)-1].Render(ctx.Writer, ctx)
 					}
 				}
 			}
@@ -53,7 +56,7 @@ func renderAttributes(ctx *Context, attributes []Node, attIndices map[string]int
 		}
 	}
 	for _, attr := range attributes {
-		_ = attr.Render(ctx.w, ctx)
+		_ = attr.Render(ctx.Writer, ctx)
 	}
 }
 
@@ -64,16 +67,16 @@ type voidElement struct {
 	conditionals conditionalAttributes
 }
 
-func (e *voidElement) Render(w io.Writer, ctx *Context) error {
+func (e *voidElement) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
-	ctx.write(openAngleBracket)
-	ctx.write(e.name)
+	ctx.Write(openAngleBracket)
+	ctx.Write(e.name)
 	renderAttributes(ctx, e.attributes, e.attIndices, e.conditionals)
-	ctx.write(closeAngleBracket)
+	ctx.Write(closeAngleBracket)
 	return ctx.Error
 }
 
@@ -118,7 +121,7 @@ func VoidElement(name string, contents ...Node) Node {
 		}
 		return nil
 	}
-	return newVoidElement([]byte(name), contents...)
+	return NewVoidElement([]byte(name), contents...)
 }
 
 type element struct {
@@ -129,22 +132,22 @@ type element struct {
 	contents     []Node
 }
 
-func (e *element) Render(w io.Writer, ctx *Context) error {
+func (e *element) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
-	ctx.write(openAngleBracket)
-	ctx.write(e.name)
+	ctx.Write(openAngleBracket)
+	ctx.Write(e.name)
 	renderAttributes(ctx, e.attributes, e.attIndices, e.conditionals)
-	ctx.write(closeAngleBracket)
+	ctx.Write(closeAngleBracket)
 	for _, c := range e.contents {
-		_ = c.Render(ctx.w, ctx)
+		_ = c.Render(ctx.Writer, ctx)
 	}
-	ctx.write(closeTagStart)
-	ctx.write(e.name)
-	ctx.write(closeAngleBracket)
+	ctx.Write(closeTagStart)
+	ctx.Write(e.name)
+	ctx.Write(closeAngleBracket)
 	return ctx.Error
 }
 
@@ -191,12 +194,12 @@ func Element(name string, contents ...Node) Node {
 		return nil
 	}
 	if _, void := voidElementNames[name]; void {
-		return newVoidElement([]byte(name), contents...)
+		return NewVoidElement([]byte(name), contents...)
 	}
-	return newElement([]byte(name), contents...)
+	return NewElement([]byte(name), contents...)
 }
 
-func newElement(name []byte, contents ...Node) Node {
+func NewElement(name []byte, contents ...Node) Node {
 	attrs, condAttrs, children := attributesAndContents(nil, contents)
 	result := &element{
 		name:         name,
@@ -208,7 +211,7 @@ func newElement(name []byte, contents ...Node) Node {
 	return result.addAttributes(attrs)
 }
 
-func newVoidElement(name []byte, contents ...Node) Node {
+func NewVoidElement(name []byte, contents ...Node) Node {
 	attrs, condAttrs, _ := attributesAndContents(nil, contents)
 	result := &voidElement{
 		name:         name,

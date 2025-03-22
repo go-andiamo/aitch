@@ -3,6 +3,7 @@ package aitch
 import (
 	"bytes"
 	"fmt"
+	"github.com/go-andiamo/aitch/context"
 	"strconv"
 	"strings"
 )
@@ -16,18 +17,18 @@ type value struct {
 	dynamicFunc DynamicFunc
 }
 
-func (v value) render(ctx *Context) (bool, error) {
+func (v value) render(ctx *context.Context) (bool, error) {
 	var l int
 	if v.dynamicFunc != nil {
 		data := v.dynamicFunc(ctx)
-		l, ctx.Error = ctx.w.Write(data)
+		l, ctx.Error = ctx.Writer.Write(data)
 	} else {
-		l, ctx.Error = ctx.w.Write(v.value)
+		l, ctx.Error = ctx.Writer.Write(v.value)
 	}
 	return l > 0, ctx.Error
 }
 
-type DynamicFunc func(ctx *Context) []byte
+type DynamicFunc func(ctx *context.Context) []byte
 
 type DynamicKey string
 
@@ -48,10 +49,10 @@ func newValue(v any) []value {
 	switch vt := v.(type) {
 	case DynamicFunc:
 		return []value{{nil, vt}}
-	case func(*Context) []byte:
+	case func(*context.Context) []byte:
 		return []value{{nil, vt}}
 	case DynamicKey:
-		return []value{{nil, func(ctx *Context) []byte {
+		return []value{{nil, func(ctx *context.Context) []byte {
 			if ctx != nil {
 				if dv, ok := ctx.Data[string(vt)]; ok {
 					return valueToBytes(dv)

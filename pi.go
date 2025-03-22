@@ -1,6 +1,9 @@
 package aitch
 
-import "io"
+import (
+	"github.com/go-andiamo/aitch/context"
+	"io"
+)
 
 type pi struct {
 	name   []byte
@@ -10,19 +13,19 @@ type pi struct {
 var _ Node = (*pi)(nil)
 var _ valuesNode = (*pi)(nil)
 
-func (p *pi) Render(w io.Writer, ctx *Context) error {
+func (p *pi) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
-	ctx.write(openPi)
-	ctx.write(p.name)
-	ctx.write(space)
+	ctx.Write(openPi)
+	ctx.Write(p.name)
+	ctx.Write(space)
 	for _, v := range p.values {
 		_, _ = v.render(ctx)
 	}
-	ctx.write(closePi)
+	ctx.Write(closePi)
 	return ctx.Error
 }
 

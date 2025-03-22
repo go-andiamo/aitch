@@ -7,6 +7,30 @@ import (
 	"testing"
 )
 
+func A(contents ...Node) Node {
+	return NewElement([]byte("a"), contents...)
+}
+
+func B(contents ...Node) Node {
+	return NewElement([]byte("b"), contents...)
+}
+
+func P(contents ...Node) Node {
+	return NewElement([]byte("p"), contents...)
+}
+
+func Div(contents ...Node) Node {
+	return NewElement([]byte("div"), contents...)
+}
+
+func Class(v ...any) Node {
+	return NewDelimitedAttribute([]byte("class"), space, v...)
+}
+
+func Id(v ...any) Node {
+	return NewAttribute([]byte("id"), v...)
+}
+
 func TestCollection(t *testing.T) {
 	c := Collection(P(), P())
 	assert.Equal(t, collectionNode, c.Type())

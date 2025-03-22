@@ -2,6 +2,7 @@ package aitch
 
 import (
 	"bytes"
+	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -37,7 +38,7 @@ func TestAttribute_Render(t *testing.T) {
 	assert.Equal(t, " foo=\"bar\"", w.String())
 
 	ew := &errorWriter{}
-	err = a.Render(ew, &Context{})
+	err = a.Render(ew, &context.Context{})
 	require.Error(t, err)
 }
 
@@ -68,7 +69,7 @@ func TestBooleanAttribute_Render(t *testing.T) {
 	assert.Equal(t, " foo", w.String())
 
 	ew := &errorWriter{}
-	err = a.Render(ew, &Context{})
+	err = a.Render(ew, &context.Context{})
 	require.Error(t, err)
 }
 
@@ -102,6 +103,6 @@ func TestDelimitedAttribute_Render(t *testing.T) {
 	assert.Equal(t, " foo=\"a b\"", w.String())
 
 	ew := &errorWriter{}
-	err = a.Render(ew, &Context{})
+	err = a.Render(ew, &context.Context{})
 	require.Error(t, err)
 }
