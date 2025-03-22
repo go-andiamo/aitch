@@ -1,6 +1,9 @@
 package aitch
 
-import "io"
+import (
+	"github.com/go-andiamo/aitch/context"
+	"io"
+)
 
 // Text creates a new text Node
 func Text(contents ...any) Node {
@@ -16,11 +19,11 @@ type text struct {
 var _ Node = (*text)(nil)
 var _ valuesNode = (*text)(nil)
 
-func (t *text) Render(w io.Writer, ctx *Context) error {
+func (t *text) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
 	for _, v := range t.values {
 		_, _ = v.render(ctx)

@@ -1,16 +1,19 @@
 package aitch
 
-import "io"
+import (
+	"github.com/go-andiamo/aitch/context"
+	"io"
+)
 
 type collection struct {
 	nodes []Node
 }
 
-func (c *collection) Render(w io.Writer, ctx *Context) error {
+func (c *collection) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
 	for _, n := range c.nodes {
 		if n.Type() != AttributeNode {

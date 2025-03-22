@@ -2,6 +2,7 @@ package aitch
 
 import (
 	"bytes"
+	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -24,7 +25,7 @@ func TestPI_Render(t *testing.T) {
 	assert.Equal(t, "<!doctype foo>\n", w.String())
 
 	ew := &errorWriter{}
-	err = d.Render(ew, &Context{})
+	err = d.Render(ew, &context.Context{})
 	require.Error(t, err)
 }
 

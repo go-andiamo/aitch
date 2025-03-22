@@ -2,13 +2,14 @@ package aitch
 
 import (
 	"errors"
+	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"testing"
 )
 
 func TestDefaultContext(t *testing.T) {
-	ctx := defaultContext(nil)
+	ctx := context.DefaultContext(nil)
 	assert.NotNil(t, ctx)
 	assert.NotNil(t, ctx.Data)
 	assert.Nil(t, ctx.Error)

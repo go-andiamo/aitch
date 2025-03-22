@@ -1,11 +1,12 @@
 package aitch
 
 import (
+	"github.com/go-andiamo/aitch/context"
 	"io"
 	"strings"
 )
 
-type ConditionalFunc func(ctx *Context) bool
+type ConditionalFunc func(ctx *context.Context) bool
 
 type conditional struct {
 	nodes      []Node
@@ -18,7 +19,7 @@ type conditionalAttribute struct {
 	conditions []ConditionalFunc
 }
 
-func (a conditionalAttribute) evaluate(ctx *Context) bool {
+func (a conditionalAttribute) evaluate(ctx *context.Context) bool {
 	for _, condition := range a.conditions {
 		if !condition(ctx) {
 			return false
@@ -29,7 +30,7 @@ func (a conditionalAttribute) evaluate(ctx *Context) bool {
 
 type conditionalAttributes []conditionalAttribute
 
-func (c conditionalAttributes) evaluate(ctx *Context) map[string][]Node {
+func (c conditionalAttributes) evaluate(ctx *context.Context) map[string][]Node {
 	result := make(map[string][]Node, len(c))
 	for _, a := range c {
 		if a.evaluate(ctx) {
@@ -40,11 +41,11 @@ func (c conditionalAttributes) evaluate(ctx *Context) map[string][]Node {
 	return result
 }
 
-func (c *conditional) Render(w io.Writer, ctx *Context) error {
+func (c *conditional) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
 	if c.fn(ctx) {
 		for _, n := range c.nodes {
@@ -94,7 +95,7 @@ func Conditional(fn ConditionalFunc, nodes ...Node) Node {
 func When(key DynamicKey, nodes ...Node) Node {
 	if strings.HasPrefix(string(key), "!") {
 		key = key[1:]
-		return Conditional(func(ctx *Context) bool {
+		return Conditional(func(ctx *context.Context) bool {
 			if v, ok := ctx.Data[string(key)]; ok {
 				if b, ok := v.(bool); ok {
 					return !b
@@ -104,7 +105,7 @@ func When(key DynamicKey, nodes ...Node) Node {
 			return true
 		}, nodes...)
 	}
-	return Conditional(func(ctx *Context) bool {
+	return Conditional(func(ctx *context.Context) bool {
 		if v, ok := ctx.Data[string(key)]; ok {
 			if b, ok := v.(bool); ok {
 				return b

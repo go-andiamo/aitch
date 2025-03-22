@@ -1,6 +1,9 @@
 package aitch
 
-import "io"
+import (
+	"github.com/go-andiamo/aitch/context"
+	"io"
+)
 
 type attribute struct {
 	name   []byte
@@ -10,19 +13,19 @@ type attribute struct {
 var _ Node = (*attribute)(nil)
 var _ valuesNode = (*attribute)(nil)
 
-func (a *attribute) Render(w io.Writer, ctx *Context) error {
+func (a *attribute) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
-	ctx.write(space)
-	ctx.write(a.name)
-	ctx.write(attStart)
+	ctx.Write(space)
+	ctx.Write(a.name)
+	ctx.Write(attStart)
 	for _, v := range a.values {
 		_, _ = v.render(ctx)
 	}
-	ctx.write(attEnd)
+	ctx.Write(attEnd)
 	return ctx.Error
 }
 
@@ -44,14 +47,14 @@ func (a *attribute) getValues() []value {
 // (or panics if PanicOnInvalidName is true)
 func Attribute(name string, values ...any) Node {
 	if htmlTagRegex.MatchString(name) {
-		return newAttribute([]byte(name), values...)
+		return NewAttribute([]byte(name), values...)
 	} else if PanicOnInvalidName {
 		panic("invalid html attribute name: " + name)
 	}
 	return nil
 }
 
-func newAttribute(name []byte, values ...any) Node {
+func NewAttribute(name []byte, values ...any) Node {
 	return &attribute{
 		name:   name,
 		values: newValues(values...),
@@ -64,14 +67,14 @@ type booleanAttribute struct {
 
 var _ Node = (*booleanAttribute)(nil)
 
-func (a *booleanAttribute) Render(w io.Writer, ctx *Context) error {
+func (a *booleanAttribute) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
-	ctx.write(space)
-	ctx.write(a.name)
+	ctx.Write(space)
+	ctx.Write(a.name)
 	return ctx.Error
 }
 
@@ -91,14 +94,14 @@ func (a *booleanAttribute) Name() string {
 // (or panics if PanicOnInvalidName is true)
 func BooleanAttribute(name string) Node {
 	if htmlTagRegex.MatchString(name) {
-		return newBooleanAttribute([]byte(name))
+		return NewBooleanAttribute([]byte(name))
 	} else if PanicOnInvalidName {
 		panic("invalid html attribute name: " + name)
 	}
 	return nil
 }
 
-func newBooleanAttribute(name []byte) Node {
+func NewBooleanAttribute(name []byte) Node {
 	return &booleanAttribute{
 		name: name,
 	}
@@ -113,23 +116,23 @@ type delimitedAttribute struct {
 var _ Node = (*delimitedAttribute)(nil)
 var _ valuesNode = (*delimitedAttribute)(nil)
 
-func (a *delimitedAttribute) Render(w io.Writer, ctx *Context) error {
+func (a *delimitedAttribute) Render(w io.Writer, ctx *context.Context) error {
 	if ctx == nil {
-		ctx = defaultContext(w)
+		ctx = context.DefaultContext(w)
 	} else {
-		ctx.w = w
+		ctx.Writer = w
 	}
-	ctx.write(space)
-	ctx.write(a.name)
-	ctx.write(attStart)
+	ctx.Write(space)
+	ctx.Write(a.name)
+	ctx.Write(attStart)
 	something := false
 	for _, v := range a.values {
 		if something {
-			ctx.write(a.delimiter)
+			ctx.Write(a.delimiter)
 		}
 		something, _ = v.render(ctx)
 	}
-	ctx.write(attEnd)
+	ctx.Write(attEnd)
 	return ctx.Error
 }
 
@@ -156,14 +159,14 @@ func (a *delimitedAttribute) getValues() []value {
 // (or panics if PanicOnInvalidName is true)
 func DelimitedAttribute(name string, delimiter string, values ...any) Node {
 	if htmlTagRegex.MatchString(name) {
-		return newDelimitedAttribute([]byte(name), []byte(delimiter), values...)
+		return NewDelimitedAttribute([]byte(name), []byte(delimiter), values...)
 	} else if PanicOnInvalidName {
 		panic("invalid html attribute name: " + name)
 	}
 	return nil
 }
 
-func newDelimitedAttribute(name []byte, delimiter []byte, values ...any) Node {
+func NewDelimitedAttribute(name []byte, delimiter []byte, values ...any) Node {
 	result := &delimitedAttribute{
 		name:      name,
 		delimiter: delimiter,

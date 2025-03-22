@@ -3,6 +3,7 @@ package aitch
 import (
 	"bytes"
 	"fmt"
+	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -11,18 +12,18 @@ import (
 func TestValue_Render(t *testing.T) {
 	v := value{[]byte("foo"), nil}
 	var w bytes.Buffer
-	ok, err := v.render(&Context{w: &w})
+	ok, err := v.render(&context.Context{Writer: &w})
 	require.NoError(t, err)
 	assert.True(t, ok)
 	assert.Equal(t, "foo", w.String())
 }
 
 func TestValue_Render_Dynamic(t *testing.T) {
-	v := value{nil, func(ctx *Context) []byte {
+	v := value{nil, func(ctx *context.Context) []byte {
 		return []byte("foo")
 	}}
 	var w bytes.Buffer
-	ok, err := v.render(&Context{w: &w})
+	ok, err := v.render(&context.Context{Writer: &w})
 	require.NoError(t, err)
 	assert.True(t, ok)
 	assert.Equal(t, "foo", w.String())
@@ -31,7 +32,7 @@ func TestValue_Render_Dynamic(t *testing.T) {
 func TestValue_Render_Empty(t *testing.T) {
 	v := value{}
 	var w bytes.Buffer
-	ok, err := v.render(&Context{w: &w})
+	ok, err := v.render(&context.Context{Writer: &w})
 	require.NoError(t, err)
 	assert.False(t, ok)
 	assert.Equal(t, 0, w.Len())
@@ -58,14 +59,14 @@ func TestNewValue(t *testing.T) {
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
 
-	vs = newValue(func(*Context) []byte {
+	vs = newValue(func(*context.Context) []byte {
 		return []byte("foo")
 	})
 	assert.Equal(t, 1, len(vs))
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
 
-	vs = newValue(DynamicFunc(func(*Context) []byte {
+	vs = newValue(DynamicFunc(func(*context.Context) []byte {
 		return []byte("foo")
 	}))
 	assert.Equal(t, 1, len(vs))
@@ -77,14 +78,14 @@ func TestNewValue(t *testing.T) {
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
 
-	vs = newValue(newAttribute([]byte("att"), "foo", "bar"))
+	vs = newValue(NewAttribute([]byte("att"), "foo", "bar"))
 	assert.Equal(t, 2, len(vs))
 	assert.Nil(t, vs[0].dynamicFunc)
 
 	vs = newValue(Collection())
 	assert.Equal(t, 0, len(vs))
 
-	vs = newValue(Collection(newAttribute([]byte("att"), "foo", "bar"), newAttribute([]byte("att"), "baz")))
+	vs = newValue(Collection(NewAttribute([]byte("att"), "foo", "bar"), NewAttribute([]byte("att"), "baz")))
 	assert.Equal(t, 3, len(vs))
 
 	vs = newValue(P())
@@ -98,18 +99,18 @@ func TestNewValue_DynamicKey(t *testing.T) {
 	assert.NotNil(t, vs[0].dynamicFunc)
 
 	var w bytes.Buffer
-	ok, err := vs[0].render(&Context{
-		Data: map[string]any{"foo": "bar"},
-		w:    &w,
+	ok, err := vs[0].render(&context.Context{
+		Data:   map[string]any{"foo": "bar"},
+		Writer: &w,
 	})
 	require.NoError(t, err)
 	assert.True(t, ok)
 	assert.Equal(t, "bar", w.String())
 
 	w = bytes.Buffer{}
-	ok, err = vs[0].render(&Context{
-		Data: map[string]any{},
-		w:    &w,
+	ok, err = vs[0].render(&context.Context{
+		Data:   map[string]any{},
+		Writer: &w,
 	})
 	require.NoError(t, err)
 	assert.False(t, ok)
