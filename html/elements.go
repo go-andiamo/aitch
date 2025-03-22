@@ -360,10 +360,6 @@ func Summary(contents ...aitch.Node) aitch.Node {
 	return aitch.NewElement(tagSummary, contents...)
 }
 
-func Svg(contents ...aitch.Node) aitch.Node {
-	return aitch.NewElement(tagSvg, contents...)
-}
-
 func Table(contents ...aitch.Node) aitch.Node {
 	return aitch.NewElement(tagTable, contents...)
 }
@@ -517,7 +513,6 @@ var (
 	tagSub        = []byte("sub")
 	tagSummary    = []byte("summary")
 	tagSup        = []byte("sup")
-	tagSvg        = []byte("svg")
 	tagTable      = []byte("table")
 	tagTbody      = []byte("tbody")
 	tagTd         = []byte("td")

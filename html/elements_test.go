@@ -588,13 +588,6 @@ func TestSummary(t *testing.T) {
 	require.Equal(t, `<summary id="1">foo</summary>`, testRender(el, t))
 }
 
-func TestSvg(t *testing.T) {
-	el := Svg(Id(1), aitch.Text("foo"))
-	require.Equal(t, aitch.ElementNode, el.Type())
-	require.Equal(t, "svg", el.Name())
-	require.Equal(t, `<svg id="1">foo</svg>`, testRender(el, t))
-}
-
 func TestTable(t *testing.T) {
 	el := Table(Id(1), aitch.Text("foo"))
 	require.Equal(t, aitch.ElementNode, el.Type())
