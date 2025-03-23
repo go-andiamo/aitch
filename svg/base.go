@@ -7,6 +7,11 @@ func Text(contents ...any) aitch.Node {
 	return aitch.Text(contents...)
 }
 
+// Comment creates a new comment Node
+func Comment(contents ...any) aitch.Node {
+	return aitch.Comment(contents...)
+}
+
 // DynamicValueFunc is a func that can be called to determine actual byte data to be written
 //
 // A DynamicValueFunc is typically used as a content arg passed to an Attribute, Text, Comment, Fragment etc.

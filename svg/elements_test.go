@@ -420,7 +420,7 @@ func TestSymbol(t *testing.T) {
 	require.Equal(t, `<symbol>foo</symbol>`, testRender(el, t))
 }
 
-func TestText(t *testing.T) {
+func TestTextElement(t *testing.T) {
 	el := TextElement(Text("foo"))
 	require.Equal(t, aitch.ElementNode, el.Type())
 	require.Equal(t, "text", el.Name())
