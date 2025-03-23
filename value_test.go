@@ -54,7 +54,7 @@ func TestNewValue(t *testing.T) {
 	vs := newValue(nil)
 	assert.Equal(t, 0, len(vs))
 
-	vs = newValue(DynamicKey("foo"))
+	vs = newValue(DynamicValueKey("foo"))
 	assert.Equal(t, 1, len(vs))
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
@@ -66,14 +66,14 @@ func TestNewValue(t *testing.T) {
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
 
-	vs = newValue(DynamicFunc(func(*context.Context) []byte {
+	vs = newValue(DynamicValueFunc(func(*context.Context) []byte {
 		return []byte("foo")
 	}))
 	assert.Equal(t, 1, len(vs))
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
 
-	vs = newValue(DynamicKey("foo"))
+	vs = newValue(DynamicValueKey("foo"))
 	assert.Equal(t, 1, len(vs))
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)
@@ -93,7 +93,7 @@ func TestNewValue(t *testing.T) {
 }
 
 func TestNewValue_DynamicKey(t *testing.T) {
-	vs := newValue(DynamicKey("foo"))
+	vs := newValue(DynamicValueKey("foo"))
 	assert.Equal(t, 1, len(vs))
 	assert.Nil(t, vs[0].value)
 	assert.NotNil(t, vs[0].dynamicFunc)

@@ -36,6 +36,7 @@ const (
 	FragmentNode                  // FragmentNode is the NodeType for fragments (see Fragment())
 	collectionNode
 	conditionalNode
+	dynamicNode
 )
 
 var (

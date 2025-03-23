@@ -26,7 +26,7 @@ func Lang(v ...any) Node {
 
 func TestNewTemplate(t *testing.T) {
 	atmp, err := NewTemplate("test", templateBasic, NodeMap{
-		"lang":  Lang(DynamicKey("lang")),
+		"lang":  Lang(DynamicValueKey("lang")),
 		"title": TitleElement(Text("Test")),
 		"body":  When("yes", P(Id(1), Text("Here!"))),
 	})

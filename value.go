@@ -14,7 +14,7 @@ type valuesNode interface {
 
 type value struct {
 	value       []byte
-	dynamicFunc DynamicFunc
+	dynamicFunc DynamicValueFunc
 }
 
 func (v value) render(ctx *context.Context) (bool, error) {
@@ -28,9 +28,16 @@ func (v value) render(ctx *context.Context) (bool, error) {
 	return l > 0, ctx.Error
 }
 
-type DynamicFunc func(ctx *context.Context) []byte
+// DynamicValueFunc is a func that can be called to determine actual byte data to be written
+//
+// A DynamicValueFunc is typically used as a content arg passed to an Attribute, Text, Comment, Fragment etc.
+type DynamicValueFunc func(ctx *context.Context) []byte
 
-type DynamicKey string
+// DynamicValueKey is a key into the [context.Context.Data] and is used to provide a dynamic
+// value that is read from the context
+//
+// A DynamicValueKey is typically used as a content arg passed to an Attribute, Text, Comment, Fragment etc.
+type DynamicValueKey string
 
 func newValues(contents ...any) (result []value) {
 	result = make([]value, 0, len(contents))
@@ -47,11 +54,11 @@ func newValue(v any) []value {
 		return nil
 	}
 	switch vt := v.(type) {
-	case DynamicFunc:
+	case DynamicValueFunc:
 		return []value{{nil, vt}}
 	case func(*context.Context) []byte:
 		return []value{{nil, vt}}
-	case DynamicKey:
+	case DynamicValueKey:
 		return []value{{nil, func(ctx *context.Context) []byte {
 			if ctx != nil {
 				if dv, ok := ctx.Data[string(vt)]; ok {

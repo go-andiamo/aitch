@@ -455,7 +455,7 @@ func StrokeWidth(v ...any) aitch.Node {
 }
 
 func Style(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStyle, v...)
+	return aitch.NewDelimitedAttribute(attrStyle, stylesDelim, v...)
 }
 
 func SystemLanguage(v ...any) aitch.Node {
@@ -575,6 +575,7 @@ func Y2(v ...any) aitch.Node {
 }
 
 var (
+	stylesDelim                    = []byte{';', ' '}
 	attrAccumulate                 = []byte("accumulate")
 	attrAdditive                   = []byte("additive")
 	attrAlignmentBaseline          = []byte("alignment-baseline")

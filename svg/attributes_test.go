@@ -798,10 +798,10 @@ func TestStrokeWidth(t *testing.T) {
 }
 
 func TestStyle(t *testing.T) {
-	a := Style("foo")
+	a := Style("foo", "bar")
 	require.Equal(t, aitch.AttributeNode, a.Type())
 	require.Equal(t, "style", a.Name())
-	require.Equal(t, ` style="foo"`, testRender(a, t))
+	require.Equal(t, ` style="foo; bar"`, testRender(a, t))
 }
 
 func TestSystemLanguage(t *testing.T) {
