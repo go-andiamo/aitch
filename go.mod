@@ -1,8 +1,11 @@
 module github.com/go-andiamo/aitch
 
-go 1.23
+go 1.23.0
 
-require github.com/stretchr/testify v1.10.0
+require (
+	github.com/stretchr/testify v1.10.0
+	golang.org/x/net v0.37.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect

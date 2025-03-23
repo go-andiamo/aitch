@@ -310,6 +310,7 @@ func Width(v ...any) aitch.Node {
 func AllowFullScreen() aitch.Node {
 	return aitch.NewBooleanAttribute(attrAllowfullscreen)
 }
+
 func Default() aitch.Node {
 	return aitch.NewBooleanAttribute(attrDefault)
 }
