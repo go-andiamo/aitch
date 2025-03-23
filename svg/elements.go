@@ -234,7 +234,7 @@ func Symbol(contents ...aitch.Node) aitch.Node {
 	return aitch.NewElement(tagSymbol, contents...)
 }
 
-func Text(contents ...aitch.Node) aitch.Node {
+func TextElement(contents ...aitch.Node) aitch.Node {
 	return aitch.NewElement(tagText, contents...)
 }
 

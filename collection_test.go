@@ -2,6 +2,7 @@ package aitch
 
 import (
 	"bytes"
+	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
@@ -59,4 +60,29 @@ func TestCollection_Render_Nested(t *testing.T) {
 	err := c.Render(&w, nil)
 	require.NoError(t, err)
 	assert.Equal(t, `<div class="a b"><p>A</p><p>B</p></div>`, w.String())
+}
+
+func TestContentCollect(t *testing.T) {
+	c := ContentCollect(nil)
+	assert.Equal(t, collectionNode, c.Type())
+
+	c = ContentCollect(func(ctx *context.Context) []Node {
+		return []Node{P(Id(1)), Div()}
+	})
+	assert.Equal(t, dynamicNode, c.Type())
+	assert.Equal(t, "#collector", c.Name())
+}
+
+func TestContentCollect_Render(t *testing.T) {
+	c := ContentCollect(func(ctx *context.Context) []Node {
+		return []Node{Id(), Class(), P(Id(1)), Div()}
+	})
+	var w bytes.Buffer
+	err := c.Render(&w, nil)
+	require.NoError(t, err)
+	assert.Equal(t, `<p id="1"></p><div></div>`, w.String())
+
+	ew := &errorWriter{}
+	err = c.Render(ew, &context.Context{})
+	require.Error(t, err)
 }
