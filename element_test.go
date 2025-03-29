@@ -1,7 +1,6 @@
 package aitch
 
 import (
-	"bytes"
 	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -31,28 +30,18 @@ func TestVoidElement_PanicsOnBadName(t *testing.T) {
 
 func TestVoidElement_Render(t *testing.T) {
 	e := VoidElement("foo", Class("a"))
-	var w bytes.Buffer
-	err := e.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<foo class=\"a\">", w.String())
+	assert.Equal(t, "<foo class=\"a\">", testRender(e, t))
 
-	ew := &errorWriter{}
-	err = e.Render(ew, &context.Context{})
+	err := e.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
 
 func TestVoidElement_Render_MergedDelimitedAttributes(t *testing.T) {
 	e := VoidElement("foo", Class("a"), Class("b"), Class("c"))
-	var w bytes.Buffer
-	err := e.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<foo class=\"a b c\">", w.String())
+	assert.Equal(t, "<foo class=\"a b c\">", testRender(e, t))
 
 	e = VoidElement("foo", Class("a"), Attribute("class", "overridden"))
-	w = bytes.Buffer{}
-	err = e.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<foo class=\"overridden\">", w.String())
+	assert.Equal(t, "<foo class=\"overridden\">", testRender(e, t))
 }
 
 func TestElement(t *testing.T) {
@@ -87,28 +76,18 @@ func TestElement_PanicsOnBadName(t *testing.T) {
 
 func TestElement_Render(t *testing.T) {
 	e := Element("foo", Text("b"), Class("a"))
-	var w bytes.Buffer
-	err := e.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<foo class=\"a\">b</foo>", w.String())
+	assert.Equal(t, "<foo class=\"a\">b</foo>", testRender(e, t))
 
-	ew := &errorWriter{}
-	err = e.Render(ew, &context.Context{})
+	err := e.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
 
 func TestElement_Render_MergedDelimitedAttributes(t *testing.T) {
 	e := Element("foo", Text("bar"), Class("a"), Class("b"), Class("c"))
-	var w bytes.Buffer
-	err := e.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<foo class=\"a b c\">bar</foo>", w.String())
+	assert.Equal(t, "<foo class=\"a b c\">bar</foo>", testRender(e, t))
 
 	e = Element("foo", Text("bar"), Class("a"), Attribute("class", "overridden"))
-	w = bytes.Buffer{}
-	err = e.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<foo class=\"overridden\">bar</foo>", w.String())
+	assert.Equal(t, "<foo class=\"overridden\">bar</foo>", testRender(e, t))
 }
 
 func TestAttributesAndContents(t *testing.T) {

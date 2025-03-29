@@ -1,7 +1,6 @@
 package aitch
 
 import (
-	"bytes"
 	"fmt"
 	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
@@ -30,20 +29,13 @@ func TestConditional_Render(t *testing.T) {
 		return condition
 	}, P())
 
-	var w bytes.Buffer
-	err := c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<p></p>", w.String())
+	assert.Equal(t, "<p></p>", testRender(c, t))
 
-	w = bytes.Buffer{}
 	condition = false
-	err = c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, 0, w.Len())
+	assert.Equal(t, "", testRender(c, t))
 
 	condition = true
-	ew := &errorWriter{}
-	err = c.Render(ew, nil)
+	err := c.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
 
@@ -54,23 +46,14 @@ func TestConditional_Render_NestedElements(t *testing.T) {
 	fnB := func(ctx *context.Context) bool { return conditionB }
 	c := Conditional(fnA, P(Text("A")), Conditional(fnB, P(Text("B"))))
 
-	var w bytes.Buffer
-	err := c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<p>A</p><p>B</p>", w.String())
+	assert.Equal(t, "<p>A</p><p>B</p>", testRender(c, t))
 
 	conditionB = false
-	w = bytes.Buffer{}
-	err = c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<p>A</p>", w.String())
+	assert.Equal(t, "<p>A</p>", testRender(c, t))
 
 	conditionA = false
 	conditionB = true
-	w = bytes.Buffer{}
-	err = c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, 0, w.Len())
+	assert.Equal(t, "", testRender(c, t))
 }
 
 func TestWhen(t *testing.T) {
@@ -84,48 +67,16 @@ func TestWhen(t *testing.T) {
 
 func TestWhen_Render(t *testing.T) {
 	c := When("foo", P())
-	var w bytes.Buffer
-	ctx := &context.Context{}
-	err := c.Render(&w, ctx)
-	require.NoError(t, err)
-	assert.Equal(t, 0, w.Len())
+	assert.Equal(t, "", testRender(c, t))
 
-	ctx.Data = map[string]any{"foo": nil}
-	w = bytes.Buffer{}
-	err = c.Render(&w, ctx)
-	require.NoError(t, err)
-	assert.Equal(t, "<p></p>", w.String())
-
-	ctx.Data = map[string]any{"foo": true}
-	w = bytes.Buffer{}
-	err = c.Render(&w, ctx)
-	require.NoError(t, err)
-	assert.Equal(t, "<p></p>", w.String())
-
-	ctx.Data = map[string]any{"foo": false}
-	w = bytes.Buffer{}
-	err = c.Render(&w, ctx)
-	require.NoError(t, err)
-	assert.Equal(t, 0, w.Len())
+	assert.Equal(t, "<p></p>", testRender(c, t, map[string]any{"foo": nil}))
+	assert.Equal(t, "<p></p>", testRender(c, t, map[string]any{"foo": true}))
+	assert.Equal(t, "", testRender(c, t, map[string]any{"foo": false}))
 
 	c = When("!foo", P())
-	ctx.Data = nil
-	w = bytes.Buffer{}
-	err = c.Render(&w, ctx)
-	require.NoError(t, err)
-	assert.Equal(t, "<p></p>", w.String())
-
-	ctx.Data = map[string]any{"foo": nil}
-	w = bytes.Buffer{}
-	err = c.Render(&w, ctx)
-	require.NoError(t, err)
-	assert.Equal(t, 0, w.Len())
-
-	ctx.Data = map[string]any{"foo": true}
-	w = bytes.Buffer{}
-	err = c.Render(&w, ctx)
-	require.NoError(t, err)
-	assert.Equal(t, 0, w.Len())
+	assert.Equal(t, "<p></p>", testRender(c, t))
+	assert.Equal(t, "", testRender(c, t, map[string]any{"foo": nil}))
+	assert.Equal(t, "", testRender(c, t, map[string]any{"foo": true}))
 }
 
 func TestConditional_Cases(t *testing.T) {
@@ -238,10 +189,7 @@ func TestConditional_Cases(t *testing.T) {
 	}
 	for i, tc := range testCases {
 		t.Run(fmt.Sprintf("[%d]", i+1), func(t *testing.T) {
-			var w bytes.Buffer
-			err := tc.node.Render(&w, nil)
-			require.NoError(t, err)
-			assert.Equal(t, tc.expect, w.String())
+			assert.Equal(t, tc.expect, testRender(tc.node, t))
 		})
 	}
 }

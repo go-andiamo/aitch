@@ -1,7 +1,6 @@
 package aitch
 
 import (
-	"bytes"
 	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -19,12 +18,8 @@ func TestComment(t *testing.T) {
 
 func TestComment_Render(t *testing.T) {
 	c := Comment("foo")
-	var w bytes.Buffer
-	err := c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<!--foo-->", w.String())
+	assert.Equal(t, "<!--foo-->", testRender(c, t))
 
-	ew := &errorWriter{}
-	err = c.Render(ew, &context.Context{})
+	err := c.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }

@@ -12,15 +12,9 @@ type Context struct {
 	Writer io.Writer
 }
 
+// Write writes the byte data to the context writer
 func (c *Context) Write(data []byte) {
 	if c.Error == nil {
 		_, c.Error = c.Writer.Write(data)
-	}
-}
-
-func DefaultContext(w io.Writer) *Context {
-	return &Context{
-		Data:   make(map[string]any),
-		Writer: w,
 	}
 }

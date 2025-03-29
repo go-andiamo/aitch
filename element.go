@@ -2,7 +2,6 @@ package aitch
 
 import (
 	"github.com/go-andiamo/aitch/context"
-	"io"
 )
 
 func renderAttributes(ctx *context.Context, attributes []Node, attIndices map[string]int, conditionals conditionalAttributes) {
@@ -23,12 +22,12 @@ func renderAttributes(ctx *context.Context, attributes []Node, attIndices map[st
 								use.values = append(use.values, et.getValues()...)
 							}
 						}
-						_ = use.Render(ctx.Writer, ctx)
+						_ = use.Render(ctx)
 					default:
-						_ = eAttr[len(eAttr)-1].Render(ctx.Writer, ctx)
+						_ = eAttr[len(eAttr)-1].Render(ctx)
 					}
 				} else {
-					_ = attr.Render(ctx.Writer, ctx)
+					_ = attr.Render(ctx)
 				}
 			}
 			for name, ca := range evaluated {
@@ -46,9 +45,9 @@ func renderAttributes(ctx *context.Context, attributes []Node, attIndices map[st
 								use.values = append(use.values, et.getValues()...)
 							}
 						}
-						_ = use.Render(ctx.Writer, ctx)
+						_ = use.Render(ctx)
 					default:
-						_ = ca[len(ca)-1].Render(ctx.Writer, ctx)
+						_ = ca[len(ca)-1].Render(ctx)
 					}
 				}
 			}
@@ -56,7 +55,7 @@ func renderAttributes(ctx *context.Context, attributes []Node, attIndices map[st
 		}
 	}
 	for _, attr := range attributes {
-		_ = attr.Render(ctx.Writer, ctx)
+		_ = attr.Render(ctx)
 	}
 }
 
@@ -67,12 +66,7 @@ type voidElement struct {
 	conditionals conditionalAttributes
 }
 
-func (e *voidElement) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (e *voidElement) Render(ctx *context.Context) error {
 	ctx.Write(openAngleBracket)
 	ctx.Write(e.name)
 	renderAttributes(ctx, e.attributes, e.attIndices, e.conditionals)
@@ -132,18 +126,13 @@ type element struct {
 	contents     []Node
 }
 
-func (e *element) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (e *element) Render(ctx *context.Context) error {
 	ctx.Write(openAngleBracket)
 	ctx.Write(e.name)
 	renderAttributes(ctx, e.attributes, e.attIndices, e.conditionals)
 	ctx.Write(closeAngleBracket)
 	for _, c := range e.contents {
-		_ = c.Render(ctx.Writer, ctx)
+		_ = c.Render(ctx)
 	}
 	ctx.Write(closeTagStart)
 	ctx.Write(e.name)

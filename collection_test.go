@@ -1,7 +1,6 @@
 package aitch
 
 import (
-	"bytes"
 	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -42,13 +41,9 @@ func TestCollection(t *testing.T) {
 
 func TestCollection_Render(t *testing.T) {
 	c := Collection(P(Text("A")), P(Text("B")), Class("not seen"))
-	var w bytes.Buffer
-	err := c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<p>A</p><p>B</p>", w.String())
+	assert.Equal(t, "<p>A</p><p>B</p>", testRender(c, t))
 
-	ew := &errorWriter{}
-	err = c.Render(ew, nil)
+	err := c.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
 
@@ -56,10 +51,7 @@ func TestCollection_Render_Nested(t *testing.T) {
 	collectionA := Collection(P(Text("A")), Class("a"))
 	collectionB := Collection(collectionA, P(Text("B")), Class("b"))
 	c := Collection(Div(Collection(collectionB)))
-	var w bytes.Buffer
-	err := c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, `<div class="a b"><p>A</p><p>B</p></div>`, w.String())
+	assert.Equal(t, `<div class="a b"><p>A</p><p>B</p></div>`, testRender(c, t))
 }
 
 func TestContentCollect(t *testing.T) {
@@ -77,12 +69,8 @@ func TestContentCollect_Render(t *testing.T) {
 	c := ContentCollect(func(ctx *context.Context) []Node {
 		return []Node{Id(), Class(), P(Id(1)), Div()}
 	})
-	var w bytes.Buffer
-	err := c.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, `<p id="1"></p><div></div>`, w.String())
+	assert.Equal(t, `<p id="1"></p><div></div>`, testRender(c, t))
 
-	ew := &errorWriter{}
-	err = c.Render(ew, &context.Context{})
+	err := c.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }

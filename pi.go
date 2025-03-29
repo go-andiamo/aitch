@@ -2,7 +2,6 @@ package aitch
 
 import (
 	"github.com/go-andiamo/aitch/context"
-	"io"
 )
 
 type pi struct {
@@ -13,12 +12,7 @@ type pi struct {
 var _ Node = (*pi)(nil)
 var _ valuesNode = (*pi)(nil)
 
-func (p *pi) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (p *pi) Render(ctx *context.Context) error {
 	ctx.Write(openPi)
 	ctx.Write(p.name)
 	ctx.Write(space)

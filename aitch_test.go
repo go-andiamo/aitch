@@ -1,18 +1,25 @@
 package aitch
 
 import (
+	"bytes"
 	"errors"
 	"github.com/go-andiamo/aitch/context"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"io"
 	"testing"
 )
 
-func TestDefaultContext(t *testing.T) {
-	ctx := context.DefaultContext(nil)
-	assert.NotNil(t, ctx)
-	assert.NotNil(t, ctx.Data)
-	assert.Nil(t, ctx.Error)
+func testRender(node Node, t *testing.T, data ...map[string]any) string {
+	var w bytes.Buffer
+	useData := map[string]any{}
+	for _, d := range data {
+		for k, v := range d {
+			useData[k] = v
+		}
+	}
+	err := node.Render(&context.Context{Writer: &w, Data: useData})
+	require.NoError(t, err)
+	return w.String()
 }
 
 type errorWriter struct{}

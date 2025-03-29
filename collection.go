@@ -2,22 +2,16 @@ package aitch
 
 import (
 	"github.com/go-andiamo/aitch/context"
-	"io"
 )
 
 type collection struct {
 	nodes []Node
 }
 
-func (c *collection) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (c *collection) Render(ctx *context.Context) error {
 	for _, n := range c.nodes {
 		if n.Type() != AttributeNode {
-			if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
+			if ctx.Error = n.Render(ctx); ctx.Error != nil {
 				return ctx.Error
 			}
 		}
@@ -50,15 +44,10 @@ type contentCollector struct {
 	collector func(ctx *context.Context) []Node
 }
 
-func (c *contentCollector) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (c *contentCollector) Render(ctx *context.Context) error {
 	for _, n := range c.collector(ctx) {
 		if n != nil && n.Type() != AttributeNode {
-			_ = n.Render(w, ctx)
+			_ = n.Render(ctx)
 		}
 	}
 	return ctx.Error
