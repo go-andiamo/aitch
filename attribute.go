@@ -2,7 +2,6 @@ package aitch
 
 import (
 	"github.com/go-andiamo/aitch/context"
-	"io"
 )
 
 type attribute struct {
@@ -13,12 +12,7 @@ type attribute struct {
 var _ Node = (*attribute)(nil)
 var _ valuesNode = (*attribute)(nil)
 
-func (a *attribute) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (a *attribute) Render(ctx *context.Context) error {
 	ctx.Write(space)
 	ctx.Write(a.name)
 	ctx.Write(attStart)
@@ -67,12 +61,7 @@ type booleanAttribute struct {
 
 var _ Node = (*booleanAttribute)(nil)
 
-func (a *booleanAttribute) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (a *booleanAttribute) Render(ctx *context.Context) error {
 	ctx.Write(space)
 	ctx.Write(a.name)
 	return ctx.Error
@@ -116,12 +105,7 @@ type delimitedAttribute struct {
 var _ Node = (*delimitedAttribute)(nil)
 var _ valuesNode = (*delimitedAttribute)(nil)
 
-func (a *delimitedAttribute) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (a *delimitedAttribute) Render(ctx *context.Context) error {
 	ctx.Write(space)
 	ctx.Write(a.name)
 	ctx.Write(attStart)

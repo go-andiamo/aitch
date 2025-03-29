@@ -1,7 +1,6 @@
 package aitch
 
 import (
-	"bytes"
 	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -19,12 +18,8 @@ func TestFragment(t *testing.T) {
 
 func TestFragment_Render(t *testing.T) {
 	txt := Fragment("foo", nil, "bar")
-	var w bytes.Buffer
-	err := txt.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "foobar", w.String())
+	assert.Equal(t, "foobar", testRender(txt, t))
 
-	ew := &errorWriter{}
-	err = txt.Render(ew, &context.Context{})
+	err := txt.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }

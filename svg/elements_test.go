@@ -1,18 +1,10 @@
 package svg
 
 import (
-	"bytes"
 	"github.com/go-andiamo/aitch"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
-
-func testRender(node aitch.Node, t *testing.T) string {
-	var w bytes.Buffer
-	err := node.Render(&w, nil)
-	require.NoError(t, err)
-	return w.String()
-}
 
 func TestSvg(t *testing.T) {
 	el := Svg(Text("foo"))

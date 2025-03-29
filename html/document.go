@@ -3,7 +3,6 @@ package html
 import (
 	"github.com/go-andiamo/aitch"
 	"github.com/go-andiamo/aitch/context"
-	"io"
 )
 
 type document struct {
@@ -11,17 +10,12 @@ type document struct {
 	contents []aitch.Node
 }
 
-func (d *document) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (d *document) Render(ctx *context.Context) error {
 	if d.prologue != nil {
-		_ = d.prologue.Render(w, ctx)
+		_ = d.prologue.Render(ctx)
 	}
 	for _, n := range d.contents {
-		_ = n.Render(w, ctx)
+		_ = n.Render(ctx)
 	}
 	return ctx.Error
 }

@@ -2,7 +2,6 @@ package aitch
 
 import (
 	"github.com/go-andiamo/aitch/context"
-	"io"
 	"regexp"
 )
 
@@ -16,7 +15,7 @@ var htmlTagRegex = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9._-]*$`)
 // Node is the interface for all nodes (elements, attributes, etc.)
 type Node interface {
 	// Render renders the node into the writer
-	Render(w io.Writer, ctx *context.Context) error
+	Render(ctx *context.Context) error
 	// Type returns the NodeType of the Node
 	Type() NodeType
 	// Name returns the name of the node (e.g. the element or attribute name)

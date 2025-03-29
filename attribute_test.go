@@ -1,7 +1,6 @@
 package aitch
 
 import (
-	"bytes"
 	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -32,13 +31,9 @@ func TestAttribute_PanicsOnBadName(t *testing.T) {
 
 func TestAttribute_Render(t *testing.T) {
 	a := Attribute("foo", "bar")
-	var w bytes.Buffer
-	err := a.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, " foo=\"bar\"", w.String())
+	assert.Equal(t, " foo=\"bar\"", testRender(a, t))
 
-	ew := &errorWriter{}
-	err = a.Render(ew, &context.Context{})
+	err := a.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
 
@@ -63,13 +58,9 @@ func TestBooleanAttribute_PanicsOnBadName(t *testing.T) {
 
 func TestBooleanAttribute_Render(t *testing.T) {
 	a := BooleanAttribute("foo")
-	var w bytes.Buffer
-	err := a.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, " foo", w.String())
+	assert.Equal(t, " foo", testRender(a, t))
 
-	ew := &errorWriter{}
-	err = a.Render(ew, &context.Context{})
+	err := a.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
 
@@ -97,12 +88,8 @@ func TestDelimitedAttribute_PanicsOnBadName(t *testing.T) {
 
 func TestDelimitedAttribute_Render(t *testing.T) {
 	a := DelimitedAttribute("foo", " ", "a", "b")
-	var w bytes.Buffer
-	err := a.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, " foo=\"a b\"", w.String())
+	assert.Equal(t, " foo=\"a b\"", testRender(a, t))
 
-	ew := &errorWriter{}
-	err = a.Render(ew, &context.Context{})
+	err := a.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }

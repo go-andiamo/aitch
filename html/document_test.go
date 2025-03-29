@@ -1,7 +1,6 @@
 package html
 
 import (
-	"bytes"
 	"errors"
 	"github.com/go-andiamo/aitch"
 	"github.com/go-andiamo/aitch/context"
@@ -24,13 +23,9 @@ func TestDocument(t *testing.T) {
 
 func TestDocument_Render(t *testing.T) {
 	d := Document("en", []aitch.Node{Meta(Charset("utf-8"))}, []aitch.Node{P()})
-	var w bytes.Buffer
-	err := d.Render(&w, nil)
-	require.NoError(t, err)
-	assert.Equal(t, "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"></head><body><p></p></body></html>", w.String())
+	assert.Equal(t, "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"></head><body><p></p></body></html>", testRender(d, t))
 
-	ew := &errorWriter{}
-	err = d.Render(ew, &context.Context{})
+	err := d.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
 

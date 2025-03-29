@@ -61,12 +61,12 @@ func writerFuncMap(nodeMap NodeMap, ctx *context.Context) template.FuncMap {
 func writerFunc(node Node, ctx *context.Context) any {
 	if node.Type() == AttributeNode {
 		return func() (template.HTMLAttr, error) {
-			err := node.Render(ctx.Writer, ctx)
+			err := node.Render(ctx)
 			return "", err
 		}
 	} else {
 		return func() (template.HTML, error) {
-			err := node.Render(ctx.Writer, ctx)
+			err := node.Render(ctx)
 			return "", err
 		}
 	}
@@ -105,13 +105,13 @@ func rawFunc(node Node) any {
 	if node.Type() == AttributeNode {
 		return func() (template.HTMLAttr, error) {
 			var w bytes.Buffer
-			err := node.Render(&w, nil)
+			err := node.Render(&context.Context{Writer: &w})
 			return template.HTMLAttr(w.String()), err
 		}
 	} else {
 		return func() (template.HTML, error) {
 			var w bytes.Buffer
-			err := node.Render(&w, nil)
+			err := node.Render(&context.Context{Writer: &w})
 			return template.HTML(w.String()), err
 		}
 	}

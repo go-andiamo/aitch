@@ -2,7 +2,6 @@ package aitch
 
 import (
 	"github.com/go-andiamo/aitch/context"
-	"io"
 	"strings"
 )
 
@@ -41,15 +40,10 @@ func (c conditionalAttributes) evaluate(ctx *context.Context) map[string][]Node 
 	return result
 }
 
-func (c *conditional) Render(w io.Writer, ctx *context.Context) error {
-	if ctx == nil {
-		ctx = context.DefaultContext(w)
-	} else {
-		ctx.Writer = w
-	}
+func (c *conditional) Render(ctx *context.Context) error {
 	if c.fn(ctx) {
 		for _, n := range c.nodes {
-			if ctx.Error = n.Render(w, ctx); ctx.Error != nil {
+			if ctx.Error = n.Render(ctx); ctx.Error != nil {
 				break
 			}
 		}
