@@ -31,7 +31,7 @@ func TestAttribute_PanicsOnBadName(t *testing.T) {
 
 func TestAttribute_Render(t *testing.T) {
 	a := Attribute("foo", "bar")
-	assert.Equal(t, " foo=\"bar\"", testRender(a, t))
+	assert.Equal(t, ` foo="bar"`, testRender(a, t))
 
 	err := a.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
@@ -88,7 +88,7 @@ func TestDelimitedAttribute_PanicsOnBadName(t *testing.T) {
 
 func TestDelimitedAttribute_Render(t *testing.T) {
 	a := DelimitedAttribute("foo", " ", "a", "b")
-	assert.Equal(t, " foo=\"a b\"", testRender(a, t))
+	assert.Equal(t, ` foo="a b"`, testRender(a, t))
 
 	err := a.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)

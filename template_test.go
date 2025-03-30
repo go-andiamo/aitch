@@ -7,12 +7,12 @@ import (
 )
 
 const templateBasic = `<!DOCTYPE html>
-<html {{lang}}>
+<html {{lang .}}>
 <head>
-    {{title}}
+    {{title .}}
 </head>
 <body>
-{{body}}
+{{body .}}
 </body>
 </html>`
 
@@ -30,16 +30,13 @@ func TestNewTemplate(t *testing.T) {
 		"title": TitleElement(Text("Test")),
 		"body":  When("yes", P(Id(1), Text("Here!"))),
 	})
-	data1 := map[string]any{
-		"lang": "fr",
-	}
-	data2 := map[string]any{
+	data := map[string]any{
 		"lang": "en",
 		"yes":  true,
 	}
 	require.NoError(t, err)
 	var w bytes.Buffer
-	err = atmp.Execute(&w, data1, data2)
+	err = atmp.Execute(&w, data, nil)
 	require.NoError(t, err)
 	require.Equal(t, `<!DOCTYPE html>
 <html  lang="en">
@@ -51,11 +48,11 @@ func TestNewTemplate(t *testing.T) {
 </body>
 </html>`, w.String())
 
+	data["yes"] = false
 	w = bytes.Buffer{}
-	err = atmp.Template.Execute(&w, data1)
-	require.NoError(t, err)
+	err = atmp.Execute(&w, data, nil)
 	require.Equal(t, `<!DOCTYPE html>
-<html  lang="">
+<html  lang="en">
 <head>
     <title>Test</title>
 </head>
@@ -63,4 +60,8 @@ func TestNewTemplate(t *testing.T) {
 
 </body>
 </html>`, w.String())
+
+	w = bytes.Buffer{}
+	err = atmp.template.Execute(&w, nil)
+	require.Error(t, err)
 }

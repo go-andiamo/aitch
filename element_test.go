@@ -30,7 +30,7 @@ func TestVoidElement_PanicsOnBadName(t *testing.T) {
 
 func TestVoidElement_Render(t *testing.T) {
 	e := VoidElement("foo", Class("a"))
-	assert.Equal(t, "<foo class=\"a\">", testRender(e, t))
+	assert.Equal(t, `<foo class="a">`, testRender(e, t))
 
 	err := e.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
@@ -38,10 +38,10 @@ func TestVoidElement_Render(t *testing.T) {
 
 func TestVoidElement_Render_MergedDelimitedAttributes(t *testing.T) {
 	e := VoidElement("foo", Class("a"), Class("b"), Class("c"))
-	assert.Equal(t, "<foo class=\"a b c\">", testRender(e, t))
+	assert.Equal(t, `<foo class="a b c">`, testRender(e, t))
 
 	e = VoidElement("foo", Class("a"), Attribute("class", "overridden"))
-	assert.Equal(t, "<foo class=\"overridden\">", testRender(e, t))
+	assert.Equal(t, `<foo class="overridden">`, testRender(e, t))
 }
 
 func TestElement(t *testing.T) {
@@ -76,7 +76,7 @@ func TestElement_PanicsOnBadName(t *testing.T) {
 
 func TestElement_Render(t *testing.T) {
 	e := Element("foo", Text("b"), Class("a"))
-	assert.Equal(t, "<foo class=\"a\">b</foo>", testRender(e, t))
+	assert.Equal(t, `<foo class="a">b</foo>`, testRender(e, t))
 
 	err := e.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
@@ -84,10 +84,10 @@ func TestElement_Render(t *testing.T) {
 
 func TestElement_Render_MergedDelimitedAttributes(t *testing.T) {
 	e := Element("foo", Text("bar"), Class("a"), Class("b"), Class("c"))
-	assert.Equal(t, "<foo class=\"a b c\">bar</foo>", testRender(e, t))
+	assert.Equal(t, `<foo class="a b c">bar</foo>`, testRender(e, t))
 
 	e = Element("foo", Text("bar"), Class("a"), Attribute("class", "overridden"))
-	assert.Equal(t, "<foo class=\"overridden\">bar</foo>", testRender(e, t))
+	assert.Equal(t, `<foo class="overridden">bar</foo>`, testRender(e, t))
 }
 
 func TestAttributesAndContents(t *testing.T) {
