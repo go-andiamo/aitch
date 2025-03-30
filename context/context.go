@@ -8,6 +8,8 @@ type Context struct {
 	Error error
 	// Data is the data that may be referenced during rendering to provide dynamic content
 	Data map[string]any
+	// Cargo is any additional data (e.g. to carry data normally passed to html/template.Execute)
+	Cargo any
 	// Writer is the context writer
 	Writer io.Writer
 }

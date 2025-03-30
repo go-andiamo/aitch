@@ -23,7 +23,8 @@ func TestDocument(t *testing.T) {
 
 func TestDocument_Render(t *testing.T) {
 	d := Document("en", []aitch.Node{Meta(Charset("utf-8"))}, []aitch.Node{P()})
-	assert.Equal(t, "<!DOCTYPE html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"></head><body><p></p></body></html>", testRender(d, t))
+	assert.Equal(t, `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"></head><body><p></p></body></html>`, testRender(d, t))
 
 	err := d.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)

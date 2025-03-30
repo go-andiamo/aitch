@@ -10,7 +10,7 @@ import (
 // used by Element() and Attribute()
 var PanicOnInvalidName = false
 
-var htmlTagRegex = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9._-]*$`)
+var htmlTagRegex = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9._\-:]*$`)
 
 // Node is the interface for all nodes (elements, attributes, etc.)
 type Node interface {
