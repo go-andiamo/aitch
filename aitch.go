@@ -36,6 +36,7 @@ const (
 	collectionNode
 	conditionalNode
 	dynamicNode
+	imperativeNode
 )
 
 var (
