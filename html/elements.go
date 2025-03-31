@@ -4,423 +4,423 @@ import (
 	"github.com/go-andiamo/aitch"
 )
 
-func A(contents ...aitch.Node) aitch.Node {
+func A(contents ...any) aitch.Node {
 	return aitch.NewElement(tagA, contents...)
 }
 
-func Abbr(contents ...aitch.Node) aitch.Node {
+func Abbr(contents ...any) aitch.Node {
 	return aitch.NewElement(tagAbbr, contents...)
 }
 
-func Address(contents ...aitch.Node) aitch.Node {
+func Address(contents ...any) aitch.Node {
 	return aitch.NewElement(tagAddress, contents...)
 }
 
-func Area(contents ...aitch.Node) aitch.Node {
+func Area(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagArea, contents...)
 }
 
-func Article(contents ...aitch.Node) aitch.Node {
+func Article(contents ...any) aitch.Node {
 	return aitch.NewElement(tagArticle, contents...)
 }
 
-func Aside(contents ...aitch.Node) aitch.Node {
+func Aside(contents ...any) aitch.Node {
 	return aitch.NewElement(tagAside, contents...)
 }
 
-func Audio(contents ...aitch.Node) aitch.Node {
+func Audio(contents ...any) aitch.Node {
 	return aitch.NewElement(tagAudio, contents...)
 }
 
-func B(contents ...aitch.Node) aitch.Node {
+func B(contents ...any) aitch.Node {
 	return aitch.NewElement(tagB, contents...)
 }
 
-func Base(contents ...aitch.Node) aitch.Node {
+func Base(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagBase, contents...)
 }
 
-func BlockQuote(contents ...aitch.Node) aitch.Node {
+func BlockQuote(contents ...any) aitch.Node {
 	return aitch.NewElement(tagBlockquote, contents...)
 }
 
-func Body(contents ...aitch.Node) aitch.Node {
+func Body(contents ...any) aitch.Node {
 	return aitch.NewElement(tagBody, contents...)
 }
 
-func Br(contents ...aitch.Node) aitch.Node {
+func Br(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagBr, contents...)
 }
 
-func Button(contents ...aitch.Node) aitch.Node {
+func Button(contents ...any) aitch.Node {
 	return aitch.NewElement(tagButton, contents...)
 }
 
-func Canvas(contents ...aitch.Node) aitch.Node {
+func Canvas(contents ...any) aitch.Node {
 	return aitch.NewElement(tagCanvas, contents...)
 }
 
-func Caption(contents ...aitch.Node) aitch.Node {
+func Caption(contents ...any) aitch.Node {
 	return aitch.NewElement(tagCaption, contents...)
 }
 
-func Cite(contents ...aitch.Node) aitch.Node {
+func Cite(contents ...any) aitch.Node {
 	return aitch.NewElement(tagCite, contents...)
 }
 
-func Code(contents ...aitch.Node) aitch.Node {
+func Code(contents ...any) aitch.Node {
 	return aitch.NewElement(tagCode, contents...)
 }
 
-func Col(contents ...aitch.Node) aitch.Node {
+func Col(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagCol, contents...)
 }
 
-func ColGroup(contents ...aitch.Node) aitch.Node {
+func ColGroup(contents ...any) aitch.Node {
 	return aitch.NewElement(tagColgroup, contents...)
 }
 
-func DataElement(contents ...aitch.Node) aitch.Node {
+func DataElement(contents ...any) aitch.Node {
 	return aitch.NewElement(tagData, contents...)
 }
 
-func DataList(contents ...aitch.Node) aitch.Node {
+func DataList(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDatalist, contents...)
 }
 
-func Dd(contents ...aitch.Node) aitch.Node {
+func Dd(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDd, contents...)
 }
 
-func Del(contents ...aitch.Node) aitch.Node {
+func Del(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDel, contents...)
 }
 
-func Dfn(contents ...aitch.Node) aitch.Node {
+func Dfn(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDfn, contents...)
 }
 
-func Dt(contents ...aitch.Node) aitch.Node {
+func Dt(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDt, contents...)
 }
 
-func Details(contents ...aitch.Node) aitch.Node {
+func Details(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDetails, contents...)
 }
 
-func Dialog(contents ...aitch.Node) aitch.Node {
+func Dialog(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDialog, contents...)
 }
 
-func Div(contents ...aitch.Node) aitch.Node {
+func Div(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDiv, contents...)
 }
 
-func Dl(contents ...aitch.Node) aitch.Node {
+func Dl(contents ...any) aitch.Node {
 	return aitch.NewElement(tagDl, contents...)
 }
 
-func Em(contents ...aitch.Node) aitch.Node {
+func Em(contents ...any) aitch.Node {
 	return aitch.NewElement(tagEm, contents...)
 }
 
-func Embed(contents ...aitch.Node) aitch.Node {
+func Embed(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagEmbed, contents...)
 }
 
-func Form(contents ...aitch.Node) aitch.Node {
+func Form(contents ...any) aitch.Node {
 	return aitch.NewElement(tagForm, contents...)
 }
 
-func FieldSet(contents ...aitch.Node) aitch.Node {
+func FieldSet(contents ...any) aitch.Node {
 	return aitch.NewElement(tagFieldset, contents...)
 }
 
-func FigCaption(contents ...aitch.Node) aitch.Node {
+func FigCaption(contents ...any) aitch.Node {
 	return aitch.NewElement(tagFigcaption, contents...)
 }
 
-func Figure(contents ...aitch.Node) aitch.Node {
+func Figure(contents ...any) aitch.Node {
 	return aitch.NewElement(tagFigure, contents...)
 }
 
-func Footer(contents ...aitch.Node) aitch.Node {
+func Footer(contents ...any) aitch.Node {
 	return aitch.NewElement(tagFooter, contents...)
 }
 
-func H1(contents ...aitch.Node) aitch.Node {
+func H1(contents ...any) aitch.Node {
 	return aitch.NewElement(tagH1, contents...)
 }
 
-func H2(contents ...aitch.Node) aitch.Node {
+func H2(contents ...any) aitch.Node {
 	return aitch.NewElement(tagH2, contents...)
 }
 
-func H3(contents ...aitch.Node) aitch.Node {
+func H3(contents ...any) aitch.Node {
 	return aitch.NewElement(tagH3, contents...)
 }
 
-func H4(contents ...aitch.Node) aitch.Node {
+func H4(contents ...any) aitch.Node {
 	return aitch.NewElement(tagH4, contents...)
 }
 
-func H5(contents ...aitch.Node) aitch.Node {
+func H5(contents ...any) aitch.Node {
 	return aitch.NewElement(tagH5, contents...)
 }
 
-func H6(contents ...aitch.Node) aitch.Node {
+func H6(contents ...any) aitch.Node {
 	return aitch.NewElement(tagH6, contents...)
 }
 
-func Head(contents ...aitch.Node) aitch.Node {
+func Head(contents ...any) aitch.Node {
 	return aitch.NewElement(tagHead, contents...)
 }
 
-func Header(contents ...aitch.Node) aitch.Node {
+func Header(contents ...any) aitch.Node {
 	return aitch.NewElement(tagHeader, contents...)
 }
 
-func HGroup(contents ...aitch.Node) aitch.Node {
+func HGroup(contents ...any) aitch.Node {
 	return aitch.NewElement(tagHgroup, contents...)
 }
 
-func Hr(contents ...aitch.Node) aitch.Node {
+func Hr(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagHr, contents...)
 }
 
-func Html(contents ...aitch.Node) aitch.Node {
+func Html(contents ...any) aitch.Node {
 	return aitch.NewElement(tagHtml, contents...)
 }
 
-func I(contents ...aitch.Node) aitch.Node {
+func I(contents ...any) aitch.Node {
 	return aitch.NewElement(tagI, contents...)
 }
 
-func IFrame(contents ...aitch.Node) aitch.Node {
+func IFrame(contents ...any) aitch.Node {
 	return aitch.NewElement(tagIframe, contents...)
 }
 
-func Img(contents ...aitch.Node) aitch.Node {
+func Img(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagImg, contents...)
 }
 
-func Input(contents ...aitch.Node) aitch.Node {
+func Input(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagInput, contents...)
 }
 
-func Ins(contents ...aitch.Node) aitch.Node {
+func Ins(contents ...any) aitch.Node {
 	return aitch.NewElement(tagIns, contents...)
 }
 
-func Kbd(contents ...aitch.Node) aitch.Node {
+func Kbd(contents ...any) aitch.Node {
 	return aitch.NewElement(tagKbd, contents...)
 }
 
-func Label(contents ...aitch.Node) aitch.Node {
+func Label(contents ...any) aitch.Node {
 	return aitch.NewElement(tagLabel, contents...)
 }
 
-func Legend(contents ...aitch.Node) aitch.Node {
+func Legend(contents ...any) aitch.Node {
 	return aitch.NewElement(tagLegend, contents...)
 }
 
-func Li(contents ...aitch.Node) aitch.Node {
+func Li(contents ...any) aitch.Node {
 	return aitch.NewElement(tagLi, contents...)
 }
 
-func Link(contents ...aitch.Node) aitch.Node {
+func Link(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagLink, contents...)
 }
 
-func Main(contents ...aitch.Node) aitch.Node {
+func Main(contents ...any) aitch.Node {
 	return aitch.NewElement(tagMain, contents...)
 }
 
-func Mark(contents ...aitch.Node) aitch.Node {
+func Mark(contents ...any) aitch.Node {
 	return aitch.NewElement(tagMark, contents...)
 }
 
-func Menu(contents ...aitch.Node) aitch.Node {
+func Menu(contents ...any) aitch.Node {
 	return aitch.NewElement(tagMenu, contents...)
 }
 
-func Meta(contents ...aitch.Node) aitch.Node {
+func Meta(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagMeta, contents...)
 }
 
-func Meter(contents ...aitch.Node) aitch.Node {
+func Meter(contents ...any) aitch.Node {
 	return aitch.NewElement(tagMeter, contents...)
 }
 
-func Nav(contents ...aitch.Node) aitch.Node {
+func Nav(contents ...any) aitch.Node {
 	return aitch.NewElement(tagNav, contents...)
 }
 
-func NoScript(contents ...aitch.Node) aitch.Node {
+func NoScript(contents ...any) aitch.Node {
 	return aitch.NewElement(tagNoscript, contents...)
 }
 
-func Object(contents ...aitch.Node) aitch.Node {
+func Object(contents ...any) aitch.Node {
 	return aitch.NewElement(tagObject, contents...)
 }
 
-func Ol(contents ...aitch.Node) aitch.Node {
+func Ol(contents ...any) aitch.Node {
 	return aitch.NewElement(tagOl, contents...)
 }
 
-func OptGroup(contents ...aitch.Node) aitch.Node {
+func OptGroup(contents ...any) aitch.Node {
 	return aitch.NewElement(tagOptgroup, contents...)
 }
 
-func Option(contents ...aitch.Node) aitch.Node {
+func Option(contents ...any) aitch.Node {
 	return aitch.NewElement(tagOption, contents...)
 }
 
-func P(contents ...aitch.Node) aitch.Node {
+func P(contents ...any) aitch.Node {
 	return aitch.NewElement(tagP, contents...)
 }
 
-func Para(contents ...aitch.Node) aitch.Node {
+func Para(contents ...any) aitch.Node {
 	return aitch.NewElement(tagP, contents...)
 }
 
-func Param(contents ...aitch.Node) aitch.Node {
+func Param(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagParam, contents...)
 }
 
-func Picture(contents ...aitch.Node) aitch.Node {
+func Picture(contents ...any) aitch.Node {
 	return aitch.NewElement(tagPicture, contents...)
 }
 
-func Pre(contents ...aitch.Node) aitch.Node {
+func Pre(contents ...any) aitch.Node {
 	return aitch.NewElement(tagPre, contents...)
 }
 
-func Progress(contents ...aitch.Node) aitch.Node {
+func Progress(contents ...any) aitch.Node {
 	return aitch.NewElement(tagProgress, contents...)
 }
 
-func Q(contents ...aitch.Node) aitch.Node {
+func Q(contents ...any) aitch.Node {
 	return aitch.NewElement(tagQ, contents...)
 }
 
-func S(contents ...aitch.Node) aitch.Node {
+func S(contents ...any) aitch.Node {
 	return aitch.NewElement(tagS, contents...)
 }
 
-func Samp(contents ...aitch.Node) aitch.Node {
+func Samp(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSamp, contents...)
 }
 
-func Script(contents ...aitch.Node) aitch.Node {
+func Script(contents ...any) aitch.Node {
 	return aitch.NewElement(tagScript, contents...)
 }
 
-func Section(contents ...aitch.Node) aitch.Node {
+func Section(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSection, contents...)
 }
 
-func Select(contents ...aitch.Node) aitch.Node {
+func Select(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSelect, contents...)
 }
 
-func Slot(contents ...aitch.Node) aitch.Node {
+func Slot(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSlot, contents...)
 }
 
-func Small(contents ...aitch.Node) aitch.Node {
+func Small(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSmall, contents...)
 }
 
-func Source(contents ...aitch.Node) aitch.Node {
+func Source(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagSource, contents...)
 }
 
-func Span(contents ...aitch.Node) aitch.Node {
+func Span(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSpan, contents...)
 }
 
-func Strong(contents ...aitch.Node) aitch.Node {
+func Strong(contents ...any) aitch.Node {
 	return aitch.NewElement(tagStrong, contents...)
 }
 
-func StyleElement(contents ...aitch.Node) aitch.Node {
+func StyleElement(contents ...any) aitch.Node {
 	return aitch.NewElement(tagStyle, contents...)
 }
 
-func Sub(contents ...aitch.Node) aitch.Node {
+func Sub(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSub, contents...)
 }
 
-func Sup(contents ...aitch.Node) aitch.Node {
+func Sup(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSup, contents...)
 }
 
-func Summary(contents ...aitch.Node) aitch.Node {
+func Summary(contents ...any) aitch.Node {
 	return aitch.NewElement(tagSummary, contents...)
 }
 
-func Table(contents ...aitch.Node) aitch.Node {
+func Table(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTable, contents...)
 }
 
-func TBody(contents ...aitch.Node) aitch.Node {
+func TBody(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTbody, contents...)
 }
 
-func Td(contents ...aitch.Node) aitch.Node {
+func Td(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTd, contents...)
 }
 
-func Template(contents ...aitch.Node) aitch.Node {
+func Template(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTemplate, contents...)
 }
 
-func Textarea(contents ...aitch.Node) aitch.Node {
+func Textarea(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTextarea, contents...)
 }
 
-func TFoot(contents ...aitch.Node) aitch.Node {
+func TFoot(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTfoot, contents...)
 }
 
-func Th(contents ...aitch.Node) aitch.Node {
+func Th(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTh, contents...)
 }
 
-func THead(contents ...aitch.Node) aitch.Node {
+func THead(contents ...any) aitch.Node {
 	return aitch.NewElement(tagThead, contents...)
 }
 
-func Time(contents ...aitch.Node) aitch.Node {
+func Time(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTime, contents...)
 }
 
-func TitleElement(contents ...aitch.Node) aitch.Node {
+func TitleElement(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTitle, contents...)
 }
 
-func Tr(contents ...aitch.Node) aitch.Node {
+func Tr(contents ...any) aitch.Node {
 	return aitch.NewElement(tagTr, contents...)
 }
 
-func Ul(contents ...aitch.Node) aitch.Node {
+func Ul(contents ...any) aitch.Node {
 	return aitch.NewElement(tagUl, contents...)
 }
 
-func U(contents ...aitch.Node) aitch.Node {
+func U(contents ...any) aitch.Node {
 	return aitch.NewElement(tagU, contents...)
 }
 
-func Var(contents ...aitch.Node) aitch.Node {
+func Var(contents ...any) aitch.Node {
 	return aitch.NewElement(tagVar, contents...)
 }
 
-func Video(contents ...aitch.Node) aitch.Node {
+func Video(contents ...any) aitch.Node {
 	return aitch.NewElement(tagVideo, contents...)
 }
 
-func Wbr(contents ...aitch.Node) aitch.Node {
+func Wbr(contents ...any) aitch.Node {
 	return aitch.NewVoidElement(tagWbr, contents...)
 }
 

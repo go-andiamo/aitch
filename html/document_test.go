@@ -11,7 +11,7 @@ import (
 )
 
 func TestDocument(t *testing.T) {
-	d := Document("en", []aitch.Node{Meta(Charset("utf-8"))}, nil)
+	d := Document("en", []any{Meta(Charset("utf-8"))}, nil)
 	assert.Equal(t, aitch.DocumentNode, d.Type())
 	assert.Equal(t, "#document", d.Name())
 	rv := d.(*document)
@@ -22,7 +22,7 @@ func TestDocument(t *testing.T) {
 }
 
 func TestDocument_Render(t *testing.T) {
-	d := Document("en", []aitch.Node{Meta(Charset("utf-8"))}, []aitch.Node{P()})
+	d := Document("en", []any{Meta(Charset("utf-8"))}, []any{P()})
 	assert.Equal(t, `<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"></head><body><p></p></body></html>`, testRender(d, t))
 

@@ -16,7 +16,7 @@ const templateBasic = `<!DOCTYPE html>
 </body>
 </html>`
 
-func TitleElement(contents ...Node) Node {
+func TitleElement(contents ...any) Node {
 	return NewElement([]byte("title"), contents...)
 }
 
@@ -64,4 +64,17 @@ func TestNewTemplate(t *testing.T) {
 	w = bytes.Buffer{}
 	err = atmp.template.Execute(&w, nil)
 	require.Error(t, err)
+}
+
+func TestMustNewTemplate(t *testing.T) {
+	require.NotPanics(t, func() {
+		_ = MustNewTemplate("test", templateBasic, NodeMap{
+			"lang":  Lang(DynamicValueKey("lang")),
+			"title": TitleElement(Text("Test")),
+			"body":  When("yes", P(Id(1), Text("Here!"))),
+		})
+	})
+	require.Panics(t, func() {
+		_ = MustNewTemplate("test", templateBasic, NodeMap{})
+	})
 }

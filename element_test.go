@@ -78,6 +78,9 @@ func TestElement_Render(t *testing.T) {
 	e := Element("foo", Text("b"), Class("a"))
 	assert.Equal(t, `<foo class="a">b</foo>`, testRender(e, t))
 
+	e = Element("foo", "b", Class("a"))
+	assert.Equal(t, `<foo class="a">b</foo>`, testRender(e, t))
+
 	err := e.Render(&context.Context{Writer: &errorWriter{}})
 	require.Error(t, err)
 }
