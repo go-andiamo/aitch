@@ -29,7 +29,7 @@ func (d *document) Name() string {
 }
 
 // Document creates a new HTML document Node
-func Document(lang any, head []aitch.Node, body []aitch.Node) aitch.Node {
+func Document(lang any, head []any, body []any) aitch.Node {
 	var langAtt aitch.Node
 	if lang != nil {
 		langAtt = Lang(lang)

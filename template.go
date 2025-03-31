@@ -32,7 +32,7 @@ type NodeMap map[string]Node
 
 // NewTemplate creates a new Template with the given name and text to parse
 //
-// the NodeMap is used to map {{token}} to Node's that will replace them
+// the NodeMap is used to map {{token .}} to Node's that will replace them
 func NewTemplate(name string, text string, nodeMap NodeMap) (*Template, error) {
 	var err error
 	var tmp *template.Template
@@ -43,6 +43,14 @@ func NewTemplate(name string, text string, nodeMap NodeMap) (*Template, error) {
 		}
 	}
 	return result, err
+}
+
+func MustNewTemplate(name string, text string, nodeMap NodeMap) *Template {
+	if t, err := NewTemplate(name, text, nodeMap); err == nil {
+		return t
+	} else {
+		panic(err)
+	}
 }
 
 func contextFuncMap(nodeMap NodeMap) template.FuncMap {

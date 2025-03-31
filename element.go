@@ -7,16 +7,16 @@ import (
 func renderAttributes(ctx *context.Context, attributes []Node, attIndices map[string]int, conditionals conditionalAttributes) {
 	if len(conditionals) > 0 {
 		if evaluated := conditionals.evaluate(ctx); len(evaluated) > 0 {
+			use := &delimitedAttribute{}
 			for name, index := range attIndices {
 				attr := attributes[index]
 				if eAttr, ok := evaluated[name]; ok {
 					switch at := attr.(type) {
 					case *delimitedAttribute:
-						use := &delimitedAttribute{
-							name:      at.name,
-							delimiter: at.delimiter,
-							values:    append([]value{}, at.values...),
-						}
+						use.name = at.name
+						use.delimiter = at.delimiter
+						use.values = use.values[:0]
+						use.values = append(use.values, at.values...)
 						for _, e := range eAttr {
 							if et, ok := e.(valuesNode); ok {
 								use.values = append(use.values, et.getValues()...)
@@ -35,11 +35,10 @@ func renderAttributes(ctx *context.Context, attributes []Node, attIndices map[st
 					first := ca[0]
 					switch at := first.(type) {
 					case *delimitedAttribute:
-						use := &delimitedAttribute{
-							name:      at.name,
-							delimiter: at.delimiter,
-							values:    append([]value{}, at.values...),
-						}
+						use.name = at.name
+						use.delimiter = at.delimiter
+						use.values = use.values[:0]
+						use.values = append(use.values, at.values...)
 						for i := 1; i < len(ca); i++ {
 							if et, ok := ca[i].(valuesNode); ok {
 								use.values = append(use.values, et.getValues()...)
@@ -108,7 +107,7 @@ func (e *voidElement) addAttributes(attrs []Node) Node {
 //
 // the name is checked to ensure it's a valid name - returns nil if the name is invalid
 // (or panics if PanicOnInvalidName is true)
-func VoidElement(name string, contents ...Node) Node {
+func VoidElement(name string, contents ...any) Node {
 	if !htmlTagRegex.MatchString(name) {
 		if PanicOnInvalidName {
 			panic("invalid html tag name: " + name)
@@ -175,7 +174,7 @@ func (e *element) addAttributes(attrs []Node) Node {
 //
 // The name is used to determine whether the element is an HTML void element - you want
 // to specifically create a void element use VoidElement() instead
-func Element(name string, contents ...Node) Node {
+func Element(name string, contents ...any) Node {
 	if !htmlTagRegex.MatchString(name) {
 		if PanicOnInvalidName {
 			panic("invalid html tag name: " + name)
@@ -188,8 +187,8 @@ func Element(name string, contents ...Node) Node {
 	return NewElement([]byte(name), contents...)
 }
 
-func NewElement(name []byte, contents ...Node) Node {
-	attrs, condAttrs, children := attributesAndContents(nil, contents)
+func NewElement(name []byte, contents ...any) Node {
+	attrs, condAttrs, children := attributesAndContents(nil, contentsToNodes(contents))
 	result := &element{
 		name:         name,
 		attributes:   make([]Node, 0, len(attrs)),
@@ -200,8 +199,8 @@ func NewElement(name []byte, contents ...Node) Node {
 	return result.addAttributes(attrs)
 }
 
-func NewVoidElement(name []byte, contents ...Node) Node {
-	attrs, condAttrs, _ := attributesAndContents(nil, contents)
+func NewVoidElement(name []byte, contents ...any) Node {
+	attrs, condAttrs, _ := attributesAndContents(nil, contentsToNodes(contents))
 	result := &voidElement{
 		name:         name,
 		attributes:   make([]Node, 0, len(attrs)),
@@ -211,11 +210,24 @@ func NewVoidElement(name []byte, contents ...Node) Node {
 	return result.addAttributes(attrs)
 }
 
-func attributesAndContents(conditions []ConditionalFunc, nodes []Node) (attrs []Node, condAttrs conditionalAttributes, contents []Node) {
-	attrs = make([]Node, 0, len(nodes))
-	condAttrs = make(conditionalAttributes, 0, len(nodes))
-	contents = make([]Node, 0, len(nodes))
-	for _, item := range nodes {
+func contentsToNodes(contents []any) []Node {
+	result := make([]Node, len(contents))
+	for i, c := range contents {
+		switch v := c.(type) {
+		case Node:
+			result[i] = v
+		default:
+			result[i] = Text(c)
+		}
+	}
+	return result
+}
+
+func attributesAndContents(conditions []ConditionalFunc, content []Node) (attrs []Node, condAttrs conditionalAttributes, contents []Node) {
+	attrs = make([]Node, 0, len(content))
+	condAttrs = make(conditionalAttributes, 0, len(content))
+	contents = make([]Node, 0, len(content))
+	for _, item := range content {
 		if item != nil {
 			if item.Type() == AttributeNode {
 				if len(conditions) > 0 {
