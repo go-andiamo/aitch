@@ -51,6 +51,7 @@ func TestNewTemplate(t *testing.T) {
 	data["yes"] = false
 	w = bytes.Buffer{}
 	err = atmp.Execute(&w, data, nil)
+	require.NoError(t, err)
 	require.Equal(t, `<!DOCTYPE html>
 <html  lang="en">
 <head>

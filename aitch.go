@@ -37,6 +37,7 @@ const (
 	conditionalNode
 	dynamicNode
 	imperativeNode
+	iteratorNode
 )
 
 var (
