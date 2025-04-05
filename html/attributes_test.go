@@ -1216,3 +1216,136 @@ func TestOnWaiting(t *testing.T) {
 	require.Equal(t, "onwaiting", a.Name())
 	require.Equal(t, ` onwaiting="foo"`, testRender(a, t))
 }
+
+func TestOnPointerDown(t *testing.T) {
+	a := OnPointerDown("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointerdown", a.Name())
+	require.Equal(t, ` onpointerdown="foo"`, testRender(a, t))
+}
+
+func TestOnPointerUp(t *testing.T) {
+	a := OnPointerUp("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointerup", a.Name())
+	require.Equal(t, ` onpointerup="foo"`, testRender(a, t))
+}
+
+func TestOnPointerMove(t *testing.T) {
+	a := OnPointerMove("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointermove", a.Name())
+	require.Equal(t, ` onpointermove="foo"`, testRender(a, t))
+}
+
+func TestOnPointerEnter(t *testing.T) {
+	a := OnPointerEnter("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointerenter", a.Name())
+	require.Equal(t, ` onpointerenter="foo"`, testRender(a, t))
+}
+
+func TestOnPointerLeave(t *testing.T) {
+	a := OnPointerLeave("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointerleave", a.Name())
+	require.Equal(t, ` onpointerleave="foo"`, testRender(a, t))
+}
+
+func TestOnPointerOver(t *testing.T) {
+	a := OnPointerOver("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointerover", a.Name())
+	require.Equal(t, ` onpointerover="foo"`, testRender(a, t))
+}
+
+func TestOnPointerOut(t *testing.T) {
+	a := OnPointerOut("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointerout", a.Name())
+	require.Equal(t, ` onpointerout="foo"`, testRender(a, t))
+}
+
+func TestOnPointerCancel(t *testing.T) {
+	a := OnPointerCancel("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onpointercancel", a.Name())
+	require.Equal(t, ` onpointercancel="foo"`, testRender(a, t))
+}
+
+func TestOnTouchStart(t *testing.T) {
+	a := OnTouchStart("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "ontouchstart", a.Name())
+	require.Equal(t, ` ontouchstart="foo"`, testRender(a, t))
+}
+
+func TestOnTouchMove(t *testing.T) {
+	a := OnTouchMove("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "ontouchmove", a.Name())
+	require.Equal(t, ` ontouchmove="foo"`, testRender(a, t))
+}
+
+func TestOnTouchEnd(t *testing.T) {
+	a := OnTouchEnd("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "ontouchend", a.Name())
+	require.Equal(t, ` ontouchend="foo"`, testRender(a, t))
+}
+
+func TestOnTouchCancel(t *testing.T) {
+	a := OnTouchCancel("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "ontouchcancel", a.Name())
+	require.Equal(t, ` ontouchcancel="foo"`, testRender(a, t))
+}
+
+func TestOnAnimationStart(t *testing.T) {
+	a := OnAnimationStart("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onanimationstart", a.Name())
+	require.Equal(t, ` onanimationstart="foo"`, testRender(a, t))
+}
+
+func TestOnAnimationEnd(t *testing.T) {
+	a := OnAnimationEnd("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onanimationend", a.Name())
+	require.Equal(t, ` onanimationend="foo"`, testRender(a, t))
+}
+
+func TestOnAnimationIteration(t *testing.T) {
+	a := OnAnimationIteration("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onanimationiteration", a.Name())
+	require.Equal(t, ` onanimationiteration="foo"`, testRender(a, t))
+}
+
+func TestOnTransitionEnd(t *testing.T) {
+	a := OnTransitionEnd("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "ontransitionend", a.Name())
+	require.Equal(t, ` ontransitionend="foo"`, testRender(a, t))
+}
+
+func TestOnBeforeInput(t *testing.T) {
+	a := OnBeforeInput("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onbeforeinput", a.Name())
+	require.Equal(t, ` onbeforeinput="foo"`, testRender(a, t))
+}
+
+func TestOnSlotChange(t *testing.T) {
+	a := OnSlotChange("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onslotchange", a.Name())
+	require.Equal(t, ` onslotchange="foo"`, testRender(a, t))
+}
+
+func TestOnFormData(t *testing.T) {
+	a := OnFormData("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "onformdata", a.Name())
+	require.Equal(t, ` onformdata="foo"`, testRender(a, t))
+}

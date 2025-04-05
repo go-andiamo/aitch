@@ -167,7 +167,7 @@ func (e *element) addAttributes(attrs []Node) Node {
 	return e
 }
 
-// Element creates a new element Node
+// Element declares a new element Node
 //
 // the name is checked to ensure it's a valid name - returns nil if the name is invalid
 // (or panics if PanicOnInvalidName is true)
@@ -187,6 +187,7 @@ func Element(name string, contents ...any) Node {
 	return NewElement([]byte(name), contents...)
 }
 
+// NewElement declares a new element Node
 func NewElement(name []byte, contents ...any) Node {
 	attrs, condAttrs, children := attributesAndContents(nil, contentsToNodes(contents))
 	result := &element{
@@ -199,6 +200,10 @@ func NewElement(name []byte, contents ...any) Node {
 	return result.addAttributes(attrs)
 }
 
+// NewVoidElement declares a new void element Node
+//
+// A void element has no content (and no closing tag) - therefore, any non-attribute
+// contents are ignored
 func NewVoidElement(name []byte, contents ...any) Node {
 	attrs, condAttrs, _ := attributesAndContents(nil, contentsToNodes(contents))
 	result := &voidElement{
