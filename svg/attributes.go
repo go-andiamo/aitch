@@ -2,576 +2,719 @@ package svg
 
 import "github.com/go-andiamo/aitch"
 
-func Accumulate(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrAccumulate, v...)
+// Accumulate declares a SVG "accumulate" attribute
+func Accumulate(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrAccumulate, value...)
 }
 
-func Additive(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrAdditive, v...)
+// Additive declares a SVG "additive" attribute
+func Additive(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrAdditive, value...)
 }
 
-func AlignmentBaseline(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrAlignmentBaseline, v...)
+// AlignmentBaseline declares a SVG "alignment-baseline" attribute
+func AlignmentBaseline(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrAlignmentBaseline, value...)
 }
 
-func AttributeName(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrAttributeName, v...)
+// AttributeName declares a SVG "attributeName" attribute
+func AttributeName(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrAttributeName, value...)
 }
 
-func AttributeType(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrAttributeType, v...)
+// AttributeType declares a SVG "attributeType" attribute
+func AttributeType(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrAttributeType, value...)
 }
 
-func BaselineShift(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrBaselineShift, v...)
+// BaselineShift declares a SVG "baseline-shift" attribute
+func BaselineShift(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrBaselineShift, value...)
 }
 
-func Begin(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrBegin, v...)
+// Begin declares a SVG "begin" attribute
+func Begin(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrBegin, value...)
 }
 
-func By(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrBy, v...)
+// By declares a SVG "by" attribute
+func By(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrBy, value...)
 }
 
-func CalcMode(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrCalcMode, v...)
+// CalcMode declares a SVG "calcMode" attribute
+func CalcMode(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrCalcMode, value...)
 }
 
-func Class(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrClass, v...)
+// Class declares a SVG "class" attribute
+func Class(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrClass, value...)
 }
 
-func Clip(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrClip, v...)
+// Clip declares a SVG "clip" attribute
+func Clip(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrClip, value...)
 }
 
-func ClipPathAttr(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrClipPath, v...)
+// ClipPathAttr declares a SVG "clip-path" attribute
+func ClipPathAttr(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrClipPath, value...)
 }
 
-func ClipRule(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrClipRule, v...)
+// ClipRule declares a SVG "clip-rule" attribute
+func ClipRule(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrClipRule, value...)
 }
 
-func Color(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrColor, v...)
+// Color declares a SVG "color" attribute
+func Color(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrColor, value...)
 }
 
-func ColorInterpolation(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrColorInterpolation, v...)
+// ColorInterpolation declares a SVG "color-interpolation" attribute
+func ColorInterpolation(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrColorInterpolation, value...)
 }
 
-func ColorInterpolationFilters(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrColorInterpolationFilters, v...)
+// ColorInterpolationFilters declares a SVG "color-interpolation-filters" attribute
+func ColorInterpolationFilters(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrColorInterpolationFilters, value...)
 }
 
-func ColorProfile(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrColorProfile, v...)
+// ColorProfile declares a SVG "color-profile" attribute
+func ColorProfile(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrColorProfile, value...)
 }
 
-func ColorRendering(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrColorRendering, v...)
+// ColorRendering declares a SVG "color-rendering" attribute
+func ColorRendering(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrColorRendering, value...)
 }
 
-func Cursor(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrCursor, v...)
+// Cursor declares a SVG "cursor" attribute
+func Cursor(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrCursor, value...)
 }
 
-func Cx(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrCx, v...)
+// Cx declares a SVG "cx" attribute
+func Cx(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrCx, value...)
 }
 
-func Cy(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrCy, v...)
+// Cy declares a SVG "cy" attribute
+func Cy(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrCy, value...)
 }
 
-func D(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrD, v...)
+// D declares a SVG "d" attribute
+func D(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrD, value...)
 }
 
-func Direction(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrDirection, v...)
+// Direction declares a SVG "direction" attribute
+func Direction(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrDirection, value...)
 }
 
-func Display(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrDisplay, v...)
+// Display declares a SVG "display" attribute
+func Display(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrDisplay, value...)
 }
 
-func DominantBaseline(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrDominantBaseline, v...)
+// DominantBaseline declares a SVG "dominant-baseline" attribute
+func DominantBaseline(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrDominantBaseline, value...)
 }
 
-func Dur(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrDur, v...)
+// Dur declares a SVG "dur" attribute
+func Dur(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrDur, value...)
 }
 
-func Dx(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrDx, v...)
+// Dx declares a SVG "dx" attribute
+func Dx(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrDx, value...)
 }
 
-func Dy(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrDy, v...)
+// Dy declares a SVG "dy" attribute
+func Dy(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrDy, value...)
 }
 
-func EnableBackground(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrEnablebackground, v...)
+// EnableBackground declares a SVG "enable-background" attribute
+func EnableBackground(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrEnablebackground, value...)
 }
 
-func End(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrEnd, v...)
+// End declares a SVG "end" attribute
+func End(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrEnd, value...)
 }
 
-func ExternalResourcesRequired(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrExternalResourcesRequired, v...)
+// ExternalResourcesRequired declares a SVG "externalResourcesRequired" attribute
+func ExternalResourcesRequired(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrExternalResourcesRequired, value...)
 }
 
-func Fill(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFill, v...)
+// Fill declares a SVG "fill" attribute
+func Fill(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFill, value...)
 }
 
-func FillOpacity(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFillOpacity, v...)
+// FillOpacity declares a SVG "fill-opacity" attribute
+func FillOpacity(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFillOpacity, value...)
 }
 
-func FillRule(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFillRule, v...)
+// FillRule declares a SVG "fill-rule" attribute
+func FillRule(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFillRule, value...)
 }
 
-func FilterAttr(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFilter, v...)
+// FilterAttr declares a SVG "filter" attribute
+func FilterAttr(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFilter, value...)
 }
 
-func FilterUnits(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFilterUnits, v...)
+// FilterUnits declares a SVG "filterUnits" attribute
+func FilterUnits(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFilterUnits, value...)
 }
 
-func FloodColor(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFloodColor, v...)
+// FloodColor declares a SVG "flood-color" attribute
+func FloodColor(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFloodColor, value...)
 }
 
-func FloodOpacity(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFloodOpacity, v...)
+// FloodOpacity declares a SVG "flood-opacity" attribute
+func FloodOpacity(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFloodOpacity, value...)
 }
 
-func FontFamily(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFontFamily, v...)
+// FontFamily declares a SVG "font-family" attribute
+func FontFamily(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFontFamily, value...)
 }
 
-func FontSize(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFontSize, v...)
+// FontSize declares a SVG "font-size" attribute
+func FontSize(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFontSize, value...)
 }
 
-func FontSizeAdjust(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFontSizeAdjust, v...)
+// FontSizeAdjust declares a SVG "font-size-adjust" attribute
+func FontSizeAdjust(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFontSizeAdjust, value...)
 }
 
-func FontStretch(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFontStretch, v...)
+// FontStretch declares a SVG "font-stretch" attribute
+func FontStretch(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFontStretch, value...)
 }
 
-func FontStyle(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFontStyle, v...)
+// FontStyle declares a SVG "font-style" attribute
+func FontStyle(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFontStyle, value...)
 }
 
-func FontVariant(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFontVariant, v...)
+// FontVariant declares a SVG "font-variant" attribute
+func FontVariant(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFontVariant, value...)
 }
 
-func FontWeight(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFontWeight, v...)
+// FontWeight declares a SVG "font-weight" attribute
+func FontWeight(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFontWeight, value...)
 }
 
-func From(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFrom, v...)
+// From declares a SVG "from" attribute
+func From(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFrom, value...)
 }
 
-func Fx(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFx, v...)
+// Fx declares a SVG "fx" attribute
+func Fx(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFx, value...)
 }
 
-func Fy(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrFy, v...)
+// Fy declares a SVG "fy" attribute
+func Fy(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrFy, value...)
 }
 
-func GlyphOrientationHorizontal(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrGlyphOrientationHorizontal, v...)
+// GlyphOrientationHorizontal declares a SVG "glyph-orientation-horizontal" attribute
+func GlyphOrientationHorizontal(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrGlyphOrientationHorizontal, value...)
 }
 
-func GlyphOrientationVertical(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrGlyphOrientationVertical, v...)
+// GlyphOrientationVertical declares a SVG "glyph-orientation-vertical" attribute
+func GlyphOrientationVertical(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrGlyphOrientationVertical, value...)
 }
 
-func GradientTransform(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrGradientTransform, v...)
+// GradientTransform declares a SVG "gradientTransform" attribute
+func GradientTransform(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrGradientTransform, value...)
 }
 
-func GradientUnits(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrGradientUnits, v...)
+// GradientUnits declares a SVG "gradientUnits" attribute
+func GradientUnits(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrGradientUnits, value...)
 }
 
-func Height(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrHeight, v...)
+// Height declares a SVG "height" attribute
+func Height(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrHeight, value...)
 }
 
-func Href(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrHref, v...)
+// Href declares a SVG "href" attribute
+func Href(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrHref, value...)
 }
 
-func Id(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrId, v...)
+// Id declares a SVG "id" attribute
+func Id(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrId, value...)
 }
 
-func ImageRendering(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrImageRendering, v...)
+// ImageRendering declares a SVG "image-rendering" attribute
+func ImageRendering(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrImageRendering, value...)
 }
 
-func Kerning(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrKerning, v...)
+// Kerning declares a SVG "kerning" attribute
+func Kerning(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrKerning, value...)
 }
 
-func KeyPoints(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrKeyPoints, v...)
+// KeyPoints declares a SVG "keyPoints" attribute
+func KeyPoints(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrKeyPoints, value...)
 }
 
-func KeySplines(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrKeySplines, v...)
+// KeySplines declares a SVG "keySplines" attribute
+func KeySplines(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrKeySplines, value...)
 }
 
-func KeyTimes(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrKeyTimes, v...)
+// KeyTimes declares a SVG "keyTimes" attribute
+func KeyTimes(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrKeyTimes, value...)
 }
 
-func LengthAdjust(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrLengthAdjust, v...)
+// LengthAdjust declares a SVG "lengthAdjust" attribute
+func LengthAdjust(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrLengthAdjust, value...)
 }
 
-func LetterSpacing(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrLetterspacing, v...)
+// LetterSpacing declares a SVG "letter-spacing" attribute
+func LetterSpacing(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrLetterspacing, value...)
 }
 
-func LightingColor(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrLightingColor, v...)
+// LightingColor declares a SVG "lighting-color" attribute
+func LightingColor(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrLightingColor, value...)
 }
 
-func MarkerEnd(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrMarkerEnd, v...)
+// MarkerEnd declares a SVG "marker-end" attribute
+func MarkerEnd(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrMarkerEnd, value...)
 }
 
-func MarkerMid(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrMarkerMid, v...)
+// MarkerMid declares a SVG "marker-mid" attribute
+func MarkerMid(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrMarkerMid, value...)
 }
 
-func MarkerStart(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrMarkerStart, v...)
+// MarkerStart declares a SVG "marker-start" attribute
+func MarkerStart(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrMarkerStart, value...)
 }
 
-func MarkerHeight(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrMarkerHeight, v...)
+// MarkerHeight declares a SVG "marker-height" attribute
+func MarkerHeight(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrMarkerHeight, value...)
 }
 
-func MarkerUnits(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrMarkerUnits, v...)
+// MarkerUnits declares a SVG "markerUnits" attribute
+func MarkerUnits(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrMarkerUnits, value...)
 }
 
-func MarkerWidth(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrMarkerWidth, v...)
+// MarkerWidth declares a SVG "markerWidth" attribute
+func MarkerWidth(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrMarkerWidth, value...)
 }
 
-func MaskAttr(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrMask, v...)
+// MaskAttr declares a SVG "mask" attribute
+func MaskAttr(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrMask, value...)
 }
 
-func OnBlur(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnBlur, v...)
+// OnBlur declares a SVG "onblur" event attribute
+func OnBlur(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnBlur, value...)
 }
 
-func OnClick(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnClick, v...)
+// OnClick declares a SVG "onclick" event attribute
+func OnClick(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnClick, value...)
 }
 
-func OnFocus(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnFocus, v...)
+// OnFocus declares a SVG "onfocus" event attribute
+func OnFocus(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnFocus, value...)
 }
 
-func OnLoad(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnLoad, v...)
+// OnLoad declares a SVG "onload" event attribute
+func OnLoad(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnLoad, value...)
 }
 
-func OnMouseDown(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnMouseDown, v...)
+// OnMouseDown declares a SVG "onmousedown" event attribute
+func OnMouseDown(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnMouseDown, value...)
 }
 
-func OnMouseMove(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnMouseMove, v...)
+// OnMouseMove declares a SVG "onmousemove" event attribute
+func OnMouseMove(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnMouseMove, value...)
 }
 
-func OnMouseOut(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnMouseOut, v...)
+// OnMouseOut declares a SVG "onmouseout" event attribute
+func OnMouseOut(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnMouseOut, value...)
 }
 
-func OnMouseOver(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnMouseOver, v...)
+// OnMouseOver declares a SVG "onmouseover" event attribute
+func OnMouseOver(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnMouseOver, value...)
 }
 
-func OnMouseUp(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnMouseUp, v...)
+// OnMouseUp declares a SVG "onmouseup" event attribute
+func OnMouseUp(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnMouseUp, value...)
 }
 
-func OnUnload(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOnUnload, v...)
+// OnUnload declares a SVG "onunload" event attribute
+func OnUnload(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOnUnload, value...)
 }
 
-func Opacity(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOpacity, v...)
+// Opacity declares a SVG "opacity" event attribute
+func Opacity(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOpacity, value...)
 }
 
-func Orient(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrOrient, v...)
+// Orient declares a SVG "orient" attribute
+func Orient(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrOrient, value...)
 }
 
-func PathAttr(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPath, v...)
+// PathAttr declares a SVG "path" attribute
+func PathAttr(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPath, value...)
 }
 
-func PathLength(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPathLength, v...)
+// PathLength declares a SVG "pathLength" attribute
+func PathLength(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPathLength, value...)
 }
 
-func PatternContentUnits(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPatternContentUnits, v...)
+// PatternContentUnits declares a SVG "patternContentUnits" attribute
+func PatternContentUnits(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPatternContentUnits, value...)
 }
 
-func PatternTransform(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPatternTransform, v...)
+// PatternTransform declares a SVG "patternTransform" attribute
+func PatternTransform(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPatternTransform, value...)
 }
 
-func PatternUnits(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPatternUnits, v...)
+// PatternUnits declares a SVG "patternUnits" attribute
+func PatternUnits(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPatternUnits, value...)
 }
 
-func PointerEvents(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPointerEvents, v...)
+// PointerEvents declares a SVG "pointer-events" attribute
+func PointerEvents(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPointerEvents, value...)
 }
 
-func Points(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPoints, v...)
+// Points declares a SVG "points" attribute
+func Points(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPoints, value...)
 }
 
-func PreserveAspectRatio(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPreserveAspectRatio, v...)
+// PreserveAspectRatio declares a SVG "preserveAspectRatio" attribute
+func PreserveAspectRatio(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPreserveAspectRatio, value...)
 }
 
-func PrimitiveUnits(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrPrimitiveUnits, v...)
+// PrimitiveUnits declares a SVG "primitiveUnits" attribute
+func PrimitiveUnits(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrPrimitiveUnits, value...)
 }
 
-func R(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrR, v...)
+// R declares a SVG "r" attribute
+func R(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrR, value...)
 }
 
-func RefX(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRefX, v...)
+// RefX declares a SVG "refX" attribute
+func RefX(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRefX, value...)
 }
 
-func RefY(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRefY, v...)
+// RefY declares a SVG "refY" attribute
+func RefY(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRefY, value...)
 }
 
-func RepeatCount(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRepeatCount, v...)
+// RepeatCount declares a SVG "repeatCount" attribute
+func RepeatCount(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRepeatCount, value...)
 }
 
-func RepeatDur(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRepeatDur, v...)
+// RepeatDur declares a SVG "repeatDur" attribute
+func RepeatDur(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRepeatDur, value...)
 }
 
-func RequiredExtensions(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRequiredExtensions, v...)
+// RequiredExtensions declares a SVG "requiredExtensions" attribute
+func RequiredExtensions(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRequiredExtensions, value...)
 }
 
-func RequiredFeatures(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRequiredFeatures, v...)
+// RequiredFeatures declares a SVG "requiredFeatures" attribute
+func RequiredFeatures(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRequiredFeatures, value...)
 }
 
-func Rotate(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRotate, v...)
+// Rotate declares a SVG "rotate" attribute
+func Rotate(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRotate, value...)
 }
 
-func Rx(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRx, v...)
+// Rx declares a SVG "rx" attribute
+func Rx(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRx, value...)
 }
 
-func Ry(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrRy, v...)
+// Ry declares a SVG "ry" attribute
+func Ry(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrRy, value...)
 }
 
-func ShapeRendering(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrShapeRendering, v...)
+// ShapeRendering declares a SVG "shape-rendering" attribute
+func ShapeRendering(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrShapeRendering, value...)
 }
 
-func SpreadMethod(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrSpreadMethod, v...)
+// SpreadMethod declares a SVG "spreadMethod" attribute
+func SpreadMethod(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrSpreadMethod, value...)
 }
 
-func StopColor(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStopColor, v...)
+// StopColor declares a SVG "stop-color" attribute
+func StopColor(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStopColor, value...)
 }
 
-func StopOpacity(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStopOpacity, v...)
+// StopOpacity declares a SVG "stop-opacity" attribute
+func StopOpacity(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStopOpacity, value...)
 }
 
-func Stroke(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStroke, v...)
+// Stroke declares a SVG "stroke" attribute
+func Stroke(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStroke, value...)
 }
 
-func StrokeDashArray(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStrokeDashArray, v...)
+// StrokeDashArray declares a SVG "stroke-dasharray" attribute
+func StrokeDashArray(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStrokeDashArray, value...)
 }
 
-func StrokeDashOffset(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStrokeDashOffset, v...)
+// StrokeDashOffset declares a SVG "stroke-dashoffset" attribute
+func StrokeDashOffset(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStrokeDashOffset, value...)
 }
 
-func StrokeLineCap(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStrokeLineCap, v...)
+// StrokeLineCap declares a SVG "stroke-linecap" attribute
+func StrokeLineCap(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStrokeLineCap, value...)
 }
 
-func StrokeLineJoin(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStrokeLineJoin, v...)
+// StrokeLineJoin declares a SVG "stroke-linejoin" attribute
+func StrokeLineJoin(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStrokeLineJoin, value...)
 }
 
-func StrokeMiterLimit(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStrokeMiterLimit, v...)
+// StrokeMiterLimit declares a SVG "stroke-miterlimit" attribute
+func StrokeMiterLimit(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStrokeMiterLimit, value...)
 }
 
-func StrokeOpacity(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStrokeOpacity, v...)
+// StrokeOpacity declares a SVG "stroke-opacity" attribute
+func StrokeOpacity(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStrokeOpacity, value...)
 }
 
-func StrokeWidth(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrStrokeWidth, v...)
+// StrokeWidth declares a SVG "stroke-width" attribute
+func StrokeWidth(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrStrokeWidth, value...)
 }
 
-func Style(v ...any) aitch.Node {
-	return aitch.NewDelimitedAttribute(attrStyle, stylesDelim, v...)
+// Style declares a SVG "style" attribute
+func Style(value ...any) aitch.Node {
+	return aitch.NewDelimitedAttribute(attrStyle, stylesDelim, value...)
 }
 
-func SystemLanguage(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrSystemLanguage, v...)
+// SystemLanguage declares a SVG "systemLanguage" attribute
+func SystemLanguage(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrSystemLanguage, value...)
 }
 
-func TabIndex(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrTabindex, v...)
+// TabIndex declares a SVG "tabindex" attribute
+func TabIndex(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrTabindex, value...)
 }
 
-func TextAnchor(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrTextAnchor, v...)
+// TextAnchor declares a SVG "text-anchor" attribute
+func TextAnchor(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrTextAnchor, value...)
 }
 
-func TextDecoration(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrTextDecoration, v...)
+// TextDecoration declares a SVG "text-decoration" attribute
+func TextDecoration(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrTextDecoration, value...)
 }
 
-func TextRendering(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrTextRendering, v...)
+// TextRendering declares a SVG "text-rendering" attribute
+func TextRendering(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrTextRendering, value...)
 }
 
-func TextLength(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrTextLength, v...)
+// TextLength declares a SVG "textLength" attribute
+func TextLength(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrTextLength, value...)
 }
 
-func To(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrTo, v...)
+// To declares a SVG "to" attribute
+func To(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrTo, value...)
 }
 
-func Type(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrType, v...)
+// Type declares a SVG "type" attribute
+func Type(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrType, value...)
 }
 
-func UnicodeBidi(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrUnicodeBidi, v...)
+// UnicodeBidi declares a SVG "unicode-bidi" attribute
+func UnicodeBidi(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrUnicodeBidi, value...)
 }
 
-func Values(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrValues, v...)
+// Values declares a SVG "values" attribute
+func Values(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrValues, value...)
 }
 
-func Visibility(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrVisibility, v...)
+// Visibility declares a SVG "visibility" attribute
+func Visibility(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrVisibility, value...)
 }
 
-func Width(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrWidth, v...)
+// Width declares a SVG "width" attribute
+func Width(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrWidth, value...)
 }
 
-func WordSpacing(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrWordSpacing, v...)
+// WordSpacing declares a SVG "word-spacing" attribute
+func WordSpacing(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrWordSpacing, value...)
 }
 
-func WritingMode(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrWritingMode, v...)
+// WritingMode declares a SVG "writing-mode" attribute
+func WritingMode(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrWritingMode, value...)
 }
 
-func X(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrX, v...)
+// X declares a SVG "x" attribute
+func X(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrX, value...)
 }
 
-func X1(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrX1, v...)
+// X1 declares a SVG "x1" attribute
+func X1(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrX1, value...)
 }
 
-func X2(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrX2, v...)
+// X2 declares a SVG "x2" attribute
+func X2(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrX2, value...)
 }
 
-func XlinkActuate(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXlinkActuate, v...)
+// XlinkActuate declares a SVG "xlink:actuate" attribute
+func XlinkActuate(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXlinkActuate, value...)
 }
 
-func XlinkArcrole(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXlinkArcrole, v...)
+// XlinkArcrole declares a SVG "xlink:arcrole" attribute
+func XlinkArcrole(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXlinkArcrole, value...)
 }
 
-func XlinkHref(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXlinkHref, v...)
+// XlinkHref declares a SVG "xlink:href" attribute
+func XlinkHref(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXlinkHref, value...)
 }
 
-func XlinkRole(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXlinkRole, v...)
+// XlinkRole declares a SVG "xlink:role" attribute
+func XlinkRole(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXlinkRole, value...)
 }
 
-func XlinkShow(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXlinkShow, v...)
+// XlinkShow declares a SVG "xlink:show" attribute
+func XlinkShow(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXlinkShow, value...)
 }
 
-func XlinkTitle(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXlinkTitle, v...)
+// XlinkTitle declares a SVG "xlink:title" attribute
+func XlinkTitle(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXlinkTitle, value...)
 }
 
-func XmlBase(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXmlBase, v...)
+// XmlBase declares a SVG "xml:base" attribute
+func XmlBase(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXmlBase, value...)
 }
 
-func XmlLang(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXmlLang, v...)
+// XmlLang declares a SVG "xml:lang" attribute
+func XmlLang(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXmlLang, value...)
 }
 
-func XmlSpace(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrXmlSpace, v...)
+// XmlSpace declares a SVG "xml:space" attribute
+func XmlSpace(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrXmlSpace, value...)
 }
 
-func Y(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrY, v...)
+// Y declares a SVG "y" attribute
+func Y(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrY, value...)
 }
 
-func Y1(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrY1, v...)
+// Y1 declares a SVG "y1" attribute
+func Y1(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrY1, value...)
 }
 
-func Y2(v ...any) aitch.Node {
-	return aitch.NewAttribute(attrY2, v...)
+// Y2 declares a SVG "y2" attribute
+func Y2(value ...any) aitch.Node {
+	return aitch.NewAttribute(attrY2, value...)
 }
 
 var (
