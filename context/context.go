@@ -16,6 +16,8 @@ type Context struct {
 	Cargo any
 	// Writer is the context writer
 	Writer io.Writer
+	// Parent is the parent context (used when iterating)
+	Parent *Context
 }
 
 func New(writer io.Writer, data map[string]any, cargo any) *Context {
