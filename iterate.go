@@ -81,6 +81,7 @@ func (i *iterator) Render(ctx *context.Context) error {
 		ictx := &context.Context{
 			Error:  ctx.Error,
 			Writer: ctx.Writer,
+			Parent: ctx,
 		}
 		for _, item := range items {
 			ictx.Cargo = item
