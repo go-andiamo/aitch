@@ -37,6 +37,8 @@ type DynamicValueFunc func(ctx *context.Context) []byte
 // value that is read from the context
 //
 // A DynamicValueKey is typically used as a content arg passed to an Attribute, Text, Comment, Fragment etc.
+//
+// Note: If the key is "." - the value is the context.Cargo
 type DynamicValueKey string
 
 func newValues(contents ...any) (result []value) {
@@ -59,6 +61,14 @@ func newValue(v any) []value {
 	case func(*context.Context) []byte:
 		return []value{{nil, vt}}
 	case DynamicValueKey:
+		if vt == "." {
+			return []value{{nil, func(ctx *context.Context) (result []byte) {
+				if ctx != nil {
+					result = valueToBytes(ctx.Cargo)
+				}
+				return
+			}}}
+		}
 		return []value{{nil, func(ctx *context.Context) []byte {
 			if ctx != nil {
 				if dv, ok := ctx.Data[string(vt)]; ok {

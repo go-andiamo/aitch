@@ -74,3 +74,41 @@ func TestIterateKey_Render(t *testing.T) {
 		},
 	}))
 }
+
+func TestIterateYield(t *testing.T) {
+	n := IterateYield(func(ctx *context.Context, yield func(any)) {}, P(Id("foo"), Text(DynamicValueKey("."))))
+	assert.Equal(t, iteratorNode, n.Type())
+	assert.Equal(t, "!yield_iterator", n.Name())
+	rv := n.(*yieldIterator)
+	assert.Equal(t, 1, len(rv.nodes))
+	assert.NotNil(t, rv.fn)
+	require.Panics(t, func() {
+		_ = IterateYield(nil)
+	})
+}
+
+func TestIterateYield_Render(t *testing.T) {
+	n := IterateYield(func(ctx *context.Context, yield func(any)) {
+		for _, v := range []string{"foo", "bar", "baz"} {
+			yield(v)
+		}
+	}, P(Text(DynamicValueKey("."))))
+	assert.Equal(t, `<p>foo</p><p>bar</p><p>baz</p>`, testRender(n, t))
+
+	n = IterateYield(func(ctx *context.Context, yield func(any)) {
+		for _, v := range []string{"foo", "bar", "baz"} {
+			yield(map[string]any{
+				"label": v,
+			})
+		}
+	}, P(Text(DynamicValueKey("label"))))
+	assert.Equal(t, `<p>foo</p><p>bar</p><p>baz</p>`, testRender(n, t))
+
+	ctx := &context.Context{Error: errors.New("foo")}
+	err := n.Render(ctx)
+	require.Error(t, err)
+
+	ctx = &context.Context{Writer: &errorWriter{}}
+	err = n.Render(ctx)
+	require.Error(t, err)
+}
