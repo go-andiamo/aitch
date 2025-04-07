@@ -29,6 +29,16 @@ func TestValue_Render_Dynamic(t *testing.T) {
 	assert.Equal(t, "foo", w.String())
 }
 
+func TestValue_Render_Dynamic_Dot(t *testing.T) {
+	vs := newValue(DynamicValueKey("."))
+	v := vs[0]
+	var w bytes.Buffer
+	ok, err := v.render(&context.Context{Writer: &w, Cargo: "foo"})
+	require.NoError(t, err)
+	assert.True(t, ok)
+	assert.Equal(t, "foo", w.String())
+}
+
 func TestValue_Render_Empty(t *testing.T) {
 	v := value{}
 	var w bytes.Buffer
