@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/go-andiamo/aitch)](https://goreportcard.com/report/github.com/go-andiamo/aitch)
 
 Aitch is a fluent, low/zero-GC pressure HTML and SVG rendering library for Go.  
-Built for performance, correctness, and developers who care.
+Built for performance, correctness, and developers who care — designed to complement `template/html` rather than replace it _(keep static html in templates and dynamic html in code)_
 
 ---
 
@@ -12,18 +12,22 @@ Built for performance, correctness, and developers who care.
 
 - Fluent, composable, declarative API for HTML and SVG
 - Mixed content and attributes handled cleanly — order doesn’t matter
+    - Attributes don't have to be specified before element contents  
     - Repeated attributes are protected: either the last one wins (e.g., `id`), or values are merged (e.g., `class`, `style`)
-- Attribute merging (e.g., multiple `Class()` or `Style()` calls)
+- Attribute merging (e.g., multiple `Class()` or `Style()` declarations)
 - Virtually zero allocations during rendering<sup>†</sup>
 - Conditional rendering (elements, attributes, values)
 - Boolean attribute and void element aware
-- Dynamic value support using runtime data context
+- Dynamic value support using render context data
+- Smart value rendering (specify element content & attribute values as almost any type<sup>‡</sup>)
 - Imperative rendering for absolute dynamically built HTML/SVG
 - Seamless integration with `html/template`
 - 100% tested and production-ready
+- Full godocs (including HTML & SVG links to MDN docs)
 
 †: With totally static templates (no dynamic attributes, no conditional attributes, no imperative rendering) zero allocs (zero GC-pressure) is almost guaranteed!
-Dynamic values or conditional logic may introduce some allocations — this is unavoidable in Go, but Aitch minimizes them wherever possible.
+Dynamic values or conditional logic may introduce some allocations — this is unavoidable in Go, but Aitch minimizes them wherever possible.<br>
+‡: Types rendered: `bool`,`[]byte`,`string`,`int`,`int8`,`int16`,`int32`,`int64`,`uint`,`unit8`,`uint16`,`uint32`,`uint64`,`float32`,`float64` - or any type that implements `fmt.Stringer`
 
 ---
 
@@ -39,8 +43,8 @@ go get github.com/go-andiamo/aitch
 
 Aitch separates **template declaration** from **template rendering**.
 
-Templates are built once — as plain Go `var`s — and contain no runtime logic.
-Rendering is done later, with context-aware data and **zero allocations**.
+Templates can be declared once — as plain Go `var`s (everything, as far as possible, is prepped for fast output writing)
+Rendering is done later, with context-aware data and **zero or low allocations**.
 
 This means you can:
 
@@ -81,6 +85,8 @@ correctly produces...
 <p id="2" class="foo bar">This is a para<br> &gt;&gt;&gt; and this is more</p>
 ```
 
+[try on go-playground](https://go.dev/play/p/zQ4t_pvTewD)
+
 </details><br>
 
 <details>
@@ -115,6 +121,9 @@ produces...
 ```html
 <p class="greeting admin">Hello, Aitch!</p>
 ```
+
+[try on go-playground](https://go.dev/play/p/S0n5mMeYtzJ)
+
 </details><br>
 
 <details>
@@ -155,6 +164,8 @@ produces...
 <p id="1">First</p><p id="2">Second</p><p id="3">Third</p>
 ```
 
+[try on go-playground](https://go.dev/play/p/MyxxnMZmCKt)
+
 </details><br>
 
 <details>
@@ -190,10 +201,44 @@ produces...
 ```html
 <p class="base admin">Hello, Aitch</p>
 ```
+
+[try on go-playground](https://go.dev/play/p/xwRVLSRQBK2)
+
+Or a simplified version using `aitch.When` rather than `aitch.Conditional`...
+```go
+package main
+
+import (
+    "github.com/go-andiamo/aitch"
+    "github.com/go-andiamo/aitch/context"
+    "github.com/go-andiamo/aitch/html"
+    "os"
+)
+
+var template = html.P(
+    "Hello, ", aitch.DynamicValueKey("username"),
+    html.Class("base"),
+    aitch.When("isAdmin", html.Class("admin")),
+)
+
+func main() {
+    data := map[string]any{
+        "username": "Aitch",
+        "isAdmin":  true,
+    }
+    ctx := context.New(os.Stdout, data, nil)
+    _ = template.Render(ctx)
+}
+```
+
+[try on go-playground](https://go.dev/play/p/Ue2WFQ5cE44)
+
 </details><br>
 
 <details>
     <summary><strong>5. Imperative generation</strong></summary>
+
+Because sometimes you may want to take complete control of writing markup...
 
 ```go
 package main
@@ -229,6 +274,179 @@ produces...
 <div><select><option>First</option><option>Second</option><option>Third</option></select></div>
 ```
 
+[try on go-playground](https://go.dev/play/p/2QcIv3bsQez)
+
+</details><br>
+
+<details>
+    <summary><strong>6. Iterate (key)</strong></summary>
+
+```go
+package main
+
+import (
+    "github.com/go-andiamo/aitch"
+    "github.com/go-andiamo/aitch/context"
+    "github.com/go-andiamo/aitch/html"
+    "os"
+)
+
+var template = html.Div(
+    html.Select(
+        aitch.IterateKey("items",
+            html.Option(html.Value(aitch.DynamicValueKey("value")), aitch.DynamicValueKey("label"))),
+    ))
+
+func main() {
+    data := map[string]any{
+        "items": []map[string]any{
+            {
+                "label": "First",
+                "value": 1,
+            },
+            {
+                "label": "Second",
+                "value": 2,
+            },
+            {
+                "label": "Third",
+                "value": 3,
+            },
+        },
+    }
+    ctx := context.New(os.Stdout, data, nil)
+    _ = template.Render(ctx)
+}
+```
+produces...
+```html
+<div><select><option value="1">First</option><option value="2">Second</option><option value="3">Third</option></select></div>
+```
+
+[try on go-playground](https://go.dev/play/p/7OKpYrtkuZB)
+
+</details><br>
+
+<details>
+    <summary><strong>7. Iterate (func)</strong></summary>
+
+```go
+package main
+
+import (
+    "github.com/go-andiamo/aitch"
+    "github.com/go-andiamo/aitch/context"
+    "github.com/go-andiamo/aitch/html"
+    "os"
+)
+
+var template = html.Div(
+    html.Select(
+        aitch.Iterate(func(ctx *context.Context) []any {
+            return []any{
+                map[string]any{
+                    "label": "First",
+                    "value": 1,
+                },
+                map[string]any{
+                    "label": "Second",
+                    "value": 2,
+                },
+                map[string]any{
+                    "label": "Third",
+                    "value": 3,
+                },
+            }
+        }, html.Option(html.Value(aitch.DynamicValueKey("value")), aitch.DynamicValueKey("label"))),
+    ))
+
+func main() {
+    ctx := context.New(os.Stdout, nil, nil)
+    _ = template.Render(ctx)
+}
+
+```
+produces...
+```html
+<div><select><option value="1">First</option><option value="2">Second</option><option value="3">Third</option></select></div>
+```
+
+[try on go-playground](https://go.dev/play/p/cqjrUfkevr-)
+
+</details><br>
+
+<details>
+    <summary><strong>8. Iterate (yield)</strong></summary>
+
+```go
+package main
+
+import (
+    "github.com/go-andiamo/aitch"
+    "github.com/go-andiamo/aitch/context"
+    "github.com/go-andiamo/aitch/html"
+    "os"
+)
+
+var template = html.Div(
+    html.Select(
+        aitch.IterateYield(func(ctx *context.Context, yield func(any)) {
+            labels, _ := context.Get[[]string](ctx, "options")
+            for i, label := range labels {
+                yield(map[string]any{
+                    "label":    label,
+                    "value":    i + 1,
+                    "selected": i == 1,
+                })
+            }
+        }, html.Option(html.Value(aitch.DynamicValueKey("value")), aitch.DynamicValueKey("label"), aitch.When("selected", html.Selected()))),
+    ))
+
+func main() {
+    data := map[string]any{
+        "options": []string{"First", "Second", "Third"},
+    }
+    ctx := context.New(os.Stdout, data, nil)
+    _ = template.Render(ctx)
+}
+```
+produces...
+```html
+<div><select><option value="1">First</option><option value="2" selected>Second</option><option value="3">Third</option></select></div>
+```
+
+[try on go-playground](https://go.dev/play/p/VbNhTy_Hz10)
+
+</details><br>
+
+<details>
+    <summary><strong>9. Smart value rendering</strong></summary>
+
+```go
+package main
+
+import (
+    "github.com/go-andiamo/aitch/context"
+    "github.com/go-andiamo/aitch/html"
+    "os"
+)
+
+var template = html.P(
+    "Hello ", []byte("there "), true, " ", 1, " ", 1.2, " ", uint16(3), func() any { return " something" },
+    html.Class(true), html.Class(1), html.Class(2.2))
+
+func main() {
+    ctx := context.New(os.Stdout, nil, nil)
+    _ = template.Render(ctx)
+}
+```
+produces...
+```html
+<p class="true 1 2.2">Hello there true 1 1.2 3 something</p>
+```
+
+[try on go-playground](https://go.dev/play/p/LNM82Gka_3f)
+
 </details><br>
 
 ---
@@ -240,11 +458,9 @@ Aitch complements `html/template` — it doesn’t try to replace it.
 Use `html/template` for layout and full-page templates.  
 Use Aitch for fragments, dynamic sections, or when you want correctness, composability, and **predictable performance**.
 
-You can inject Aitch-rendered fragments using `template.HTML(...)` cleanly and safely.
+Aitch includes a NewTemplate() wrapper for `html/template` that lets you bind Aitch nodes to `{{token .}}` markers — rendering them directly to the template output stream.
 
-Aitch includes a NewTemplate() wrapper for `html/template` that lets you bind Aitch nodes to `{{token .}}` markers — rendering them directly to the output stream.
-
-This gives you clean integration without resorting to raw `template.HTML(...)` injection — while keeping layout logic in templates and dynamic fragments in code where they belong.
+This gives you clean integration without resorting to raw `template.HTML(...)` injection — while keeping layout logic in templates and real dynamic sections in code where they belong.
 
 <details>
     <summary><strong>Example</strong></summary>
@@ -301,4 +517,7 @@ produces...
 </body>
 </html>
 ```
+
+[try on go-playground](https://go.dev/play/p/V2ro2ZnBQcC)
+
 </details>

@@ -307,13 +307,6 @@ func TestIntegrity(t *testing.T) {
 	require.Equal(t, ` integrity="foo"`, testRender(a, t))
 }
 
-func TestLabelAttr(t *testing.T) {
-	a := LabelAttr("foo")
-	require.Equal(t, aitch.AttributeNode, a.Type())
-	require.Equal(t, "label", a.Name())
-	require.Equal(t, ` label="foo"`, testRender(a, t))
-}
-
 func TestLang(t *testing.T) {
 	a := Lang("foo")
 	require.Equal(t, aitch.AttributeNode, a.Type())
@@ -1348,4 +1341,102 @@ func TestOnFormData(t *testing.T) {
 	require.Equal(t, aitch.AttributeNode, a.Type())
 	require.Equal(t, "onformdata", a.Name())
 	require.Equal(t, ` onformdata="foo"`, testRender(a, t))
+}
+
+func TestAccessKey(t *testing.T) {
+	a := AccessKey("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "accesskey", a.Name())
+	require.Equal(t, ` accesskey="foo"`, testRender(a, t))
+}
+
+func TestAutoCapitalize(t *testing.T) {
+	a := AutoCapitalize("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "autocapitalize", a.Name())
+	require.Equal(t, ` autocapitalize="foo"`, testRender(a, t))
+}
+
+func TestAutoCorrect(t *testing.T) {
+	a := AutoCorrect("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "autocorrect", a.Name())
+	require.Equal(t, ` autocorrect="foo"`, testRender(a, t))
+}
+
+func TestEnterKeyHint(t *testing.T) {
+	a := EnterKeyHint("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "enterkeyhint", a.Name())
+	require.Equal(t, ` enterkeyhint="foo"`, testRender(a, t))
+}
+
+func TestExportParts(t *testing.T) {
+	a := ExportParts("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "exportparts", a.Name())
+	require.Equal(t, ` exportparts="foo"`, testRender(a, t))
+}
+
+func TestInputMode(t *testing.T) {
+	a := InputMode("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "inputmode", a.Name())
+	require.Equal(t, ` inputmode="foo"`, testRender(a, t))
+}
+
+func TestIs(t *testing.T) {
+	a := Is("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "is", a.Name())
+	require.Equal(t, ` is="foo"`, testRender(a, t))
+}
+
+func TestItemId(t *testing.T) {
+	a := ItemId("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "itemid", a.Name())
+	require.Equal(t, ` itemid="foo"`, testRender(a, t))
+}
+
+func TestItemProp(t *testing.T) {
+	a := ItemProp("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "itemprop", a.Name())
+	require.Equal(t, ` itemprop="foo"`, testRender(a, t))
+}
+
+func TestItemRef(t *testing.T) {
+	a := ItemRef("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "itemref", a.Name())
+	require.Equal(t, ` itemref="foo"`, testRender(a, t))
+}
+
+func TestItemType(t *testing.T) {
+	a := ItemType("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "itemtype", a.Name())
+	require.Equal(t, ` itemtype="foo"`, testRender(a, t))
+}
+
+func TestNonce(t *testing.T) {
+	a := Nonce("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "nonce", a.Name())
+	require.Equal(t, ` nonce="foo"`, testRender(a, t))
+}
+
+func TestPart(t *testing.T) {
+	a := Part("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "part", a.Name())
+	require.Equal(t, ` part="foo"`, testRender(a, t))
+}
+
+func TestWritingSuggestions(t *testing.T) {
+	a := WritingSuggestions("foo")
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "writingsuggestions", a.Name())
+	require.Equal(t, ` writingsuggestions="foo"`, testRender(a, t))
 }
