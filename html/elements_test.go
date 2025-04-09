@@ -740,3 +740,66 @@ func TestVideo(t *testing.T) {
 	require.Equal(t, "video", el.Name())
 	require.Equal(t, `<video id="1">foo</video>`, testRender(el, t))
 }
+
+func TestBdi(t *testing.T) {
+	el := Bdi(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "bdi", el.Name())
+	require.Equal(t, `<bdi id="1">foo</bdi>`, testRender(el, t))
+}
+
+func TestBdo(t *testing.T) {
+	el := Bdo(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "bdo", el.Name())
+	require.Equal(t, `<bdo id="1">foo</bdo>`, testRender(el, t))
+}
+
+func TestMap(t *testing.T) {
+	el := Map(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "map", el.Name())
+	require.Equal(t, `<map id="1">foo</map>`, testRender(el, t))
+}
+
+func TestOutput(t *testing.T) {
+	el := Output(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "output", el.Name())
+	require.Equal(t, `<output id="1">foo</output>`, testRender(el, t))
+}
+
+func TestRp(t *testing.T) {
+	el := Rp(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "rp", el.Name())
+	require.Equal(t, `<rp id="1">foo</rp>`, testRender(el, t))
+}
+
+func TestRt(t *testing.T) {
+	el := Rt(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "rt", el.Name())
+	require.Equal(t, `<rt id="1">foo</rt>`, testRender(el, t))
+}
+
+func TestRuby(t *testing.T) {
+	el := Ruby(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "ruby", el.Name())
+	require.Equal(t, `<ruby id="1">foo</ruby>`, testRender(el, t))
+}
+
+func TestSearch(t *testing.T) {
+	el := Search(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "search", el.Name())
+	require.Equal(t, `<search id="1">foo</search>`, testRender(el, t))
+}
+
+func TestTrack(t *testing.T) {
+	el := Track(Id(1), Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "track", el.Name())
+	require.Equal(t, `<track id="1">foo</track>`, testRender(el, t))
+}

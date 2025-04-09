@@ -453,3 +453,17 @@ func TestUse(t *testing.T) {
 	require.Equal(t, "use", el.Name())
 	require.Equal(t, `<use>foo</use>`, testRender(el, t))
 }
+
+func TestSwitch(t *testing.T) {
+	el := Switch(Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "switch", el.Name())
+	require.Equal(t, `<switch>foo</switch>`, testRender(el, t))
+}
+
+func TestView(t *testing.T) {
+	el := View(Text("foo"))
+	require.Equal(t, aitch.ElementNode, el.Type())
+	require.Equal(t, "view", el.Name())
+	require.Equal(t, `<view>foo</view>`, testRender(el, t))
+}

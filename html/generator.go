@@ -311,7 +311,6 @@ func mappings() (elems map[string]any, attrs map[string]any, boolAttrs map[strin
 		"integrity":           Integrity,
 		"ismap":               IsMap,
 		"itemscope":           ItemScope,
-		"label":               LabelAttr,
 		"lang":                Lang,
 		"list":                List,
 		"loading":             Loading,
