@@ -3,8 +3,9 @@
 [![Latest Version](https://img.shields.io/github/v/tag/go-andiamo/aitch.svg?sort=semver&style=flat&label=version&color=blue)](https://github.com/go-andiamo/aitch/releases)
 [![Go Report Card](https://goreportcard.com/badge/github.com/go-andiamo/aitch)](https://goreportcard.com/report/github.com/go-andiamo/aitch)
 
-Aitch is a fluent, low/zero-GC pressure HTML and SVG rendering library for Go.  
-Built for performance, correctness, and developers who care — designed to complement `template/html` rather than replace it _(keep static html in templates and dynamic html in code)_
+Aitch is a fluent, low/zero-GC pressure HTML and SVG rendering library for Go.
+
+Built for developers who care about performance, scalability and clean code, Aitch gives you the power to generate dynamic HTML/SVG with surgical precision — while playing perfectly with `html/template`.
 
 ---
 
@@ -22,8 +23,9 @@ Built for performance, correctness, and developers who care — designed to comp
 - Smart value rendering (specify element content & attribute values as almost any type<sup>‡</sup>)
 - Imperative rendering for absolute dynamically built HTML/SVG
 - Seamless integration with `html/template`
-- 100% tested and production-ready
 - Full godocs (including HTML & SVG links to MDN docs)
+- Inline style generation via fluent `css` module
+- 100% tested and production-ready
 
 †: With totally static templates (no dynamic attributes, no conditional attributes, no imperative rendering) zero allocs (zero GC-pressure) is almost guaranteed!
 Dynamic values or conditional logic may introduce some allocations — this is unavoidable in Go, but Aitch minimizes them wherever possible.<br>
@@ -449,6 +451,45 @@ produces...
 
 </details><br>
 
+<details>
+    <summary><strong>10. Inline CSS (using <code>css</code> module)</strong></summary>
+
+Although it's not encouraged, sometimes inline CSS is handy — for dynamic fragments, micro-layout tweaks, or when you're not working with external stylesheets...
+
+```go
+package main
+
+import (
+    "github.com/go-andiamo/aitch"
+    "github.com/go-andiamo/aitch/context"
+    "github.com/go-andiamo/aitch/css"
+    "github.com/go-andiamo/aitch/html"
+    "os"
+)
+
+var template = html.P(
+    css.Width(css.Px(aitch.DynamicValueKey("width")), css.Important),
+    html.Style("scrollbar-gutter: stable"),
+    aitch.When("isAdmin", css.BackgroundColor("red")),
+    "My paragraph with inline-style",
+)
+
+func main() {
+    data := map[string]any{
+        "width":   10,
+        "isAdmin": true,
+    }
+    ctx := context.New(os.Stdout, data, nil)
+    _ = template.Render(ctx)
+}
+```
+produces...
+```html
+<p style="width:10px !important; scrollbar-gutter: stable; background-color:red">My paragraph with inline-style</p>
+```
+
+</details><br>
+
 ---
 
 ## Not a replacement for `html/template`
@@ -520,4 +561,4 @@ produces...
 
 [try on go-playground](https://go.dev/play/p/V2ro2ZnBQcC)
 
-</details>
+</details><br>

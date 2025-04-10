@@ -6,7 +6,7 @@ import (
 
 type attribute struct {
 	name   []byte
-	values []value
+	values []Value
 }
 
 var _ Node = (*attribute)(nil)
@@ -31,7 +31,7 @@ func (a *attribute) Name() string {
 	return string(a.name)
 }
 
-func (a *attribute) getValues() []value {
+func (a *attribute) getValues() []Value {
 	return a.values
 }
 
@@ -77,7 +77,7 @@ func (a *booleanAttribute) Name() string {
 
 // BooleanAttribute creates a new boolean attribute Node
 //
-// a boolean attribute has no value
+// a boolean attribute has no Value
 //
 // the name is checked to ensure it's a valid name - returns nil if the name is invalid
 // (or panics if PanicOnInvalidName is true)
@@ -99,7 +99,7 @@ func NewBooleanAttribute(name []byte) Node {
 type delimitedAttribute struct {
 	name      []byte
 	delimiter []byte
-	values    []value
+	values    []Value
 }
 
 var _ Node = (*delimitedAttribute)(nil)
@@ -128,7 +128,7 @@ func (a *delimitedAttribute) Name() string {
 	return string(a.name)
 }
 
-func (a *delimitedAttribute) getValues() []value {
+func (a *delimitedAttribute) getValues() []Value {
 	return a.values
 }
 
@@ -154,7 +154,7 @@ func NewDelimitedAttribute(name []byte, delimiter []byte, values ...any) Node {
 	result := &delimitedAttribute{
 		name:      name,
 		delimiter: delimiter,
-		values:    make([]value, 0, len(values)),
+		values:    make([]Value, 0, len(values)),
 	}
 	for _, v := range values {
 		if v != nil {

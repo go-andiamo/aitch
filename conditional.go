@@ -85,7 +85,7 @@ func Conditional(fn ConditionalFunc, nodes ...Node) Node {
 //
 // the condition is based on whether the specified key exists in the Context.Data
 //
-// Note: If the key exists and its value is a boolean - that boolean value is taken as the condition result
+// Note: If the key exists and its Value is a boolean - that boolean Value is taken as the condition result
 func When(key DynamicValueKey, nodes ...Node) Node {
 	if strings.HasPrefix(string(key), "!") {
 		key = key[1:]

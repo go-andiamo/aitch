@@ -5,7 +5,7 @@ import (
 )
 
 type comment struct {
-	values []value
+	values []Value
 }
 
 var _ Node = (*comment)(nil)
@@ -28,7 +28,7 @@ func (c *comment) Name() string {
 	return "#comment"
 }
 
-func (c *comment) getValues() []value {
+func (c *comment) getValues() []Value {
 	return c.values
 }
 

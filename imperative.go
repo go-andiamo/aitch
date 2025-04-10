@@ -72,7 +72,7 @@ func (ic *imperativeContext) WriteNodes(nodes ...Node) {
 func (ic *imperativeContext) Start(elementName []byte, isVoid bool, attrs ...Node) {
 	ic.ctx.Write(openAngleBracket)
 	ic.ctx.Write(elementName)
-	attValues := make([][]value, 0, len(attrs))
+	attValues := make([][]Value, 0, len(attrs))
 	attNames := make([][]byte, 0, len(attrs))
 	attIndices := map[string]int{}
 	for _, attr := range attrs {
@@ -82,7 +82,7 @@ func (ic *imperativeContext) Start(elementName []byte, isVoid bool, attrs ...Nod
 					avs := attValues[idx]
 					for _, dv := range da.values {
 						if len(avs) > 0 {
-							avs = append(avs, value{value: da.delimiter})
+							avs = append(avs, Value{value: da.delimiter})
 						}
 						avs = append(avs, dv)
 					}
@@ -96,10 +96,10 @@ func (ic *imperativeContext) Start(elementName []byte, isVoid bool, attrs ...Nod
 				attIndices[attr.Name()] = len(attNames)
 				attNames = append(attNames, []byte(attr.Name()))
 				if da, ok := attr.(*delimitedAttribute); ok {
-					avs := make([]value, 0, len(da.values)*2)
+					avs := make([]Value, 0, len(da.values)*2)
 					for i, v := range da.values {
 						if i > 0 {
-							avs = append(avs, value{value: da.delimiter})
+							avs = append(avs, Value{value: da.delimiter})
 						}
 						avs = append(avs, v)
 					}

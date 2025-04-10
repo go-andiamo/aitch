@@ -10,7 +10,7 @@ import (
 )
 
 func TestValue_Render(t *testing.T) {
-	v := value{[]byte("foo"), nil}
+	v := Value{[]byte("foo"), nil, nil}
 	var w bytes.Buffer
 	ok, err := v.render(&context.Context{Writer: &w})
 	require.NoError(t, err)
@@ -19,9 +19,9 @@ func TestValue_Render(t *testing.T) {
 }
 
 func TestValue_Render_Dynamic(t *testing.T) {
-	v := value{nil, func(ctx *context.Context) []byte {
+	v := Value{nil, func(ctx *context.Context) []byte {
 		return []byte("foo")
-	}}
+	}, nil}
 	var w bytes.Buffer
 	ok, err := v.render(&context.Context{Writer: &w})
 	require.NoError(t, err)
@@ -40,7 +40,7 @@ func TestValue_Render_Dynamic_Dot(t *testing.T) {
 }
 
 func TestValue_Render_Empty(t *testing.T) {
-	v := value{}
+	v := Value{}
 	var w bytes.Buffer
 	ok, err := v.render(&context.Context{Writer: &w})
 	require.NoError(t, err)
@@ -61,8 +61,42 @@ func TestNewValues(t *testing.T) {
 }
 
 func TestNewValue(t *testing.T) {
+	v := NewValue("foo")
+	assert.Equal(t, []byte("foo"), v.value)
+	assert.Nil(t, v.dynamicFunc)
+	assert.Nil(t, v.concats)
+
+	v = NewValue(Collection(Text("foo"), Text("bar")))
+	assert.Nil(t, v.value)
+	assert.Nil(t, v.dynamicFunc)
+	assert.Len(t, v.concats, 2)
+}
+
+func TestNewConcatValue(t *testing.T) {
+	v := NewConcatValue("foo", "bar")
+	assert.Nil(t, v.value)
+	assert.Nil(t, v.dynamicFunc)
+	assert.Len(t, v.concats, 2)
+}
+
+func TestConcatValue_Render(t *testing.T) {
+	v := NewConcatValue("foo", "bar")
+	var w bytes.Buffer
+	ok, err := v.render(&context.Context{Writer: &w})
+	require.NoError(t, err)
+	assert.True(t, ok)
+	assert.Equal(t, "foobar", w.String())
+}
+
+func TestNewValue_Inner(t *testing.T) {
 	vs := newValue(nil)
 	assert.Equal(t, 0, len(vs))
+
+	vs = newValue(Value{concats: []Value{{concats: []Value{}}}})
+	assert.Equal(t, 1, len(vs))
+	assert.Nil(t, vs[0].value)
+	assert.Nil(t, vs[0].dynamicFunc)
+	assert.NotNil(t, vs[0].concats)
 
 	vs = newValue(DynamicValueKey("foo"))
 	assert.Equal(t, 1, len(vs))
