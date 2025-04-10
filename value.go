@@ -9,19 +9,41 @@ import (
 )
 
 type valuesNode interface {
-	getValues() []value
+	getValues() []Value
 }
 
-type value struct {
+type Value struct {
 	value       []byte
 	dynamicFunc DynamicValueFunc
+	concats     []Value
 }
 
-func (v value) render(ctx *context.Context) (bool, error) {
+// NewValue creates a new Value for rendering
+func NewValue(value any) Value {
+	if values := newValue(value); len(values) == 1 {
+		return values[0]
+	} else {
+		return Value{nil, nil, values}
+	}
+}
+
+// NewConcatValue creates a new concatenated Value for rendering
+func NewConcatValue(values ...any) Value {
+	return Value{nil, nil, newValues(values...)}
+}
+
+func (v Value) render(ctx *context.Context) (bool, error) {
 	var l int
 	if v.dynamicFunc != nil {
 		data := v.dynamicFunc(ctx)
 		l, ctx.Error = ctx.Writer.Write(data)
+	} else if len(v.concats) > 0 {
+		var written bool
+		for _, concat := range v.concats {
+			if written, ctx.Error = concat.render(ctx); written {
+				l++
+			}
+		}
 	} else {
 		l, ctx.Error = ctx.Writer.Write(v.value)
 	}
@@ -34,15 +56,15 @@ func (v value) render(ctx *context.Context) (bool, error) {
 type DynamicValueFunc func(ctx *context.Context) []byte
 
 // DynamicValueKey is a key into the [context.Context.Data] and is used to provide a dynamic
-// value that is read from the context
+// Value that is read from the context
 //
 // A DynamicValueKey is typically used as a content arg passed to an Attribute, Text, Comment, Fragment etc.
 //
 // Note: If the key is "." - the value is the context.Cargo
 type DynamicValueKey string
 
-func newValues(contents ...any) (result []value) {
-	result = make([]value, 0, len(contents))
+func newValues(contents ...any) (result []Value) {
+	result = make([]Value, 0, len(contents))
 	for _, v := range contents {
 		if v != nil {
 			result = append(result, newValue(v)...)
@@ -51,39 +73,41 @@ func newValues(contents ...any) (result []value) {
 	return result
 }
 
-func newValue(v any) []value {
+func newValue(v any) []Value {
 	if v == nil {
 		return nil
 	}
 	switch vt := v.(type) {
+	case Value:
+		return []Value{vt}
 	case DynamicValueFunc:
-		return []value{{nil, vt}}
+		return []Value{{nil, vt, nil}}
 	case func(*context.Context) []byte:
-		return []value{{nil, vt}}
+		return []Value{{nil, vt, nil}}
 	case DynamicValueKey:
 		if vt == "." {
-			return []value{{nil, func(ctx *context.Context) (result []byte) {
+			return []Value{{nil, func(ctx *context.Context) (result []byte) {
 				if ctx != nil {
 					result = valueToBytes(ctx.Cargo)
 				}
 				return
-			}}}
+			}, nil}}
 		}
-		return []value{{nil, func(ctx *context.Context) []byte {
+		return []Value{{nil, func(ctx *context.Context) []byte {
 			if ctx != nil {
 				if dv, ok := ctx.Data[string(vt)]; ok {
 					return valueToBytes(dv)
 				}
 			}
 			return nil
-		}}}
+		}, nil}}
 	case valuesNode:
 		return vt.getValues()
 	case Node:
 		switch vt.Type() {
 		case collectionNode:
 			if cn, ok := vt.(*collection); ok {
-				result := make([]value, 0, len(cn.nodes))
+				result := make([]Value, 0, len(cn.nodes))
 				for _, node := range cn.nodes {
 					result = append(result, newValue(node)...)
 				}
@@ -92,7 +116,7 @@ func newValue(v any) []value {
 		}
 		return nil
 	default:
-		return []value{{valueToBytes(v), nil}}
+		return []Value{{valueToBytes(v), nil, nil}}
 	}
 }
 

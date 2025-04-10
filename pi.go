@@ -6,7 +6,7 @@ import (
 
 type pi struct {
 	name   []byte
-	values []value
+	values []Value
 }
 
 var _ Node = (*pi)(nil)
@@ -39,7 +39,7 @@ func PI(name string, contents ...any) Node {
 	}
 }
 
-func (p *pi) getValues() []value {
+func (p *pi) getValues() []Value {
 	return p.values
 }
 

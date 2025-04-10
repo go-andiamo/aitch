@@ -12,7 +12,7 @@ func Text(contents ...any) Node {
 }
 
 type text struct {
-	values []value
+	values []Value
 }
 
 var _ Node = (*text)(nil)
@@ -33,7 +33,7 @@ func (t *text) Name() string {
 	return "#text"
 }
 
-func (t *text) getValues() []value {
+func (t *text) getValues() []Value {
 	return t.values
 }
 

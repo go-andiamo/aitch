@@ -15,7 +15,7 @@ func Fragment(content ...any) Node {
 }
 
 type fragment struct {
-	values []value
+	values []Value
 }
 
 var _ Node = (*fragment)(nil)
@@ -36,6 +36,6 @@ func (f *fragment) Name() string {
 	return "#fragment"
 }
 
-func (f *fragment) getValues() []value {
+func (f *fragment) getValues() []Value {
 	return f.values
 }
