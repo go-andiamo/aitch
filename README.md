@@ -490,6 +490,50 @@ produces...
 
 </details><br>
 
+<details>
+    <summary><strong>11. HTMX (using <code>htmx</code> module)</strong></summary>
+
+Aitch includes a sub-module for sanitizing the use of HTMX...
+
+```go
+package main
+
+import (
+    "github.com/go-andiamo/aitch"
+    "github.com/go-andiamo/aitch/context"
+    "github.com/go-andiamo/aitch/html"
+    "github.com/go-andiamo/aitch/htmx"
+    "os"
+)
+
+var template = html.Button(
+    html.Type("button"),
+    aitch.When("enabled",
+        htmx.Get("/action"),
+        htmx.Trigger(htmx.TriggerClick),
+        htmx.Swap(htmx.SwapOuterHTML),
+    ),
+    aitch.When("!enabled",
+        html.Disabled(),
+    ),
+    "Click Me!",
+)
+
+func main() {
+    data := map[string]any{
+        "enabled": true,
+    }
+    ctx := context.New(os.Stdout, data, nil)
+    _ = template.Render(ctx)
+}
+```
+produces...
+```html
+<button type="button" hx-get="/action" hx-trigger="click" hx-swap="outerHTML">Click Me!</button>
+```
+
+</details><br>
+
 ---
 
 ## Not a replacement for `html/template`
