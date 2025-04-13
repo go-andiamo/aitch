@@ -83,9 +83,11 @@ func Select(value ...any) aitch.Node {
 
 // Params declares an "hx-params" attribute to control which parameters are submitted with the request
 //
+// multiple values will be space-delimited and merged automatically
+//
 // Reference: https://htmx.org/attributes/hx-params/
 func Params(value ...any) aitch.Node {
-	return aitch.NewAttribute(attrParams, value...)
+	return aitch.NewDelimitedAttribute(attrParams, space, value...)
 }
 
 // PushURL declares an "hx-push-url" attribute to push the URL into the browser history
@@ -233,9 +235,18 @@ func Vals(value ...any) aitch.Node {
 
 // Vars declares an "hx-vars" attribute to define local JS variables for htmx processing.
 //
+// multiple values will be comma+space-delimited and merged automatically
+//
 // Reference: https://htmx.org/attributes/hx-vars/
 func Vars(value ...any) aitch.Node {
-	return aitch.NewAttribute(attrVars, value...)
+	return aitch.NewDelimitedAttribute(attrVars, commaSpace, value...)
+}
+
+// Var is used within Vars to denote a var name and value
+//
+// the value can be dynamic (e.g. aitch.DynamicValueKey or aitch.DynamicValueFunc)
+func Var(name string, value any) aitch.Value {
+	return aitch.NewConcatValue(name, colonSpace, value)
 }
 
 // Headers declares an "hx-headers" attribute to send additional HTTP headers as a JSON object.
@@ -295,6 +306,8 @@ func Validate(value ...any) aitch.Node {
 
 var (
 	space               = []byte{' '}
+	commaSpace          = []byte{',', ' '}
+	colonSpace          = []byte{':', ' '}
 	attrGet             = []byte(AttrGet)
 	attrPost            = []byte(AttrPost)
 	attrPut             = []byte(AttrPut)

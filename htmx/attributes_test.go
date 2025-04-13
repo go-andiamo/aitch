@@ -15,6 +15,13 @@ func testRender(node aitch.Node, t *testing.T) string {
 	return w.String()
 }
 
+func testRenderData(node aitch.Node, t *testing.T, data map[string]any) string {
+	var w bytes.Buffer
+	err := node.Render(&context.Context{Writer: &w, Data: data})
+	require.NoError(t, err)
+	return w.String()
+}
+
 func TestGet(t *testing.T) {
 	a := Get("foo")
 	require.Equal(t, aitch.AttributeNode, a.Type())
@@ -102,6 +109,11 @@ func TestParams(t *testing.T) {
 	require.Equal(t, aitch.AttributeNode, a.Type())
 	require.Equal(t, "hx-params", a.Name())
 	require.Equal(t, ` hx-params="foo"`, testRender(a, t))
+}
+
+func TestParams_Merge(t *testing.T) {
+	e := aitch.Element("div", Params("foo"), Params("bar"))
+	require.Equal(t, `<div hx-params="foo bar"></div>`, testRender(e, t))
 }
 
 func TestPushURL(t *testing.T) {
@@ -249,6 +261,18 @@ func TestVars(t *testing.T) {
 	require.Equal(t, aitch.AttributeNode, a.Type())
 	require.Equal(t, "hx-vars", a.Name())
 	require.Equal(t, ` hx-vars="foo"`, testRender(a, t))
+}
+
+func TestVars_Merge(t *testing.T) {
+	e := aitch.Element("div",
+		Vars(Var("x", aitch.DynamicValueKey("x")), Var("x2", "foo2")),
+		Vars(Var("y", func() any { return "bar" })),
+		Vars(Var("z", "baz")),
+		Vars("manual"),
+	)
+	require.Equal(t, `<div hx-vars="x: foo, x2: foo2, y: bar, z: baz, manual"></div>`, testRenderData(e, t, map[string]any{
+		"x": "foo",
+	}))
 }
 
 func TestHeaders(t *testing.T) {
