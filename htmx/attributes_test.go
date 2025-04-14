@@ -282,6 +282,31 @@ func TestHeaders(t *testing.T) {
 	require.Equal(t, ` hx-headers="foo"`, testRender(a, t))
 }
 
+func TestHeaders_WithHeadersMap(t *testing.T) {
+	a := Headers(HeadersMap{"foo": aitch.DynamicValueKey("foo")})
+	require.Equal(t, ` hx-headers="{'foo': &quot;bar&quot;}"`, testRenderData(a, t, map[string]any{"foo": `"bar"`}))
+
+	a = Headers(HeadersMap{"foo": aitch.DynamicValueKey("foo")}, HeadersMap{`bar"`: `"bar"`})
+	require.Equal(t, ` hx-headers="{'bar&quot;': &quot;bar&quot;, 'foo': &quot;bar&quot;}"`, testRenderData(a, t, map[string]any{"foo": `"bar"`}))
+
+	require.Panics(t, func() {
+		_ = Headers("mixed", HeadersMap{"foo": "bar"})
+	})
+	require.Panics(t, func() {
+		_ = Headers(HeadersMap{"foo": "bar"}, "mixed")
+	})
+}
+
+func TestHeadersJS(t *testing.T) {
+	a := HeadersJS(HeadersMap{"foo": aitch.DynamicValueKey("foo")}, HeadersMap{`bar"`: `"bar"`})
+	require.Equal(t, aitch.AttributeNode, a.Type())
+	require.Equal(t, "hx-headers", a.Name())
+	require.Equal(t, ` hx-headers="js:{'bar&quot;': &quot;bar&quot;, 'foo': &quot;bar&quot;}"`, testRenderData(a, t, map[string]any{"foo": `"bar"`}))
+
+	a = HeadersJS(HeadersMap{"foo": `"bar"`})
+	require.Equal(t, ` hx-headers="js:{'foo': &quot;bar&quot;}"`, testRenderData(a, t, map[string]any{"foo": `"bar"`}))
+}
+
 func TestInherit(t *testing.T) {
 	a := Inherit("foo")
 	require.Equal(t, aitch.AttributeNode, a.Type())
