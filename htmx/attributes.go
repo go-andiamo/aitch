@@ -1,6 +1,10 @@
 package htmx
 
-import "github.com/go-andiamo/aitch"
+import (
+	"github.com/go-andiamo/aitch"
+	"sort"
+	"strings"
+)
 
 // Get declares an "hx-get" attribute for issuing a GET request via htmx
 //
@@ -60,7 +64,7 @@ func SwapOob(value ...any) aitch.Node {
 
 // Trigger declares an "hx-trigger" attribute to define when the request should be triggered
 //
-// multiple values will be space-delimited and merged automatically
+// multiple declarations will be space-delimited and merged automatically
 //
 // Reference: https://htmx.org/attributes/hx-trigger/
 func Trigger(value ...any) aitch.Node {
@@ -83,7 +87,7 @@ func Select(value ...any) aitch.Node {
 
 // Params declares an "hx-params" attribute to control which parameters are submitted with the request
 //
-// multiple values will be space-delimited and merged automatically
+// multiple declarations will be space-delimited and merged automatically
 //
 // Reference: https://htmx.org/attributes/hx-params/
 func Params(value ...any) aitch.Node {
@@ -235,7 +239,7 @@ func Vals(value ...any) aitch.Node {
 
 // Vars declares an "hx-vars" attribute to define local JS variables for htmx processing.
 //
-// multiple values will be comma+space-delimited and merged automatically
+// multiple declarations will be comma+space-delimited and merged automatically
 //
 // Reference: https://htmx.org/attributes/hx-vars/
 func Vars(value ...any) aitch.Node {
@@ -251,14 +255,86 @@ func Var(name string, value any) aitch.Value {
 
 // Headers declares an "hx-headers" attribute to send additional HTTP headers as a JSON object.
 //
+// the value arg can be either normal any values (strings, int, aitch.DynamicValueKey etc.) or
+// one or more HeadersMap (but you cannot mix HeadersMap with other types)
+//
 // Reference: https://htmx.org/attributes/hx-headers/
 func Headers(value ...any) aitch.Node {
+	foundHeadersMap := false
+	foundOthers := false
+	mergedHeadersMap := make(HeadersMap)
+	for _, v := range value {
+		if hm, ok := v.(HeadersMap); ok {
+			foundHeadersMap = true
+			if foundOthers {
+				break
+			}
+			for k, val := range hm {
+				mergedHeadersMap[k] = val
+			}
+		} else {
+			foundOthers = true
+			if foundHeadersMap {
+				break
+			}
+		}
+	}
+	if foundOthers && foundHeadersMap {
+		panic("htmx.Headers cannot mix HeadersMap with other value types")
+	}
+	if foundHeadersMap {
+		return aitch.NewAttribute(attrHeaders, aitch.NewConcatValue(mergedHeadersMap.serialize(nil)...))
+	}
 	return aitch.NewAttribute(attrHeaders, value...)
+}
+
+// HeadersJS declares an "hx-headers" attribute that uses a JavaScript expression.
+//
+// The expression value is prefixed with "js:" in the rendered attribute.
+//
+// Only HeadersMap values are accepted (multiple ones are merged).
+//
+// Reference: https://htmx.org/attributes/hx-headers/
+func HeadersJS(value ...HeadersMap) aitch.Node {
+	var mergedHeadersMap HeadersMap
+	if len(value) == 1 {
+		mergedHeadersMap = value[0]
+	} else {
+		mergedHeadersMap = make(HeadersMap)
+		for _, hm := range value {
+			for k, v := range hm {
+				mergedHeadersMap[k] = v
+			}
+		}
+	}
+	return aitch.NewAttribute(attrHeaders, aitch.NewConcatValue(mergedHeadersMap.serialize(jsPrefix)...))
+}
+
+type HeadersMap map[string]any
+
+func (m HeadersMap) serialize(prefix []byte) []any {
+	result := make([]any, 0, (len(m)*2)+3)
+	if len(prefix) > 0 {
+		result = append(result, prefix)
+	}
+	result = append(result, []byte{'{'})
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	delimit := ""
+	for _, key := range keys {
+		result = append(result, []byte(delimit+`'`+strings.ReplaceAll(key, `"`, `&quot;`)+`': `), m[key])
+		delimit = ", "
+	}
+	result = append(result, []byte{'}'})
+	return result
 }
 
 // Inherit declares an "hx-inherit" attribute to control which attributes are inherited from parent elements.
 //
-// multiple values will be space-delimited and merged automatically
+// multiple declarations will be space-delimited and merged automatically
 //
 // Reference: https://htmx.org/attributes/hx-inherit/
 func Inherit(value ...any) aitch.Node {
@@ -267,7 +343,7 @@ func Inherit(value ...any) aitch.Node {
 
 // Disinherit declares an "hx-disinherit" attribute to prevent specified attributes from being inherited.
 //
-// multiple values will be space-delimited and merged automatically
+// multiple declarations will be space-delimited and merged automatically
 //
 // Reference: https://htmx.org/attributes/hx-disinherit/
 func Disinherit(value ...any) aitch.Node {
@@ -308,6 +384,7 @@ var (
 	space               = []byte{' '}
 	commaSpace          = []byte{',', ' '}
 	colonSpace          = []byte{':', ' '}
+	jsPrefix            = []byte("js:")
 	attrGet             = []byte(AttrGet)
 	attrPost            = []byte(AttrPost)
 	attrPut             = []byte(AttrPut)
