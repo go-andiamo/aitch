@@ -131,7 +131,7 @@ func (e *element) Render(ctx *context.Context) error {
 	renderAttributes(ctx, e.attributes, e.attIndices, e.conditionals)
 	ctx.Write(closeAngleBracket)
 	for _, c := range e.contents {
-		_ = c.Render(ctx)
+		ctx.Error = c.Render(ctx)
 	}
 	ctx.Write(closeTagStart)
 	ctx.Write(e.name)
