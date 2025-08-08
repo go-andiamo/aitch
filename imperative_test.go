@@ -114,6 +114,12 @@ func TestImperativeContext(t *testing.T) {
 			expect:         ``,
 			expectStackLen: 0,
 		},
+		{
+			do: func(ic ImperativeContext, t *testing.T) {
+				ic.WriteString("<>\"'&")
+			},
+			expect: `&lt;&gt;&quot;&apos;&amp;`,
+		},
 	}
 	for i, tc := range testCases {
 		t.Run(fmt.Sprintf("[%d]", i+1), func(t *testing.T) {

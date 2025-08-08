@@ -6,6 +6,8 @@ import "github.com/go-andiamo/aitch/context"
 type ImperativeContext interface {
 	// Context obtains the outer rendering context
 	Context() *context.Context
+	// WriteString writes the string (html escaped) to the output
+	WriteString(s string)
 	// WriteRaw writes raw byte data to the output
 	WriteRaw(data []byte)
 	// WriteNodes writes nodes to the output
@@ -55,6 +57,10 @@ type imperativeContext struct {
 
 func (ic *imperativeContext) Context() *context.Context {
 	return ic.ctx
+}
+
+func (ic *imperativeContext) WriteString(s string) {
+	ic.ctx.Write(htmlEscapeString(s))
 }
 
 func (ic *imperativeContext) WriteRaw(data []byte) {
