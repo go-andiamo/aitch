@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/go-andiamo/aitch/context"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
@@ -119,6 +120,53 @@ func TestImperativeContext(t *testing.T) {
 				ic.WriteString("<>\"'&")
 			},
 			expect: `&lt;&gt;&quot;&apos;&amp;`,
+		},
+		{
+			do: func(ic ImperativeContext, t *testing.T) {
+				ic.WriteElement([]byte("div"), nil)
+			},
+			expect: `<div></div>`,
+		},
+		{
+			do: func(ic ImperativeContext, t *testing.T) {
+				ic.WriteElement([]byte("div"), nil, Class("foo"))
+			},
+			expect: `<div class="foo"></div>`,
+		},
+		{
+			do: func(ic ImperativeContext, t *testing.T) {
+				ic.WriteElement([]byte("div"), true)
+			},
+			expect: `<div>true</div>`,
+		},
+		{
+			do: func(ic ImperativeContext, t *testing.T) {
+				ic.WriteElement([]byte("div"), Class("foo"), Class("bar"))
+			},
+			expect: `<div class="foo bar"></div>`,
+		},
+		{
+			do: func(ic ImperativeContext, t *testing.T) {
+				ic.WriteElement([]byte("div"), P("para"), Class("foo"), Class("bar"))
+			},
+			expect: `<div class="foo bar"><p>para</p></div>`,
+		},
+		{
+			do: func(ic ImperativeContext, t *testing.T) {
+				ic.Start([]byte("div"), false, Id("1"))
+				marker := ic.Marker()
+				require.Equal(t, 1, marker)
+				for i := 0; i < 3; i++ {
+					ic.Start([]byte(fmt.Sprintf("div%d", i)), false)
+				}
+				ic.EndToMark(marker)
+				marker = ic.Marker()
+				require.Equal(t, 1, marker)
+				ic.EndAll()
+				marker = ic.Marker()
+				require.Equal(t, 0, marker)
+			},
+			expect: `<div id="1"><div0><div1><div2></div2></div1></div0></div>`,
 		},
 	}
 	for i, tc := range testCases {
